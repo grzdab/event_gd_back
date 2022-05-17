@@ -25,6 +25,22 @@ CREATE TABLE app_user (
     contact_data_id integer REFERENCES contact_data(id)
 );
 
+CREATE TABLE app_options (
+    id serial PRIMARY KEY,
+    an_option character varying(200)
+);
+
+CREATE TABLE app_owner (
+    id smallserial PRIMARY KEY,
+    full_name character varying(250) NOT NULL,
+    short_name character varying(250) NOT NULL,
+    address_id integer REFERENCES primary_address(id),
+    legal_entity_type_id integer REFERENCES legal_entity_type(id),
+    tax_info_id integer REFERENCES tax_info(id),
+    in_use boolean NOT NULL,
+);
+
+
 -- DATA-RELATED
 -- COMMON
 
@@ -144,7 +160,8 @@ CREATE TABLE events (
     id uuid PRIMARY KEY,
     name character varying(255) NOT NULL,
     creation_date date NOT NULL,
-    event_date date NOT NULL,
+    event_start_date date NOT NULL,
+    event_end_date date NOT NULL,
     event_place character varying(100),
     notes text,
     event_status_id integer REFERENCES event_status(id),
@@ -182,9 +199,16 @@ CREATE TABLE equipment_data (
 
 CREATE TABLE equipment (
     id uuid PRIMARY KEY,
+    sorting_id smallint NOT NULL DEFAULT 1,
     name character varying(100),
     notes text,
     equipment_data_id integer REFERENCES equipment_data(id),
-    equipment_category_id integer REFERENCES equipment_category(id)
+    equipment_category_id integer REFERENCES equipment_category(id),
+    in_use boolean NOT NULL DEFAULT true
 );
 
+CREATE TABLE equipment_photo (
+    id serial PRIMARY KEY,
+    equipment_id uuid REFERENCES equipment(id) NOT NULL,
+    photo_URI character varying(250) NOT NULL
+);
