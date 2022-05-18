@@ -1,83 +1,75 @@
+-- DATABASE RESET
+DROP TABLE IF EXISTS company_data CASCADE;
+DROP TABLE IF EXISTS app_settings CASCADE;
+DROP TABLE IF EXISTS app_role CASCADE;
+DROP TABLE IF EXISTS app_privileges CASCADE;
+DROP TABLE IF EXISTS role_privileges CASCADE;
+DROP TABLE IF EXISTS tax_info CASCADE;
+DROP TABLE IF EXISTS legal_entity_type CASCADE;
+DROP TABLE IF EXISTS contact_data CASCADE;
+DROP TABLE IF EXISTS country CASCADE;
+DROP TABLE IF EXISTS app_user CASCADE;
+DROP TABLE IF EXISTS client_type CASCADE;
+DROP TABLE IF EXISTS business_branch CASCADE;
+DROP TABLE IF EXISTS business_category CASCADE;
+DROP TABLE IF EXISTS client CASCADE;
+DROP TABLE IF EXISTS address CASCADE;
+DROP TABLE IF EXISTS client_branch CASCADE;
+DROP TABLE IF EXISTS client_category CASCADE;
+DROP TABLE IF EXISTS client_representative CASCADE;
+DROP TABLE IF EXISTS power_type CASCADE;
+DROP TABLE IF EXISTS place_type CASCADE;
+DROP TABLE IF EXISTS logistics CASCADE;
+DROP TABLE IF EXISTS event_status CASCADE;
+DROP TABLE IF EXISTS booking_status CASCADE;
+DROP TABLE IF EXISTS events CASCADE;
+DROP TABLE IF EXISTS event_equipment CASCADE;
+DROP TABLE IF EXISTS equipment_category CASCADE;
+DROP TABLE IF EXISTS equipment_data CASCADE;
+DROP TABLE IF EXISTS equipment CASCADE;
+DROP TABLE IF EXISTS equipment_photo CASCADE;
+
 -- APPLICATION RELATED
 
-CREATE TABLE user_privilege (
-    id serial PRIMARY KEY,
-    user_id uuid REFERENCES app_user(id) NOT NULL,
-    access_admin_console boolean NOT NULL DEFAULT false,
-    edit_client boolean NOT NULL DEFAULT false,
-    view_client boolean NOT NULL DEFAULT false,
-    edit_event boolean NOT NULL DEFAULT false,
-    view_event boolean NOT NULL DEFAULT false,
-    edit_invoice boolean NOT NULL DEFAULT false,
-    view_invoice boolean NOT NULL DEFAULT false,
-    edit_contract boolean NOT NULL DEFAULT false,
-    view_contract boolean NOT NULL DEFAULT false,
-    edit_equipment boolean NOT NULL DEFAULT false,
-    view_equipment boolean NOT NULL DEFAULT false,
-)
-
-CREATE TABLE app_user (
-    id uuid NOT NULL PRIMARY KEY,
-    login character varying(100) NOT NULL,
-    password character varying(100) NOT NULL,
-    first_name character varying(50) NOT NULL,
-    last_name character varying(50) NOT NULL,
-    contact_data_id integer REFERENCES contact_data(id)
-);
-
-CREATE TABLE app_options (
-    id serial PRIMARY KEY,
-    an_option character varying(200)
-);
-
-CREATE TABLE app_owner (
+CREATE TABLE company_data (
     id smallserial PRIMARY KEY,
     full_name character varying(250) NOT NULL,
     short_name character varying(250) NOT NULL,
-    address_id integer REFERENCES primary_address(id),
-    legal_entity_type_id integer REFERENCES legal_entity_type(id),
-    tax_info_id integer REFERENCES tax_info(id),
-    in_use boolean NOT NULL,
-);
-
-
--- DATA-RELATED
--- COMMON
-
-CREATE TABLE contact_data (
-    id serial PRIMARY KEY,
-    email character varying(20),
-    phone character varying(20),
-);
-
-CREATE TABLE country (
-    id serial PRIMARY KEY,
-    name character varying(100)
-);
-
-CREATE TABLE primary_address (
-    id serial PRIMARY KEY,
+    tax_info_id integer,
+    legal_entity_type_id integer,
+    in_use boolean NOT NULL DEFAULT true,
+    notes text,
     street character varying(100),
     street_number character varying(10),
     postal_code character varying(10),
     city character varying(100),
-    country_id integer REFERENCES country(id)
+    country_id integer
 );
 
-CREATE TABLE secondary_address (
+CREATE TABLE app_settings (
     id serial PRIMARY KEY,
-    street character varying(100),
-    street_number character varying(10),
-    postal_code character varying(10),
-    city character varying(100),
-    country_id integer REFERENCES country(id)
+    resources_URI character varying(100)
 );
 
--- CLIENT RELATED
 
-CREATE TABLE client_type (
+CREATE TABLE app_role (
     id serial PRIMARY KEY,
-    name character varying(100) NOT NULL
+    name character varying(50)
+);
+
+CREATE TABLE app_privileges (
+    id serial PRIMARY KEY,
+    name character varying(20)
+);
+
+CREATE TABLE role_privileges (
+    id serial PRIMARY KEY,
+    app_role_id integer,
+    app_privileges_id integer,
+    _create boolean NOT NULL DEFAULT false,
+    _read boolean NOT NULL DEFAULT false,
+    _update boolean NOT NULL DEFAULT false,
+    _delete boolean NOT NULL DEFAULT false
 );
 
 CREATE TABLE tax_info (
@@ -85,12 +77,42 @@ CREATE TABLE tax_info (
     regon character varying(20),
     pesel character varying(20),
     nip character varying(20),
-    krs character varying(20)
+    krs character varying(20),
+    insurance character varying(20)
 );
 
 CREATE TABLE legal_entity_type (
     id serial PRIMARY KEY,
     name character varying(50)
+);
+
+CREATE TABLE contact_data (
+    id serial PRIMARY KEY,
+    email character varying(20),
+    phone character varying(20)
+);
+
+CREATE TABLE country (
+    id serial PRIMARY KEY,
+    name character varying(100)
+);
+
+CREATE TABLE app_user (
+    id uuid NOT NULL PRIMARY KEY,
+    login character varying(100) NOT NULL,
+    password character varying(100) NOT NULL,
+    first_name character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+    contact_data_id integer,
+    app_role_id integer
+);
+
+-- DATA-RELATED
+-- CLIENT RELATED
+
+CREATE TABLE client_type (
+    id serial PRIMARY KEY,
+    name character varying(100) NOT NULL
 );
 
 CREATE TABLE business_branch (
@@ -104,30 +126,49 @@ CREATE TABLE business_category (
 );
 
 CREATE TABLE client (
-    id uuid NOT NULL;
-    String full_name character varying(200) NOT NULL,
-    String short_name character varying(100) NOT NULL,
-    primary_address_id integer REFERENCES primary_address(id),
-    secondary_address_id integer REFERENCES secondary_address(id),
-    contact_data_id integer REFERENCES contact_data(id),
+    id uuid PRIMARY KEY NOT NULL,
+    full_name character varying(200) NOT NULL,
+    short_name character varying(100) NOT NULL,
+    contact_data_id integer,
     is_active boolean NOT NULL DEFAULT true,
-    client_type_id NOT NULL REFERENCES client_type(id),
+    client_type_id integer,
     notes text,
-    legal_entity_type_id integer REFERENCES legal_entity_type(id),
-    tax_info_id integer REFERENCES tax_info_type(id)
+    legal_entity_type_id integer,
+    tax_info_id integer
+);
+
+CREATE TABLE address (
+    id serial PRIMARY KEY,
+    street character varying(100),
+    street_number character varying(10),
+    postal_code character varying(10),
+    city character varying(100),
+    country_id integer,
+    isPrimary boolean NOT NULL DEFAULT true,
+    client_id uuid
 );
 
 CREATE TABLE client_branch (
     id serial PRIMARY KEY,
-    client_id UUID REFERENCES client(id),
-    business_branch_id integer REFERENCES business_branch(id)
+    client_id UUID,
+    business_branch_id integer
 );
 
 CREATE TABLE client_category (
     id serial PRIMARY KEY,
-    client_id UUID REFERENCES client(id),
-    business_category_id integer REFERENCES buisiness_category(id)
+    client_id UUID,
+    business_category_id integer
 );
+
+CREATE TABLE client_representative (
+    id UUID PRIMARY KEY,
+    first_name character varying(100) NOT NULL,
+    last_name character varying(100),
+    contact_data_id integer,
+    client_id uuid
+);
+
+
 
 -- EVENTS RELATED
 
@@ -146,12 +187,17 @@ CREATE TABLE logistics (
     distance smallint,
     notes text,
     required_area smallint,
-    power_type_id integer REFERENCES power_type(id),
-    place_type_id integer REFERENCES place_type(id),
+    power_type_id integer,
+    place_type_id integer,
     name character varying(50)
 );
 
 CREATE TABLE event_status (
+    id smallserial PRIMARY KEY,
+    name character varying(20)
+);
+
+CREATE TABLE booking_status (
     id smallserial PRIMARY KEY,
     name character varying(20)
 );
@@ -164,17 +210,16 @@ CREATE TABLE events (
     event_end_date date NOT NULL,
     event_place character varying(100),
     notes text,
-    event_status_id integer REFERENCES event_status(id),
-    logistics_id integer REFERENCES logistics(id),
+    event_status_id integer,
+    logistics_id integer
 );
 
 CREATE TABLE event_equipment (
     id serial PRIMARY KEY,
-    equipment_id uuid REFERENCES equimpent(id) NOT NULL;
-    event_id uuid REFERENCES events(id),
-    event_status_id integer REFERENCES event_status(id)
+    equipment_id uuid NOT NULL,
+    event_id uuid,
+    booking_status_id integer
 );
-
 
 -- EQUIPMENT RELATED
 
@@ -186,7 +231,6 @@ CREATE TABLE equipment_category (
 
 CREATE TABLE equipment_data (
     id serial PRIMARY KEY,
-    equipment_id integer REFERENCES equipment(id),
     width smallint,
     length smallint,
     height smallint,
@@ -202,13 +246,62 @@ CREATE TABLE equipment (
     sorting_id smallint NOT NULL DEFAULT 1,
     name character varying(100),
     notes text,
-    equipment_data_id integer REFERENCES equipment_data(id),
-    equipment_category_id integer REFERENCES equipment_category(id),
+    equipment_data_id integer,
+    equipment_category_id integer,
     in_use boolean NOT NULL DEFAULT true
 );
 
 CREATE TABLE equipment_photo (
     id serial PRIMARY KEY,
-    equipment_id uuid REFERENCES equipment(id) NOT NULL,
+    equipment_id uuid NOT NULL,
     photo_URI character varying(250) NOT NULL
 );
+
+-- CONSTRAINTS
+
+ALTER TABLE equipment_photo ADD CONSTRAINT FK_equipment FOREIGN KEY (equipment_id) REFERENCES equipment(id);
+ALTER TABLE equipment ADD CONSTRAINT FK_equipment_data FOREIGN KEY (equipment_data_id) REFERENCES equipment_data(id);
+ALTER TABLE equipment ADD CONSTRAINT FK_equipment_category FOREIGN KEY (equipment_category_id)  REFERENCES equipment_category(id);
+ALTER TABLE event_equipment ADD CONSTRAINT FK_equipment FOREIGN KEY (equipment_id)  REFERENCES equipment(id);
+ALTER TABLE event_equipment ADD CONSTRAINT FK_event FOREIGN KEY (event_id)  REFERENCES events(id);
+ALTER TABLE event_equipment ADD CONSTRAINT FK_booking_status FOREIGN KEY (booking_status_id)  REFERENCES booking_status(id);
+ALTER TABLE events ADD CONSTRAINT FK_event_status FOREIGN KEY (event_status_id) REFERENCES event_status(id);
+ALTER TABLE events ADD CONSTRAINT FK_logistics FOREIGN KEY (logistics_id) REFERENCES logistics(id);
+ALTER TABLE logistics ADD CONSTRAINT FK_power_type FOREIGN KEY (power_type_id) REFERENCES power_type(id);
+ALTER TABLE logistics ADD CONSTRAINT FK_place_type FOREIGN KEY (place_type_id) REFERENCES place_type(id);
+ALTER TABLE client_representative ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) REFERENCES contact_data(id);
+ALTER TABLE client_representative ADD CONSTRAINT FK_client FOREIGN KEY (client_id) REFERENCES client(id);
+ALTER TABLE client_category ADD CONSTRAINT FK_business_category FOREIGN KEY (business_category_id) REFERENCES business_category(id);
+ALTER TABLE client_category ADD CONSTRAINT FK_client FOREIGN KEY (client_id) REFERENCES client(id);
+ALTER TABLE client_branch ADD CONSTRAINT FK_business_branch FOREIGN KEY (business_branch_id) REFERENCES business_branch(id);
+ALTER TABLE client_branch ADD CONSTRAINT FK_client FOREIGN KEY (client_id) REFERENCES client(id);
+ALTER TABLE address ADD CONSTRAINT FK_country FOREIGN KEY (country_id) REFERENCES country(id);
+ALTER TABLE address ADD CONSTRAINT FK_client FOREIGN KEY (client_id) REFERENCES client(id);
+ALTER TABLE client ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) REFERENCES contact_data(id);
+ALTER TABLE client ADD CONSTRAINT FK_client_type FOREIGN KEY (client_type_id) REFERENCES client_type(id);
+ALTER TABLE client ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
+ALTER TABLE client ADD CONSTRAINT FK_tax_info FOREIGN KEY (tax_info_id) REFERENCES tax_info(id);
+ALTER TABLE company_data ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
+ALTER TABLE company_data ADD CONSTRAINT FK_tax_info FOREIGN KEY (tax_info_id) REFERENCES tax_info(id);
+ALTER TABLE company_data ADD CONSTRAINT FK_country FOREIGN KEY (country_id) REFERENCES country(id);
+ALTER TABLE app_user ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) REFERENCES contact_data(id);
+ALTER TABLE app_user ADD CONSTRAINT FK_app_role FOREIGN KEY (app_role_id) REFERENCES app_role(id);
+ALTER TABLE role_privileges ADD CONSTRAINT FK_app_role FOREIGN KEY (app_role_id) REFERENCES app_role(id);
+ALTER TABLE role_privileges ADD CONSTRAINT FK_app_privileges FOREIGN KEY (app_privileges_id) REFERENCES app_privileges(id);
+
+-- POPULATE
+
+INSERT INTO app_role (name) VALUES
+('admin'),
+('salesman'),
+('service'),
+('guest');
+
+INSERT INTO app_privileges (name) VALUES
+('admin_console'),
+('clients_console'),
+('events_console'),
+('equipment_console'),
+('invoices_console'),
+('contracts_console'),
+('employees_console');
