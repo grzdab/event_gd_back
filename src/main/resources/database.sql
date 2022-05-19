@@ -19,7 +19,6 @@ DROP TABLE IF EXISTS client_category CASCADE;
 DROP TABLE IF EXISTS client_representative CASCADE;
 DROP TABLE IF EXISTS power_type CASCADE;
 DROP TABLE IF EXISTS place_type CASCADE;
-DROP TABLE IF EXISTS logistics CASCADE;
 DROP TABLE IF EXISTS event_status CASCADE;
 DROP TABLE IF EXISTS booking_status CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
@@ -50,7 +49,6 @@ CREATE TABLE app_settings (
     id serial PRIMARY KEY,
     resources_URI character varying(100)
 );
-
 
 CREATE TABLE app_role (
     id serial PRIMARY KEY,
@@ -168,8 +166,6 @@ CREATE TABLE client_representative (
     client_id uuid
 );
 
-
-
 -- EVENTS RELATED
 
 CREATE TABLE power_type (
@@ -179,16 +175,6 @@ CREATE TABLE power_type (
 
 CREATE TABLE place_type (
     id serial PRIMARY KEY,
-    name character varying(50)
-);
-
-CREATE TABLE logistics (
-    id serial PRIMARY KEY,
-    distance smallint,
-    notes text,
-    required_area smallint,
-    power_type_id integer,
-    place_type_id integer,
     name character varying(50)
 );
 
@@ -209,9 +195,13 @@ CREATE TABLE events (
     event_start_date date NOT NULL,
     event_end_date date NOT NULL,
     event_place character varying(100),
-    notes text,
+    description text,
     event_status_id integer,
-    logistics_id integer
+    distance smallint,
+    required_area smallint,
+    power_type_id integer,
+    place_type_id integer,
+    notes character varying(50)
 );
 
 CREATE TABLE event_equipment (
@@ -266,9 +256,8 @@ ALTER TABLE event_equipment ADD CONSTRAINT FK_equipment FOREIGN KEY (equipment_i
 ALTER TABLE event_equipment ADD CONSTRAINT FK_event FOREIGN KEY (event_id)  REFERENCES events(id);
 ALTER TABLE event_equipment ADD CONSTRAINT FK_booking_status FOREIGN KEY (booking_status_id)  REFERENCES booking_status(id);
 ALTER TABLE events ADD CONSTRAINT FK_event_status FOREIGN KEY (event_status_id) REFERENCES event_status(id);
-ALTER TABLE events ADD CONSTRAINT FK_logistics FOREIGN KEY (logistics_id) REFERENCES logistics(id);
-ALTER TABLE logistics ADD CONSTRAINT FK_power_type FOREIGN KEY (power_type_id) REFERENCES power_type(id);
-ALTER TABLE logistics ADD CONSTRAINT FK_place_type FOREIGN KEY (place_type_id) REFERENCES place_type(id);
+ALTER TABLE events ADD CONSTRAINT FK_power_type FOREIGN KEY (power_type_id) REFERENCES power_type(id);
+ALTER TABLE events ADD CONSTRAINT FK_place_type FOREIGN KEY (place_type_id) REFERENCES place_type(id);
 ALTER TABLE client_representative ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) REFERENCES contact_data(id);
 ALTER TABLE client_representative ADD CONSTRAINT FK_client FOREIGN KEY (client_id) REFERENCES client(id);
 ALTER TABLE client_category ADD CONSTRAINT FK_business_category FOREIGN KEY (business_category_id) REFERENCES business_category(id);
@@ -298,10 +287,10 @@ INSERT INTO app_role (name) VALUES
 ('guest');
 
 INSERT INTO app_privileges (name) VALUES
-('admin_console'),
-('clients_console'),
-('events_console'),
-('equipment_console'),
-('invoices_console'),
-('contracts_console'),
-('employees_console');
+('admin'),
+('clients'),
+('events'),
+('equipmente'),
+('invoicese'),
+('contracts'),
+('employees');
