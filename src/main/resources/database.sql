@@ -24,7 +24,6 @@ DROP TABLE IF EXISTS booking_status CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
 DROP TABLE IF EXISTS event_equipment CASCADE;
 DROP TABLE IF EXISTS equipment_category CASCADE;
-DROP TABLE IF EXISTS equipment_data CASCADE;
 DROP TABLE IF EXISTS equipment CASCADE;
 DROP TABLE IF EXISTS equipment_photo CASCADE;
 
@@ -219,8 +218,11 @@ CREATE TABLE equipment_category (
     sorting_group integer NOT NULL DEFAULT 0
 );
 
-CREATE TABLE equipment_data (
-    id serial PRIMARY KEY,
+CREATE TABLE equipment (
+    id uuid PRIMARY KEY,
+    sorting_id smallint NOT NULL DEFAULT 1,
+    name character varying(100),
+    notes text,
     width smallint,
     length smallint,
     height smallint,
@@ -229,14 +231,6 @@ CREATE TABLE equipment_data (
     staff_needed smallint,
     minimum_age smallint,
     max_participants smallint
-);
-
-CREATE TABLE equipment (
-    id uuid PRIMARY KEY,
-    sorting_id smallint NOT NULL DEFAULT 1,
-    name character varying(100),
-    notes text,
-    equipment_data_id integer,
     equipment_category_id integer,
     in_use boolean NOT NULL DEFAULT true
 );
@@ -250,7 +244,6 @@ CREATE TABLE equipment_photo (
 -- CONSTRAINTS
 
 ALTER TABLE equipment_photo ADD CONSTRAINT FK_equipment FOREIGN KEY (equipment_id) REFERENCES equipment(id);
-ALTER TABLE equipment ADD CONSTRAINT FK_equipment_data FOREIGN KEY (equipment_data_id) REFERENCES equipment_data(id);
 ALTER TABLE equipment ADD CONSTRAINT FK_equipment_category FOREIGN KEY (equipment_category_id)  REFERENCES equipment_category(id);
 ALTER TABLE event_equipment ADD CONSTRAINT FK_equipment FOREIGN KEY (equipment_id)  REFERENCES equipment(id);
 ALTER TABLE event_equipment ADD CONSTRAINT FK_event FOREIGN KEY (event_id)  REFERENCES events(id);
@@ -290,7 +283,7 @@ INSERT INTO app_privileges (name) VALUES
 ('admin'),
 ('clients'),
 ('events'),
-('equipmente'),
-('invoicese'),
+('equipment'),
+('invoices'),
 ('contracts'),
 ('employees');
