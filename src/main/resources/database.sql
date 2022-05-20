@@ -4,7 +4,6 @@ DROP TABLE IF EXISTS app_settings CASCADE;
 DROP TABLE IF EXISTS app_role CASCADE;
 DROP TABLE IF EXISTS app_privileges CASCADE;
 DROP TABLE IF EXISTS role_privileges CASCADE;
-DROP TABLE IF EXISTS tax_info CASCADE;
 DROP TABLE IF EXISTS legal_entity_type CASCADE;
 DROP TABLE IF EXISTS contact_data CASCADE;
 DROP TABLE IF EXISTS country CASCADE;
@@ -13,6 +12,7 @@ DROP TABLE IF EXISTS client_type CASCADE;
 DROP TABLE IF EXISTS business_branch CASCADE;
 DROP TABLE IF EXISTS business_category CASCADE;
 DROP TABLE IF EXISTS client CASCADE;
+DROP TABLE IF EXISTS tax_info CASCADE;
 DROP TABLE IF EXISTS address CASCADE;
 DROP TABLE IF EXISTS client_branch CASCADE;
 DROP TABLE IF EXISTS client_category CASCADE;
@@ -29,19 +29,26 @@ DROP TABLE IF EXISTS equipment_photo CASCADE;
 
 -- APPLICATION RELATED
 
-CREATE TABLE company_data (
+
+CREATE TABLE company_meta_data (
     id smallserial PRIMARY KEY,
     full_name character varying(250) NOT NULL,
     short_name character varying(250) NOT NULL,
-    tax_info_id integer,
     legal_entity_type_id integer,
+    regon character varying(20),
+    pesel character varying(20),
+    nip character varying(20),
+    krs character varying(20),
+    insurance character varying(20),
     in_use boolean NOT NULL DEFAULT true,
     notes text,
     street character varying(100),
     street_number character varying(10),
     postal_code character varying(10),
     city character varying(100),
-    country_id integer
+    country_id integer,
+    telephone character varying(20),
+    email character varying(20)
 );
 
 CREATE TABLE app_settings (
@@ -67,15 +74,6 @@ CREATE TABLE role_privileges (
     _read boolean NOT NULL DEFAULT false,
     _update boolean NOT NULL DEFAULT false,
     _delete boolean NOT NULL DEFAULT false
-);
-
-CREATE TABLE tax_info (
-    id serial PRIMARY KEY,
-    regon character varying(20),
-    pesel character varying(20),
-    nip character varying(20),
-    krs character varying(20),
-    insurance character varying(20)
 );
 
 CREATE TABLE legal_entity_type (
@@ -133,6 +131,16 @@ CREATE TABLE client (
     legal_entity_type_id integer,
     tax_info_id integer
 );
+
+CREATE TABLE tax_info (
+    id serial PRIMARY KEY,
+    regon character varying(20),
+    pesel character varying(20),
+    nip character varying(20),
+    krs character varying(20),
+    insurance character varying(20)
+);
+
 
 CREATE TABLE address (
     id serial PRIMARY KEY,
@@ -264,7 +272,6 @@ ALTER TABLE client ADD CONSTRAINT FK_client_type FOREIGN KEY (client_type_id) RE
 ALTER TABLE client ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
 ALTER TABLE client ADD CONSTRAINT FK_tax_info FOREIGN KEY (tax_info_id) REFERENCES tax_info(id);
 ALTER TABLE company_data ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
-ALTER TABLE company_data ADD CONSTRAINT FK_tax_info FOREIGN KEY (tax_info_id) REFERENCES tax_info(id);
 ALTER TABLE company_data ADD CONSTRAINT FK_country FOREIGN KEY (country_id) REFERENCES country(id);
 ALTER TABLE app_user ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) REFERENCES contact_data(id);
 ALTER TABLE app_user ADD CONSTRAINT FK_app_role FOREIGN KEY (app_role_id) REFERENCES app_role(id);
