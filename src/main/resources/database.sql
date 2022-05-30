@@ -1,6 +1,7 @@
 -- DATABASE RESET
-DROP TABLE IF EXISTS company_data CASCADE;
+DROP TABLE IF EXISTS company_meta_data CASCADE;
 DROP TABLE IF EXISTS app_settings CASCADE;
+DROP TABLE IF EXISTS language CASCADE;
 DROP TABLE IF EXISTS app_role CASCADE;
 DROP TABLE IF EXISTS app_privileges CASCADE;
 DROP TABLE IF EXISTS role_privileges CASCADE;
@@ -26,9 +27,11 @@ DROP TABLE IF EXISTS event_equipment CASCADE;
 DROP TABLE IF EXISTS equipment_category CASCADE;
 DROP TABLE IF EXISTS equipment CASCADE;
 DROP TABLE IF EXISTS equipment_photo CASCADE;
+DROP TABLE IF EXISTS equipment_data CASCADE;
+DROP TABLE IF EXISTS logistics CASCADE;
+
 
 -- APPLICATION RELATED
-
 
 CREATE TABLE company_meta_data (
     id smallserial PRIMARY KEY,
@@ -54,6 +57,14 @@ CREATE TABLE company_meta_data (
 CREATE TABLE app_settings (
     id serial PRIMARY KEY,
     resources_URI character varying(100)
+);
+
+CREATE TABLE language (
+    id serial PRIMARY KEY,
+    property_name character varying(100),
+    English character varying(100),
+    Polish character varying(100),
+    Suahili character varying(100)
 );
 
 CREATE TABLE app_role (
@@ -238,7 +249,7 @@ CREATE TABLE equipment (
     power_required smallint,
     staff_needed smallint,
     minimum_age smallint,
-    max_participants smallint
+    max_participants smallint,
     equipment_category_id integer,
     in_use boolean NOT NULL DEFAULT true
 );
@@ -271,8 +282,8 @@ ALTER TABLE client ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) 
 ALTER TABLE client ADD CONSTRAINT FK_client_type FOREIGN KEY (client_type_id) REFERENCES client_type(id);
 ALTER TABLE client ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
 ALTER TABLE client ADD CONSTRAINT FK_tax_info FOREIGN KEY (tax_info_id) REFERENCES tax_info(id);
-ALTER TABLE company_data ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
-ALTER TABLE company_data ADD CONSTRAINT FK_country FOREIGN KEY (country_id) REFERENCES country(id);
+ALTER TABLE company_meta_data ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
+ALTER TABLE company_meta_data ADD CONSTRAINT FK_country FOREIGN KEY (country_id) REFERENCES country(id);
 ALTER TABLE app_user ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) REFERENCES contact_data(id);
 ALTER TABLE app_user ADD CONSTRAINT FK_app_role FOREIGN KEY (app_role_id) REFERENCES app_role(id);
 ALTER TABLE role_privileges ADD CONSTRAINT FK_app_role FOREIGN KEY (app_role_id) REFERENCES app_role(id);
