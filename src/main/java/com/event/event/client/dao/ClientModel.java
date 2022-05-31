@@ -1,6 +1,5 @@
 package com.event.event.client.dao;
 
-import java.util.UUID;
 
 public class ClientModel {
 

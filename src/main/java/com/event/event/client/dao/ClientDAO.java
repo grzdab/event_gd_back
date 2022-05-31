@@ -1,16 +1,17 @@
 package com.event.event.client.dao;
 
 import com.event.event.client.Client;
+import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class ClientDAO {
 
     private final DataSource dataSource;
-
 
     public ClientDAO(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -30,6 +31,7 @@ public class ClientDAO {
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
+            clientModel.setId(String.valueOf(resultSet.getInt(1)));
         } catch (SQLException e) {
             throw new RuntimeException("Error while creating client:", e);
         }
@@ -44,7 +46,7 @@ public class ClientDAO {
             if (!rs.next()) {
                 return null;
             }
-            ClientModel clientModel = new ClientModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+            ClientModel clientModel = new ClientModel(String.valueOf(rs.getInt(1)), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
             return clientModel;
         } catch (SQLException e) {
             throw new RuntimeException("Error while reading client id:" + clientId, e);
@@ -70,7 +72,7 @@ public class ClientDAO {
 
             List<ClientModel> clients = new ArrayList<>();
             while (rs.next()) {
-                ClientModel clientModel = new ClientModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+                ClientModel clientModel = new ClientModel(String.valueOf(rs.getInt(1)), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
                 clients.add(clientModel);
             }
             return clients;
@@ -81,7 +83,7 @@ public class ClientDAO {
 
     public void update(int clientId, Client client) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "UPDATE client SET full_name = ?, short_name = ?, contact_data_id = ?, is_active = ?, client_type_id = ?, notes = ?, legal_entity_type_id = ?, tax_info_id = ? WHERE id = ?";
+            String sql = "UPDATE client SET full_name = ?, short_name = ?, contact_data_id = ?, is_active = ?, client_type_id = ?, notes = ?, tax_info_id = ? WHERE id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
             statement.setString(1, client.getFullName());
             statement.setString(2, client.getShortName());
@@ -90,6 +92,7 @@ public class ClientDAO {
             statement.setInt(5, client.getClientType().getId());
             statement.setString(6, client.getNotes());
             statement.setInt(7, client.getTaxInfo().getId());
+            statement.setInt(8, clientId);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("You cannot update client with id: " + clientId, e);
