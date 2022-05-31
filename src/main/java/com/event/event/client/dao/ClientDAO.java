@@ -2,6 +2,8 @@ package com.event.event.client.dao;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientDAO {
 
@@ -56,6 +58,23 @@ public class ClientDAO {
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("You cannot delete client with id: " + clientId, e);
+        }
+    }
+
+    public List<ClientModel> getAll() {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, full_name, short_name, contact_data_id, is_active, client_type_id, notes, legal_entity_type_id, tax_info_id from client";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+
+            List<ClientModel> clients = new ArrayList<>();
+            while (rs.next()) {
+                ClientModel clientModel = new ClientModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8), rs.getInt(9));
+                clients.add(clientModel);
+            }
+            return clients;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading clients", e);
         }
     }
 
