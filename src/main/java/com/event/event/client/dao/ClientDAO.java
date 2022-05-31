@@ -42,7 +42,7 @@ public class ClientDAO {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "SELECT id, full_name, short_name, contact_data_id, is_active, client_type_id, notes, tax_info_id from client WHERE id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, clientId);
+            statement.setObject(1, UUID.fromString(clientId));
             ResultSet rs = statement.executeQuery();
             if (!rs.next()) {
                 return null;
@@ -58,7 +58,7 @@ public class ClientDAO {
         try (Connection conn = dataSource.getConnection()) {
             String sql = "DELETE FROM client WHERE id = ?";
             PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, clientId);
+            statement.setObject(1, UUID.fromString(clientId));
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("You cannot delete client with id: " + clientId, e);
@@ -93,7 +93,7 @@ public class ClientDAO {
             statement.setInt(5, client.getClientType().getId());
             statement.setString(6, client.getNotes());
             statement.setInt(7, client.getTaxInfo().getId());
-            statement.setString(8, clientId);
+            statement.setObject(8, UUID.fromString(clientId));
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("You cannot update client with id: " + clientId, e);
