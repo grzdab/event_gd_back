@@ -139,7 +139,6 @@ CREATE TABLE client (
     is_active boolean NOT NULL DEFAULT true,
     client_type_id integer,
     notes text,
-    legal_entity_type_id integer,
     tax_info_id integer
 );
 
@@ -149,7 +148,8 @@ CREATE TABLE tax_info (
     pesel character varying(20),
     nip character varying(20),
     krs character varying(20),
-    insurance character varying(20)
+    insurance character varying(20),
+    legal_entity_type_id integer
 );
 
 
@@ -280,7 +280,7 @@ ALTER TABLE address ADD CONSTRAINT FK_country FOREIGN KEY (country_id) REFERENCE
 ALTER TABLE address ADD CONSTRAINT FK_client FOREIGN KEY (client_id) REFERENCES client(id);
 ALTER TABLE client ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) REFERENCES contact_data(id);
 ALTER TABLE client ADD CONSTRAINT FK_client_type FOREIGN KEY (client_type_id) REFERENCES client_type(id);
-ALTER TABLE client ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
+ALTER TABLE tax_info ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
 ALTER TABLE client ADD CONSTRAINT FK_tax_info FOREIGN KEY (tax_info_id) REFERENCES tax_info(id);
 ALTER TABLE company_meta_data ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
 ALTER TABLE company_meta_data ADD CONSTRAINT FK_country FOREIGN KEY (country_id) REFERENCES country(id);
