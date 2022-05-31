@@ -16,32 +16,26 @@ public class ClientModel {
     UUID id;
     String fullName;
     String shortName;
-    List<AddressModel> addresses;
-    Contact contact;
+    int contactId;
     boolean isActive;
-    ClientTypeModel clientType;
+    int clientTypeId;
     TaxInfoModel taxInfo;
-    List<BusinessBranchModel> businessBranches;
-    List<BusinessCategoryModel> businessCategories;
     String notes;
-    List<RepresentativeModel> representatives;
+    int legalEntityType;
 
-    public ClientModel(UUID id, String fullName, String shortName, List<AddressModel> addresses, Contact contact, boolean isActive, ClientTypeModel clientType, TaxInfoModel taxInfo, List<BusinessBranchModel> businessBranches, List<BusinessCategoryModel> businessCategories, String notes, List<RepresentativeModel> representatives) {
+    public ClientModel() {
+    }
+
+    public ClientModel(UUID id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, TaxInfoModel taxInfo, String notes, int legalEntityType) {
         this.id = id;
         this.fullName = fullName;
         this.shortName = shortName;
-        this.addresses = addresses;
-        this.contact = contact;
+        this.contactId = contactId;
         this.isActive = isActive;
-        this.clientType = clientType;
+        this.clientTypeId = clientTypeId;
         this.taxInfo = taxInfo;
-        this.businessBranches = businessBranches;
-        this.businessCategories = businessCategories;
         this.notes = notes;
-        this.representatives = representatives;
-    }
-
-    public ClientModel() {
+        this.legalEntityType = legalEntityType;
     }
 
     public UUID getId() {
@@ -68,20 +62,12 @@ public class ClientModel {
         this.shortName = shortName;
     }
 
-    public List<AddressModel> getAddresses() {
-        return addresses;
+    public int getContactId() {
+        return contactId;
     }
 
-    public void setAddresses(List<AddressModel> addresses) {
-        this.addresses = addresses;
-    }
-
-    public Contact getContact() {
-        return contact;
-    }
-
-    public void setContact(Contact contact) {
-        this.contact = contact;
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
     }
 
     public boolean isActive() {
@@ -92,12 +78,12 @@ public class ClientModel {
         isActive = active;
     }
 
-    public ClientTypeModel getClientType() {
-        return clientType;
+    public int getClientTypeId() {
+        return clientTypeId;
     }
 
-    public void setClientType(ClientTypeModel clientType) {
-        this.clientType = clientType;
+    public void setClientTypeId(int clientTypeId) {
+        this.clientTypeId = clientTypeId;
     }
 
     public TaxInfoModel getTaxInfo() {
@@ -108,22 +94,6 @@ public class ClientModel {
         this.taxInfo = taxInfo;
     }
 
-    public List<BusinessBranchModel> getBusinessBranches() {
-        return businessBranches;
-    }
-
-    public void setBusinessBranches(List<BusinessBranchModel> businessBranches) {
-        this.businessBranches = businessBranches;
-    }
-
-    public List<BusinessCategoryModel> getBusinessCategories() {
-        return businessCategories;
-    }
-
-    public void setBusinessCategories(List<BusinessCategoryModel> businessCategories) {
-        this.businessCategories = businessCategories;
-    }
-
     public String getNotes() {
         return notes;
     }
@@ -132,11 +102,11 @@ public class ClientModel {
         this.notes = notes;
     }
 
-    public List<RepresentativeModel> getRepresentatives() {
-        return representatives;
+    public int getLegalEntityType() {
+        return legalEntityType;
     }
 
-    public void setRepresentatives(List<RepresentativeModel> representatives) {
-        this.representatives = representatives;
+    public void setLegalEntityType(int legalEntityType) {
+        this.legalEntityType = legalEntityType;
     }
 }
