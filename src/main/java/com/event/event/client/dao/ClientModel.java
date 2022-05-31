@@ -4,36 +4,36 @@ import java.util.UUID;
 
 public class ClientModel {
 
-    UUID id;
+    String id;
     String fullName;
     String shortName;
     int contactId;
     boolean isActive;
     int clientTypeId;
-    int taxInfoId;
     String notes;
     int legalEntityType;
+    int taxInfoId;
 
     public ClientModel() {
     }
 
-    public ClientModel(UUID id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, int taxInfoId, String notes, int legalEntityType) {
+    public ClientModel(String id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, String notes, int legalEntityType, int taxInfoId) {
         this.id = id;
         this.fullName = fullName;
         this.shortName = shortName;
         this.contactId = contactId;
         this.isActive = isActive;
         this.clientTypeId = clientTypeId;
-        this.taxInfoId = taxInfoId;
         this.notes = notes;
         this.legalEntityType = legalEntityType;
+        this.taxInfoId = taxInfoId;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -28,8 +28,24 @@ public class ClientDAO {
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error while creating client:", e);
         }
-
     }
+
+    public ClientModel find(int clientId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "SELECT id, full_name, short_name, contact_data_id, is_active, client_type_id, notes, legal_entity_type_id, tax_info_id from client WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, clientId);
+            ResultSet rs = statement.executeQuery();
+            if (!rs.next()) {
+                return null;
+            }
+            ClientModel clientModel = new ClientModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8), rs.getInt(9));
+            return clientModel;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while reading client id:" + clientId, e);
+        }
+    }
+
 }
