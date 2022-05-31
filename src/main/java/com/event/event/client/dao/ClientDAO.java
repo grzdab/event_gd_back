@@ -48,4 +48,15 @@ public class ClientDAO {
         }
     }
 
+    public void remove(int clientId) {
+        try (Connection conn = dataSource.getConnection()) {
+            String sql = "DELETE FROM client WHERE id = ?";
+            PreparedStatement statement = conn.prepareStatement(sql);
+            statement.setInt(1, clientId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("You cannot delete client with id: " + clientId, e);
+        }
+    }
+
 }
