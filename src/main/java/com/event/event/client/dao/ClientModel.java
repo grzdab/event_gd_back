@@ -1,14 +1,5 @@
 package com.event.event.client.dao;
 
-import com.event.event.address.dao.AddressModel;
-import com.event.event.businessBranch.dao.BusinessBranchModel;
-import com.event.event.businessCategory.dao.BusinessCategoryModel;
-import com.event.event.clientType.dao.ClientTypeModel;
-import com.event.event.representative.dao.RepresentativeModel;
-import com.event.event.taxInfo.dao.TaxInfoModel;
-import io.swagger.models.Contact;
-
-import java.util.List;
 import java.util.UUID;
 
 public class ClientModel {
@@ -19,21 +10,21 @@ public class ClientModel {
     int contactId;
     boolean isActive;
     int clientTypeId;
-    TaxInfoModel taxInfo;
+    int taxInfoId;
     String notes;
     int legalEntityType;
 
     public ClientModel() {
     }
 
-    public ClientModel(UUID id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, TaxInfoModel taxInfo, String notes, int legalEntityType) {
+    public ClientModel(UUID id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, int taxInfoId, String notes, int legalEntityType) {
         this.id = id;
         this.fullName = fullName;
         this.shortName = shortName;
         this.contactId = contactId;
         this.isActive = isActive;
         this.clientTypeId = clientTypeId;
-        this.taxInfo = taxInfo;
+        this.taxInfoId = taxInfoId;
         this.notes = notes;
         this.legalEntityType = legalEntityType;
     }
@@ -86,12 +77,12 @@ public class ClientModel {
         this.clientTypeId = clientTypeId;
     }
 
-    public TaxInfoModel getTaxInfo() {
-        return taxInfo;
+    public int getTaxInfo() {
+        return taxInfoId;
     }
 
-    public void setTaxInfo(TaxInfoModel taxInfo) {
-        this.taxInfo = taxInfo;
+    public void setTaxInfo(int taxInfoId) {
+        this.taxInfoId = taxInfoId;
     }
 
     public String getNotes() {

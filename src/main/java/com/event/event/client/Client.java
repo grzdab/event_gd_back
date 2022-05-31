@@ -5,7 +5,7 @@ import com.event.event.businessCategory.BusinessCategory;
 import com.event.event.clientType.ClientType;
 import com.event.event.representative.Representative;
 import com.event.event.taxInfo.TaxInfo;
-import io.swagger.models.Contact;
+import com.event.event.contact.Contact;
 
 import java.util.List;
 import java.util.UUID;
