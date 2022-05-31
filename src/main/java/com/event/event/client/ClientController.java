@@ -15,7 +15,7 @@ public class ClientController {
     }
 
     @GetMapping("/client/{clientId}")
-    Client getClient(@PathVariable int clientId) {
+    Client getClient(@PathVariable String clientId) {
         return service.getClient(clientId);
     }
 
@@ -30,12 +30,12 @@ public class ClientController {
     }
 
     @PutMapping("/client/{clientId}")
-    Client updateClient(@PathVariable int clientId, @RequestBody Client newClient) {
+    Client updateClient(@PathVariable String clientId, @RequestBody Client newClient) {
         return service.updateClient(clientId, newClient);
     }
 
     @DeleteMapping("/client/{clientId}")
-    String deleteClient(@PathVariable int clientId) {
+    String deleteClient(@PathVariable String clientId) {
         return service.deleteClient(clientId);
     }
 }
