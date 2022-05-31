@@ -11,13 +11,12 @@ public class ClientModel {
     boolean isActive;
     int clientTypeId;
     String notes;
-    int legalEntityType;
     int taxInfoId;
 
     public ClientModel() {
     }
 
-    public ClientModel(String id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, String notes, int legalEntityType, int taxInfoId) {
+    public ClientModel(String id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, String notes, int taxInfoId) {
         this.id = id;
         this.fullName = fullName;
         this.shortName = shortName;
@@ -25,7 +24,6 @@ public class ClientModel {
         this.isActive = isActive;
         this.clientTypeId = clientTypeId;
         this.notes = notes;
-        this.legalEntityType = legalEntityType;
         this.taxInfoId = taxInfoId;
     }
 
@@ -91,13 +89,5 @@ public class ClientModel {
 
     public void setNotes(String notes) {
         this.notes = notes;
-    }
-
-    public int getLegalEntityType() {
-        return legalEntityType;
-    }
-
-    public void setLegalEntityType(int legalEntityType) {
-        this.legalEntityType = legalEntityType;
     }
 }
