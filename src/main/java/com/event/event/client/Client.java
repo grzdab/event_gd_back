@@ -1,11 +1,10 @@
 package com.event.event.client;
-
-import com.event.event.address.dao.AddressModel;
-import com.event.event.businessBranch.dao.BusinessBranchModel;
-import com.event.event.businessCategory.dao.BusinessCategoryModel;
-import com.event.event.clientType.dao.ClientTypeModel;
-import com.event.event.representative.dao.RepresentativeModel;
-import com.event.event.taxInfo.dao.TaxInfoModel;
+import com.event.event.address.Address;
+import com.event.event.businessBranch.BusinessBranch;
+import com.event.event.businessCategory.BusinessCategory;
+import com.event.event.clientType.ClientType;
+import com.event.event.representative.Representative;
+import com.event.event.taxInfo.TaxInfo;
 import io.swagger.models.Contact;
 
 import java.util.List;
@@ -16,17 +15,20 @@ public class Client {
     UUID id;
     String fullName;
     String shortName;
-    List<AddressModel> addresses;
+    List<Address> addresses;
     Contact contact;
     boolean isActive;
-    ClientTypeModel clientType;
-    TaxInfoModel taxInfo;
-    List<BusinessBranchModel> businessBranches;
-    List<BusinessCategoryModel> businessCategories;
+    ClientType clientType;
+    TaxInfo taxInfo;
+    List<BusinessBranch> businessBranches;
+    List<BusinessCategory> businessCategories;
     String notes;
-    List<RepresentativeModel> representatives;
+    List<Representative> representatives;
 
-    public Client(UUID id, String fullName, String shortName, List<AddressModel> addresses, Contact contact, boolean isActive, ClientTypeModel clientType, TaxInfoModel taxInfo, List<BusinessBranchModel> businessBranches, List<BusinessCategoryModel> businessCategories, String notes, List<RepresentativeModel> representatives) {
+    public Client() {
+    }
+
+    public Client(UUID id, String fullName, String shortName, List<Address> addresses, Contact contact, boolean isActive, ClientType clientType, TaxInfo taxInfo, List<BusinessBranch> businessBranches, List<BusinessCategory> businessCategories, String notes, List<Representative> representatives) {
         this.id = id;
         this.fullName = fullName;
         this.shortName = shortName;
@@ -39,9 +41,6 @@ public class Client {
         this.businessCategories = businessCategories;
         this.notes = notes;
         this.representatives = representatives;
-    }
-
-    public Client() {
     }
 
     public UUID getId() {
@@ -68,11 +67,11 @@ public class Client {
         this.shortName = shortName;
     }
 
-    public List<AddressModel> getAddresses() {
+    public List<Address> getAddresses() {
         return addresses;
     }
 
-    public void setAddresses(List<AddressModel> addresses) {
+    public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
 
@@ -92,35 +91,35 @@ public class Client {
         isActive = active;
     }
 
-    public ClientTypeModel getClientType() {
+    public ClientType getClientType() {
         return clientType;
     }
 
-    public void setClientType(ClientTypeModel clientType) {
+    public void setClientType(ClientType clientType) {
         this.clientType = clientType;
     }
 
-    public TaxInfoModel getTaxInfo() {
+    public TaxInfo getTaxInfo() {
         return taxInfo;
     }
 
-    public void setTaxInfo(TaxInfoModel taxInfo) {
+    public void setTaxInfo(TaxInfo taxInfo) {
         this.taxInfo = taxInfo;
     }
 
-    public List<BusinessBranchModel> getBusinessBranches() {
+    public List<BusinessBranch> getBusinessBranches() {
         return businessBranches;
     }
 
-    public void setBusinessBranches(List<BusinessBranchModel> businessBranches) {
+    public void setBusinessBranches(List<BusinessBranch> businessBranches) {
         this.businessBranches = businessBranches;
     }
 
-    public List<BusinessCategoryModel> getBusinessCategories() {
+    public List<BusinessCategory> getBusinessCategories() {
         return businessCategories;
     }
 
-    public void setBusinessCategories(List<BusinessCategoryModel> businessCategories) {
+    public void setBusinessCategories(List<BusinessCategory> businessCategories) {
         this.businessCategories = businessCategories;
     }
 
@@ -132,11 +131,11 @@ public class Client {
         this.notes = notes;
     }
 
-    public List<RepresentativeModel> getRepresentatives() {
+    public List<Representative> getRepresentatives() {
         return representatives;
     }
 
-    public void setRepresentatives(List<RepresentativeModel> representatives) {
+    public void setRepresentatives(List<Representative> representatives) {
         this.representatives = representatives;
     }
 }
