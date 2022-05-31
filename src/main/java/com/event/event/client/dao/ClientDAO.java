@@ -7,6 +7,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class ClientDAO {
@@ -31,7 +32,7 @@ public class ClientDAO {
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             resultSet.next();
-            clientModel.setId(String.valueOf(resultSet.getInt(1)));
+            clientModel.setId(resultSet.getObject(1, UUID.class)); // wyciaga z kolumny 1 obiekt i zamienia go ma uuid
         } catch (SQLException e) {
             throw new RuntimeException("Error while creating client:", e);
         }
@@ -46,7 +47,7 @@ public class ClientDAO {
             if (!rs.next()) {
                 return null;
             }
-            ClientModel clientModel = new ClientModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+            ClientModel clientModel = new ClientModel(rs.getObject(1, UUID.class), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
             return clientModel;
         } catch (SQLException e) {
             throw new RuntimeException("Error while reading client id:" + clientId, e);
@@ -72,7 +73,7 @@ public class ClientDAO {
 
             List<ClientModel> clients = new ArrayList<>();
             while (rs.next()) {
-                ClientModel clientModel = new ClientModel(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
+                ClientModel clientModel = new ClientModel(rs.getObject(1, UUID.class), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5), rs.getInt(6), rs.getString(7), rs.getInt(8));
                 clients.add(clientModel);
             }
             return clients;

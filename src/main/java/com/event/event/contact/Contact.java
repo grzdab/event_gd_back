@@ -8,6 +8,9 @@ public class Contact {
         this.id = id;
     }
 
+    public Contact() {
+    }
+
     public int getId() {
         return id;
     }

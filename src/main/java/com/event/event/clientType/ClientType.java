@@ -8,6 +8,9 @@ public class ClientType {
         this.id = id;
     }
 
+    public ClientType() {
+    }
+
     public int getId() {
         return id;
     }

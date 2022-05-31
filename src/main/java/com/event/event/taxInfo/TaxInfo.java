@@ -8,6 +8,9 @@ public class TaxInfo {
         this.id = id;
     }
 
+    public TaxInfo() {
+    }
+
     public int getId() {
         return id;
     }

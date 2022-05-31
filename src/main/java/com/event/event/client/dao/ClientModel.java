@@ -1,9 +1,11 @@
 package com.event.event.client.dao;
 
 
+import java.util.UUID;
+
 public class ClientModel {
 
-    String id;
+    UUID id;
     String fullName;
     String shortName;
     int contactId;
@@ -15,7 +17,17 @@ public class ClientModel {
     public ClientModel() {
     }
 
-    public ClientModel(String id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, String notes, int taxInfoId) {
+    public ClientModel(String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, String notes, int taxInfoId) {
+        this.fullName = fullName;
+        this.shortName = shortName;
+        this.contactId = contactId;
+        this.isActive = isActive;
+        this.clientTypeId = clientTypeId;
+        this.notes = notes;
+        this.taxInfoId = taxInfoId;
+    }
+
+    public ClientModel(UUID id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, String notes, int taxInfoId) {
         this.id = id;
         this.fullName = fullName;
         this.shortName = shortName;
@@ -26,12 +38,20 @@ public class ClientModel {
         this.taxInfoId = taxInfoId;
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(UUID id) {
         this.id = id;
+    }
+
+    public int getTaxInfoId() {
+        return taxInfoId;
+    }
+
+    public void setTaxInfoId(int taxInfoId) {
+        this.taxInfoId = taxInfoId;
     }
 
     public String getFullName() {
