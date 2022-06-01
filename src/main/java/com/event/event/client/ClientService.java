@@ -3,8 +3,8 @@ package com.event.event.client;
 import com.event.event.address.Address;
 import com.event.event.businessBranch.BusinessBranch;
 import com.event.event.businessCategory.BusinessCategory;
-import com.event.event.client.dao.ClientDAO;
 import com.event.event.client.dao.ClientModel;
+import com.event.event.client.dao.ClientRepository;
 import com.event.event.clientType.ClientType;
 import com.event.event.contact.Contact;
 import com.event.event.representative.Representative;
@@ -13,41 +13,50 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ClientService {
 
-    private final ClientDAO clientDAO;
+    private final ClientRepository clientRepository;
 
-    public ClientService(ClientDAO clientDAO) {
-        this.clientDAO = clientDAO;
+    public ClientService(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
     }
 
     public Client addClient(Client client) {
         ClientModel clientModel = new ClientModel(client.getFullName(), client.getShortName(), client.getContact().getId(), client.isActive(), client.getClientType().getId(), client.getNotes(), client.getTaxInfo().getId());
-        clientDAO.add(clientModel);
+        clientRepository.save(clientModel);
         client.setId(clientModel.getId());
         return client;
     }
 
     public Client updateClient(String clientId, Client newClient) {
-        clientDAO.update(clientId, newClient);
+        ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
+        clientFromDB.setFullName(newClient.getFullName());
+        clientFromDB.setShortName(newClient.getShortName());
+        clientFromDB.setContactId(newClient.getContact().getId());
+        clientFromDB.setActive(newClient.isActive());
+        clientFromDB.setClientTypeId(newClient.getClientType().getId());
+        clientFromDB.setNotes(newClient.getNotes());
+        clientFromDB.setTaxInfoId(newClient.getTaxInfo().getId());
+        clientRepository.save(clientFromDB);
         return newClient;
     }
 
     public Client getClient(String clientId) {
-        ClientModel clientModel = clientDAO.find(clientId);
+        ClientModel clientModel = clientRepository.findById(UUID.fromString(clientId)).get();
         return createClient(clientModel);
     }
 
     public String deleteClient(String clientId) {
-        clientDAO.remove(clientId);
+        clientRepository.deleteById(UUID.fromString(clientId));
         return "DELETED";
     }
 
     public List<Client> getAllClients() {
         List<Client> clients = new ArrayList<>();
-        List<ClientModel> clientModels= clientDAO.getAll();
+        Iterable<ClientModel> clientModels = clientRepository.findAll();
         for (ClientModel model: clientModels){
             clients.add(createClient(model));
         }

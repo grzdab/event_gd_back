@@ -1,11 +1,17 @@
 package com.event.event.client.dao;
 
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity //mowi springowi, ze ta klasa bedzie modelem w bazie i na jej podstawie ma stworzyc tabele
+@Table(name = "client") //nazwa tabeli
 public class ClientModel {
 
-    UUID id;
+    UUID id; //w klasie modelu musi znajowac sie pole o nazwie id
     String fullName;
     String shortName;
     int contactId;
@@ -27,17 +33,8 @@ public class ClientModel {
         this.taxInfoId = taxInfoId;
     }
 
-    public ClientModel(UUID id, String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, String notes, int taxInfoId) {
-        this.id = id;
-        this.fullName = fullName;
-        this.shortName = shortName;
-        this.contactId = contactId;
-        this.isActive = isActive;
-        this.clientTypeId = clientTypeId;
-        this.notes = notes;
-        this.taxInfoId = taxInfoId;
-    }
-
+    @Id //kazda klasa entity musi miec unikatowe id, wiec metoda getId musi miec adnotacje Id
+    @GeneratedValue //id bedzie automatycznie generowane przez baze
     public UUID getId() {
         return id;
     }
