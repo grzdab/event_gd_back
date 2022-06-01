@@ -1,10 +1,9 @@
 package com.event.event.client.dao;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
+
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity //mowi springowi, ze ta klasa bedzie modelem w bazie i na jej podstawie ma stworzyc tabele
@@ -12,9 +11,13 @@ import java.util.UUID;
 public class ClientModel {
 
     UUID id; //w klasie modelu musi znajowac sie pole o nazwie id
+    @Column(nullable = false, length = 200) //wartosc nie moze byc nullem, max 200 znakow
     String fullName;
+    @Column(nullable = false, length = 100) //wartosc nie moze byc nullem, max 100 znakow
     String shortName;
     int contactId;
+    @Column(nullable = false)
+    @ColumnDefault("true") // wartosc domyslna
     boolean isActive;
     int clientTypeId;
     String notes;
