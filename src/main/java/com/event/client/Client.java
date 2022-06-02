@@ -12,19 +12,19 @@ import java.util.UUID;
 
 public class Client {
 
-    UUID id;
-    String fullName;
-    String shortName;
-    List<Address> addresses;
-    Contact contact;
-    boolean isActive;
-    ClientType clientType;
-    TaxInfo taxInfo;
-    List<BusinessBranch> businessBranches;
-    List<BusinessCategory> businessCategories;
-    String notes;
-    List<Representative> representatives;
-    String appUserId;
+    private UUID id;
+    private String fullName;
+    private String shortName;
+    private List<Address> addresses;
+    private Contact contact;
+    private boolean isActive;
+    private ClientType clientType;
+    private TaxInfo taxInfo;
+    private List<BusinessBranch> businessBranches;
+    private List<BusinessCategory> businessCategories;
+    private String notes;
+    private List<Representative> representatives;
+    private String appUserId;
 
     public Client() {
     }

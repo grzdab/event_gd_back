@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface RepresentativeRepository extends CrudRepository<RepresentativeModel, UUID> {
+public interface RepresentativeRepository extends CrudRepository<RepresentativeModel, Integer> {
 }

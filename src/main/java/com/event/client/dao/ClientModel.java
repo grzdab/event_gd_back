@@ -11,20 +11,20 @@ import java.util.UUID;
 @Table(name = "client") //nazwa tabeli
 public class ClientModel {
 
-    UUID id; //w klasie modelu musi znajowac sie pole o nazwie id
+    private UUID id; //w klasie modelu musi znajowac sie pole o nazwie id
     @Column(nullable = false, length = 200) //wartosc nie moze byc nullem, max 200 znakow
-    String fullName;
+    private String fullName;
     @Column(nullable = false, length = 100) //wartosc nie moze byc nullem, max 100 znakow
-    String shortName;
-    int contactId;
+    private String shortName;
+    private int contactId;
     @Column(nullable = false)
     @ColumnDefault("true") // wartosc domyslna
-    boolean isActive;
-    int clientTypeId;
-    String notes;
-    int taxInfoId;
+    private boolean isActive;
+    private int clientTypeId;
+    private String notes;
+    private int taxInfoId;
     @Column(nullable = false)
-    String appUserId;
+    private String appUserId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
