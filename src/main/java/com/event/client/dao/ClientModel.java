@@ -23,6 +23,8 @@ public class ClientModel {
     int clientTypeId;
     String notes;
     int taxInfoId;
+    @Column(nullable = false)
+    String appUserId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -31,7 +33,7 @@ public class ClientModel {
     public ClientModel() {
     }
 
-    public ClientModel(String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, String notes, int taxInfoId) {
+    public ClientModel(String fullName, String shortName, int contactId, boolean isActive, int clientTypeId, String notes, int taxInfoId, String appUserId) {
         this.fullName = fullName;
         this.shortName = shortName;
         this.contactId = contactId;
@@ -39,6 +41,7 @@ public class ClientModel {
         this.clientTypeId = clientTypeId;
         this.notes = notes;
         this.taxInfoId = taxInfoId;
+        this.appUserId = appUserId;
     }
 
     @Id //kazda klasa entity musi miec unikatowe id, wiec metoda getId musi miec adnotacje Id
@@ -113,5 +116,13 @@ public class ClientModel {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getAppUserId() {
+        return appUserId;
+    }
+
+    public void setAppUserId(String appUserId) {
+        this.appUserId = appUserId;
     }
 }

@@ -25,7 +25,7 @@ public class ClientService {
     }
 
     public Client addClient(Client client) {
-        ClientModel clientModel = new ClientModel(client.getFullName(), client.getShortName(), client.getContact().getId(), client.isActive(), client.getClientType().getId(), client.getNotes(), client.getTaxInfo().getId());
+        ClientModel clientModel = new ClientModel(client.getFullName(), client.getShortName(), client.getContact().getId(), client.isActive(), client.getClientType().getId(), client.getNotes(), client.getTaxInfo().getId(), client.getAppUserId());
         clientRepository.save(clientModel);
         client.setId(clientModel.getId());
         return client;
@@ -40,6 +40,7 @@ public class ClientService {
         clientFromDB.setClientTypeId(newClient.getClientType().getId());
         clientFromDB.setNotes(newClient.getNotes());
         clientFromDB.setTaxInfoId(newClient.getTaxInfo().getId());
+        clientFromDB.setAppUserId(newClient.getAppUserId());
         clientRepository.save(clientFromDB);
         return newClient;
     }
@@ -73,6 +74,6 @@ public class ClientService {
         List<Representative> representatives = new ArrayList<>(); // załadowanie representatives dla klienta
         return new Client(clientModel.getId(), clientModel.getFullName(), clientModel.getShortName(), addresses, contact,
                 clientModel.isActive(), clientType, taxInfo, businessBranches, businessCategories,
-                clientModel.getNotes(), representatives);
+                clientModel.getNotes(), representatives, clientModel.getAppUserId());
     }
 }
