@@ -24,12 +24,12 @@ public class Client {
     List<BusinessCategory> businessCategories;
     String notes;
     List<Representative> representatives;
-    UUID userId;
+    String appUserId;
 
     public Client() {
     }
 
-    public Client(UUID id, String fullName, String shortName, List<Address> addresses, Contact contact, boolean isActive, ClientType clientType, TaxInfo taxInfo, List<BusinessBranch> businessBranches, List<BusinessCategory> businessCategories, String notes, List<Representative> representatives) {
+    public Client(UUID id, String fullName, String shortName, List<Address> addresses, Contact contact, boolean isActive, ClientType clientType, TaxInfo taxInfo, List<BusinessBranch> businessBranches, List<BusinessCategory> businessCategories, String notes, List<Representative> representatives, String appUserId) {
         this.id = id;
         this.fullName = fullName;
         this.shortName = shortName;
@@ -42,6 +42,7 @@ public class Client {
         this.businessCategories = businessCategories;
         this.notes = notes;
         this.representatives = representatives;
+        this.appUserId = appUserId;
     }
 
     public UUID getId() {
@@ -138,5 +139,13 @@ public class Client {
 
     public void setRepresentatives(List<Representative> representatives) {
         this.representatives = representatives;
+    }
+
+    public String getAppUserId() {
+        return appUserId;
+    }
+
+    public void setAppUserId(String appUserId) {
+        this.appUserId = appUserId;
     }
 }
