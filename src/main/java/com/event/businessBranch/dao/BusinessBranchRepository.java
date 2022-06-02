@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BusinessBranchRepository extends CrudRepository<BusinessBranchModel, Integer> {
+public interface BusinessBranchRepository extends CrudRepository<BusinessBranchModel, String> {
 }
