@@ -1,7 +1,6 @@
 package com.event.equipment;
 
 import com.event.equipment.models.*;
-import com.event.event.equipment.models.*;
 
 import java.util.List;
 import java.util.UUID;
