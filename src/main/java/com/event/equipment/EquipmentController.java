@@ -1,9 +1,8 @@
-package com.event.event.equipment;
+package com.event.equipment;
 
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 public class EquipmentController {

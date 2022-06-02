@@ -1,10 +1,10 @@
-package com.event.event.equipment;
+package com.event.equipment;
 
-import com.event.event.equipment.dao.EquipmentModel;
-import com.event.event.equipment.dao.EquipmentRepository;
-import com.event.event.equipment.models.EquipmentCategory;
-import com.event.event.equipment.models.EquipmentData;
-import com.event.event.equipment.models.EquipmentStatus;
+import com.event.equipment.dao.EquipmentModel;
+import com.event.equipment.dao.EquipmentRepository;
+import com.event.equipment.models.EquipmentCategory;
+import com.event.equipment.models.EquipmentData;
+import com.event.equipment.models.EquipmentStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

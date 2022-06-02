@@ -1,6 +1,6 @@
 package com.event.event;
 
-import com.event.event.equipment.EquipmentController;
+import com.event.equipment.EquipmentController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

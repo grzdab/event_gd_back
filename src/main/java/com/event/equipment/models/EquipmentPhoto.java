@@ -1,4 +1,4 @@
-package com.event.event.equipment.models;
+package com.event.equipment.models;
 
 public class EquipmentPhoto {
     private int id;

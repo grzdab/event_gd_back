@@ -1,4 +1,4 @@
-package com.event.event.equipment.dao;
+package com.event.equipment.dao;
 
 import javax.persistence.*;
 import java.util.UUID;
