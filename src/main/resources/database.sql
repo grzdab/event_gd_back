@@ -104,7 +104,7 @@ CREATE TABLE country (
 );
 
 CREATE TABLE app_user (
-    id uuid NOT NULL PRIMARY KEY,
+    id uuid NOT NULL PRIMARY KEY default gen_random_uuid(),
     login character varying(100) NOT NULL,
     password character varying(100) NOT NULL,
     first_name character varying(50) NOT NULL,
@@ -132,14 +132,15 @@ CREATE TABLE business_category (
 );
 
 CREATE TABLE client (
-    id uuid PRIMARY KEY NOT NULL,
+    id uuid PRIMARY KEY NOT NULL default gen_random_uuid(),
     full_name character varying(200) NOT NULL,
     short_name character varying(100) NOT NULL,
     contact_data_id integer,
     is_active boolean NOT NULL DEFAULT true,
     client_type_id integer,
     notes text,
-    tax_info_id integer
+    tax_info_id integer,
+    app_user_id UUID NOT NULL
 );
 
 CREATE TABLE tax_info (
@@ -177,11 +178,11 @@ CREATE TABLE client_category (
 );
 
 CREATE TABLE client_representative (
-    id UUID PRIMARY KEY,
+    id UUID PRIMARY KEY default gen_random_uuid(),
     first_name character varying(100) NOT NULL,
     last_name character varying(100),
     contact_data_id integer,
-    client_id uuid
+    client_id UUID NOT NULL
 );
 
 -- EVENTS RELATED
@@ -207,7 +208,7 @@ CREATE TABLE booking_status (
 );
 
 CREATE TABLE events (
-    id uuid PRIMARY KEY,
+    id uuid PRIMARY KEY default gen_random_uuid(),
     name character varying(255) NOT NULL,
     creation_date date NOT NULL,
     event_start_date date NOT NULL,
@@ -238,7 +239,7 @@ CREATE TABLE equipment_category (
 );
 
 CREATE TABLE equipment (
-    id uuid PRIMARY KEY,
+    id uuid PRIMARY KEY default gen_random_uuid(),
     sorting_id smallint NOT NULL DEFAULT 1,
     name character varying(100),
     notes text,
@@ -280,8 +281,9 @@ ALTER TABLE address ADD CONSTRAINT FK_country FOREIGN KEY (country_id) REFERENCE
 ALTER TABLE address ADD CONSTRAINT FK_client FOREIGN KEY (client_id) REFERENCES client(id);
 ALTER TABLE client ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) REFERENCES contact_data(id);
 ALTER TABLE client ADD CONSTRAINT FK_client_type FOREIGN KEY (client_type_id) REFERENCES client_type(id);
-ALTER TABLE tax_info ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
 ALTER TABLE client ADD CONSTRAINT FK_tax_info FOREIGN KEY (tax_info_id) REFERENCES tax_info(id);
+ALTER TABLE client ADD CONSTRAINT FK_app_user FOREIGN KEY (app_user_id) REFERENCES app_user(id);
+ALTER TABLE tax_info ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
 ALTER TABLE company_meta_data ADD CONSTRAINT FK_legal_entity_type FOREIGN KEY (legal_entity_type_id) REFERENCES legal_entity_type(id);
 ALTER TABLE company_meta_data ADD CONSTRAINT FK_country FOREIGN KEY (country_id) REFERENCES country(id);
 ALTER TABLE app_user ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id) REFERENCES contact_data(id);
