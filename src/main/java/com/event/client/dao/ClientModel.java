@@ -1,7 +1,7 @@
 package com.event.client.dao;
 
 
-import com.event.admin.User;
+import com.event.admin.dao.UserModel;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
@@ -26,7 +26,7 @@ public class ClientModel {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User userId;
+    private UserModel userId;
 
     public ClientModel() {
     }

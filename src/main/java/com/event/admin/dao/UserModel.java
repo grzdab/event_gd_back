@@ -2,6 +2,7 @@ package com.event.admin.dao;
 
 import com.event.appRole.roleDao.AppRoleModel;
 import com.event.client.Client;
+import com.event.client.dao.ClientModel;
 import com.event.contact.contactDao.ContactModel;
 
 
@@ -45,7 +46,7 @@ public class UserModel {
 
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "client_id")
-    private List<Client> clients;
+    private List<ClientModel> clients;
 
     public UserModel() {
     }
