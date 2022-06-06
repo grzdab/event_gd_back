@@ -27,6 +27,10 @@ public class BusinessBranchModel {
         this.name = name;
     }
 
+    public BusinessBranchModel(String name) {
+        this.name = name;
+    }
+
     public String getId() {
         return id;
     }
