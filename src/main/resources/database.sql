@@ -235,7 +235,8 @@ CREATE TABLE event_equipment (
 CREATE TABLE equipment_category (
     id serial PRIMARY KEY,
     name character varying(100) NOT NULL,
-    sorting_group integer NOT NULL DEFAULT 0
+    sorting_group integer NOT NULL DEFAULT 0,
+    description character varying(255)
 );
 
 CREATE TABLE equipment (
