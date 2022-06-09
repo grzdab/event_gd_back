@@ -3,6 +3,7 @@ package com.event.admin;
 import com.event.admin.dao.UserModel;
 import com.event.admin.dao.UserRepository;
 import com.event.contact.Contact;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -13,6 +14,7 @@ public record UserService(UserRepository userRepository) {
 
     static UserMapper userMapper;
 
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -20,6 +22,7 @@ public record UserService(UserRepository userRepository) {
     public User addUser(User user) {
         UserModel model = new UserModel(user.getLogin(),user.getPassword(),user.getFirstName(),user.getLastName());
         userRepository.save(model);
+        //opcional
         user.setId(model.getId());
         return user;
     }
@@ -55,6 +58,7 @@ public record UserService(UserRepository userRepository) {
         List<User> users = new ArrayList<>();
         Iterable<UserModel> userModels = userRepository.findAll();
         for (UserModel model: userModels){
+            //save
             users.add(createUser(model));
         }
         return users;

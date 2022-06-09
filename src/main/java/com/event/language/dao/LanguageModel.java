@@ -1,4 +1,4 @@
-package com.event.clientType.dao;
+package com.event.language.dao;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -9,26 +9,26 @@ import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
-public class ClientTypeModel {
+public class LanguageModel {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+    String id;
 
     @NotEmpty
-    private String typeName;
+    String propertyName;
 
-    public ClientTypeModel() {
-    }
-
-    public ClientTypeModel(String id, String typeName) {
+    public LanguageModel(String id, String propertyName) {
         this.id = id;
-        this.typeName = typeName;
+        this.propertyName = propertyName;
     }
 
-    public ClientTypeModel(String typeName) {
-        this.typeName = typeName;
+    public LanguageModel(String propertyName) {
+        this.propertyName = propertyName;
+    }
+
+    public LanguageModel() {
     }
 
     public String getId() {
@@ -39,24 +39,24 @@ public class ClientTypeModel {
         this.id = id;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getPropertyName() {
+        return propertyName;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setPropertyName(String propertyName) {
+        this.propertyName = propertyName;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ClientTypeModel that = (ClientTypeModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(typeName, that.typeName);
+        LanguageModel that = (LanguageModel) o;
+        return Objects.equals(id, that.id) && Objects.equals(propertyName, that.propertyName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, typeName);
+        return Objects.hash(id, propertyName);
     }
 }

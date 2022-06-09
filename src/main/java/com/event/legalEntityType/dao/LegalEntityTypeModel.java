@@ -1,4 +1,4 @@
-package com.event.clientType.dao;
+package com.event.legalEntityType.dao;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -9,25 +9,20 @@ import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
 @Entity
-public class ClientTypeModel {
+public class LegalEntityTypeModel {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+    String id;
 
     @NotEmpty
-    private String typeName;
+    String typeName;
 
-    public ClientTypeModel() {
+    public LegalEntityTypeModel() {
     }
 
-    public ClientTypeModel(String id, String typeName) {
-        this.id = id;
-        this.typeName = typeName;
-    }
-
-    public ClientTypeModel(String typeName) {
+    public LegalEntityTypeModel(String typeName) {
         this.typeName = typeName;
     }
 
@@ -51,7 +46,7 @@ public class ClientTypeModel {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ClientTypeModel that = (ClientTypeModel) o;
+        LegalEntityTypeModel that = (LegalEntityTypeModel) o;
         return Objects.equals(id, that.id) && Objects.equals(typeName, that.typeName);
     }
 

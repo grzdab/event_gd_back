@@ -1,19 +1,22 @@
-package com.event.clientType;
+package com.event.legalEntityType;
 
 import java.util.Map;
 import java.util.Objects;
 
-public class ClientType {
-
+public class LegalEntityType {
     private String id;
     private String typeName;
-    private Map<Integer, String> clientType;
+    private Map<String,String> legalEntityType;
 
-    public ClientType() {
+    public LegalEntityType() {
     }
 
-    public ClientType(String id, String typeName) {
+    public LegalEntityType(String id, String typeName) {
         this.id = id;
+        this.typeName = typeName;
+    }
+
+    public LegalEntityType(String typeName) {
         this.typeName = typeName;
     }
 
@@ -33,16 +36,12 @@ public class ClientType {
         this.typeName = typeName;
     }
 
-    public void update(){
-        
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ClientType that = (ClientType) o;
-        return id == that.id && Objects.equals(typeName, that.typeName);
+        LegalEntityType that = (LegalEntityType) o;
+        return Objects.equals(id, that.id) && Objects.equals(typeName, that.typeName);
     }
 
     @Override
