@@ -53,4 +53,5 @@ public record ClientTypeService (ClientTypeRepository clientTypeRepository) {
 
     private ClientType createClientType(ClientTypeModel clientTypeModel){
         return new ClientType(clientTypeModel.getId(), clientTypeModel.getTypeName());
-    }}
+    }
+}
