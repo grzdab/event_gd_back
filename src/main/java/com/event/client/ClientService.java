@@ -8,6 +8,7 @@ import com.event.client.dao.ClientRepository;
 import com.event.clientType.ClientType;
 import com.event.contact.Contact;
 import com.event.representative.Representative;
+import com.event.representative.RepresentativeService;
 import com.event.taxInfo.TaxInfo;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +20,11 @@ import java.util.UUID;
 public class ClientService {
 
     private final ClientRepository clientRepository;
+    private final RepresentativeService representativeService;
 
-    public ClientService(ClientRepository clientRepository) {
+    public ClientService(ClientRepository clientRepository, RepresentativeService representativeService) {
         this.clientRepository = clientRepository;
+        this.representativeService = representativeService;
     }
 
     public Client addClient(Client client) {
@@ -58,20 +61,20 @@ public class ClientService {
     public List<Client> getAllClients() {
         List<Client> clients = new ArrayList<>();
         Iterable<ClientModel> clientModels = clientRepository.findAll();
-        for (ClientModel model: clientModels){
+        for (ClientModel model : clientModels) {
             clients.add(createClient(model));
         }
         return clients;
     }
 
-    private Client createClient(ClientModel clientModel){
+    private Client createClient(ClientModel clientModel) {
         List<Address> addresses = new ArrayList<>(); // załadowanie adresów klienta
         Contact contact = new Contact(); // załadowanie kontaktu klienta
         ClientType clientType = new ClientType(); // załadowanie clientType dla klienta
         TaxInfo taxInfo = new TaxInfo(); // załadowanie TaxInfo dla klienta
         List<BusinessBranch> businessBranches = new ArrayList<>(); // załadowanie businessBranches dla klienta
         List<BusinessCategory> businessCategories = new ArrayList<>(); // załadowanie businessCategories dla klienta
-        List<Representative> representatives = new ArrayList<>(); // załadowanie representatives dla klienta
+        List<Representative> representatives = representativeService.getAllRepresentativesForClient(clientModel.getId().toString());
         return new Client(clientModel.getId(), clientModel.getFullName(), clientModel.getShortName(), addresses, contact,
                 clientModel.isActive(), clientType, taxInfo, businessBranches, businessCategories,
                 clientModel.getNotes(), representatives, clientModel.getAppUserId());

@@ -62,4 +62,13 @@ public class RepresentativeService {
         return new Representative(representativeModel.getId(), representativeModel.getFirstName(),
                 representativeModel.getLastName(), contact, representativeModel.getClientId());
     }
+
+    public List<Representative> getAllRepresentativesForClient(String clientId) {
+        List<Representative> representatives = new ArrayList<>();
+        Iterable<RepresentativeModel> representativeModels = representativeRepository.findAllByClientId(clientId);
+        for (RepresentativeModel model: representativeModels){
+            representatives.add(createRepresentative(model));
+        }
+        return representatives;
+    }
 }

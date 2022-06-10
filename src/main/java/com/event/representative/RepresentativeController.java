@@ -37,4 +37,9 @@ public class RepresentativeController {
     public String deleteRepresentative(@PathVariable String representativeId) {
         return service.deleteRepresentative(representativeId);
     }
+
+    @GetMapping("/representative/client/{clientId}")
+    public List<Representative> getAllRepresentativesForClient(@PathVariable String clientId) {
+        return service.getAllRepresentativesForClient(clientId);
+    }
 }
