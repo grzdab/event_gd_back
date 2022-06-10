@@ -40,4 +40,5 @@ public class ContactController {
     public String deleteContact(@PathVariable int contactId) {
         return service.deleteContact(contactId);
     }
+
 }

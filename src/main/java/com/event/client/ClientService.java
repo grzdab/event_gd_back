@@ -1,12 +1,14 @@
 package com.event.client;
 
 import com.event.address.Address;
+import com.event.address.AddressService;
 import com.event.businessBranch.BusinessBranch;
 import com.event.businessCategory.BusinessCategory;
 import com.event.client.dao.ClientModel;
 import com.event.client.dao.ClientRepository;
 import com.event.clientType.ClientType;
 import com.event.contact.Contact;
+import com.event.contact.ContactService;
 import com.event.representative.Representative;
 import com.event.representative.RepresentativeService;
 import com.event.taxInfo.TaxInfo;
@@ -21,10 +23,14 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
     private final RepresentativeService representativeService;
+    private final AddressService addressService;
+    private final ContactService contactService;
 
-    public ClientService(ClientRepository clientRepository, RepresentativeService representativeService) {
+    public ClientService(ClientRepository clientRepository, RepresentativeService representativeService, AddressService addressService, ContactService contactService) {
         this.clientRepository = clientRepository;
         this.representativeService = representativeService;
+        this.addressService = addressService;
+        this.contactService = contactService;
     }
 
     public Client addClient(Client client) {
@@ -67,14 +73,16 @@ public class ClientService {
         return clients;
     }
 
+
     private Client createClient(ClientModel clientModel) {
-        List<Address> addresses = new ArrayList<>(); // załadowanie adresów klienta
-        Contact contact = new Contact(); // załadowanie kontaktu klienta
+        List<Address> addresses = addressService.getAllAddressForClient(clientModel.getId().toString());
+        Contact contact = contactService.getContact(clientModel.getContactId());
         ClientType clientType = new ClientType(); // załadowanie clientType dla klienta
         TaxInfo taxInfo = new TaxInfo(); // załadowanie TaxInfo dla klienta
         List<BusinessBranch> businessBranches = new ArrayList<>(); // załadowanie businessBranches dla klienta
         List<BusinessCategory> businessCategories = new ArrayList<>(); // załadowanie businessCategories dla klienta
-        List<Representative> representatives = representativeService.getAllRepresentativesForClient(clientModel.getId().toString());
+        List<Representative> representatives =
+                representativeService.getAllRepresentativesForClient(clientModel.getId().toString());
         return new Client(clientModel.getId(), clientModel.getFullName(), clientModel.getShortName(), addresses, contact,
                 clientModel.isActive(), clientType, taxInfo, businessBranches, businessCategories,
                 clientModel.getNotes(), representatives, clientModel.getAppUserId());
