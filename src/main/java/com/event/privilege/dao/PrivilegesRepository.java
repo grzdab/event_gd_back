@@ -1,4 +1,8 @@
 package com.event.privilege.dao;
 
-public interface PrivilegesRepository {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PrivilegesRepository extends CrudRepository<PrivilegesModel, String> {
 }
