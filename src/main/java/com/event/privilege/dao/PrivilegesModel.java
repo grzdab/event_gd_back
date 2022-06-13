@@ -1,18 +1,19 @@
 package com.event.privilege.dao;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 public class PrivilegesModel {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    UUID id;
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
+    String id;
 
     @NotEmpty
     String name;
@@ -20,7 +21,7 @@ public class PrivilegesModel {
     public PrivilegesModel() {
     }
 
-    public PrivilegesModel(UUID id, String name) {
+    public PrivilegesModel(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -29,11 +30,11 @@ public class PrivilegesModel {
         this.name = name;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 

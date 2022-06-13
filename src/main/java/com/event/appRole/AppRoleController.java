@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RestController("/admin")
+@RestController
 public class AppRoleController {
 
     private final AppRoleService service;
@@ -17,12 +17,12 @@ public class AppRoleController {
         this.service = service;
     }
 
-    @PostMapping("/role")
+    @PostMapping("/admin/role")
     public AppRole addRole(@RequestBody AppRole role) {
         return service.addRole(role);
     }
 
-    @PutMapping("/role/{roleId}")
+    @PutMapping("/admin/role/{roleId}")
     public ResponseEntity<Object> updateRole(@PathVariable UUID roleId, @RequestBody AppRole newRole) {
         AppRole updateRole = service.updateRole(roleId, newRole);
         if (updateRole == null){
@@ -33,15 +33,15 @@ public class AppRoleController {
 //        return service.updateRole(roleId, newRole);
     }
 
-    @GetMapping("/role/{roleId}")
+    @GetMapping("/admin/role/{roleId}")
     public AppRole getRole(@PathVariable UUID roleId) {
         return service.getRole(roleId);
     }
 
-    @GetMapping("/role")
+    @GetMapping("/admin/role")
     public List<AppRole> getAllRoles(){return service.getAllRoles();}
 
-    @DeleteMapping("/role/{roleId}")
+    @DeleteMapping("/admin/role/{roleId}")
     public String deleteRole(@PathVariable UUID roleId) {
         return service.deleteRole(roleId);
     }
