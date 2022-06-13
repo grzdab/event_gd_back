@@ -8,7 +8,7 @@ import java.util.UUID;
 public class AppRole {
 
     private UUID id;
-    private String privilege;
+    private String name;
     private List<Map<String, Boolean>> privileges;
 
     public AppRole() {
@@ -16,7 +16,7 @@ public class AppRole {
 
     public AppRole(UUID id, String privilege) {
         this.id = id;
-        this.privilege = privilege;
+        this.name = privilege;
     }
 
     public UUID getId() {
@@ -27,12 +27,12 @@ public class AppRole {
         this.id = id;
     }
 
-    public String getPrivilege() {
-        return privilege;
+    public String getName() {
+        return name;
     }
 
-    public void setPrivilege(String privilege) {
-        this.privilege = privilege;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Map<String, Boolean>> getPrivileges() {

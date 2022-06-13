@@ -13,7 +13,7 @@ public class AppRoleModel {
     UUID id;
 
     @NotEmpty
-    String privilege;
+    String name;
 
 //    @Column(columnDefinition = "boolean default false")
 //    Boolean isActive;
@@ -22,7 +22,7 @@ public class AppRoleModel {
     }
 
     public AppRoleModel(String privilege) {
-        this.privilege = privilege;
+        this.name = privilege;
 //        this.isActive = active;
     }
 
@@ -34,12 +34,12 @@ public class AppRoleModel {
         this.id = id;
     }
 
-    public String getPrivilege() {
-        return privilege;
+    public String getName() {
+        return name;
     }
 
-    public void setPrivilege(String privilege) {
-        this.privilege = privilege;
+    public void setName(String privilege) {
+        this.name = privilege;
     }
 
 //    public Boolean getActive() {
@@ -56,11 +56,11 @@ public class AppRoleModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AppRoleModel that = (AppRoleModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(privilege, that.privilege);
+        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, privilege);
+        return Objects.hash(id, name);
     }
 }

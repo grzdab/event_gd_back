@@ -1,7 +1,7 @@
-package com.event.admin;
+package com.event.user;
 
-import com.event.admin.dao.UserModel;
-import com.event.admin.dao.UserRepository;
+import com.event.user.dao.UserModel;
+import com.event.user.dao.UserRepository;
 import com.event.contact.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

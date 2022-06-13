@@ -4,10 +4,8 @@ import com.event.appRole.roleDao.AppRoleModel;
 import com.event.appRole.roleDao.AppRoleRepository;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,7 +18,7 @@ public record AppRoleService(AppRoleRepository appRoleRepository) {
     }
 
     public AppRole addRole(AppRole role) {
-        AppRoleModel model = new AppRoleModel(role.getPrivilege());
+        AppRoleModel model = new AppRoleModel(role.getName());
         appRoleRepository.save(model);
         role.setId(model.getId());
         return role;
@@ -55,11 +53,11 @@ public record AppRoleService(AppRoleRepository appRoleRepository) {
 //    }
     public AppRole updateRole(UUID id, AppRole newRole){
         AppRoleModel model = appRoleRepository.findById(id).get();
-        model.setPrivilege(newRole.getPrivilege());
+        model.setName(newRole.getName());
         appRoleRepository.save(model);
         return newRole;
     }
     private AppRole createRole(AppRoleModel appRoleModel){
-        return new AppRole(appRoleModel.getId(), appRoleModel.getPrivilege());
+        return new AppRole(appRoleModel.getId(), appRoleModel.getName());
     }
 }

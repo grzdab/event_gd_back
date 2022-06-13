@@ -1,6 +1,6 @@
-package com.event.admin;
+package com.event.user;
 
-import com.event.admin.dao.UserModel;
+import com.event.user.dao.UserModel;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;

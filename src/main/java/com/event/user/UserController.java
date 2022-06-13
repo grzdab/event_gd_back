@@ -1,4 +1,4 @@
-package com.event.admin;
+package com.event.user;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

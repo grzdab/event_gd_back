@@ -1,4 +1,4 @@
-package com.event.admin.dao;
+package com.event.user.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

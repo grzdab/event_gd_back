@@ -1,4 +1,4 @@
-package com.event.admin;
+package com.event.user;
 
 import com.event.appRole.AppRole;
 import com.event.client.dao.ClientRepository;
@@ -16,7 +16,7 @@ public class User {
     private String firstName;
     private String lastName;
     private Contact contact;
-    static List<AppRole> userRole = new ArrayList<>();
+    private AppRole userRole;
     static List<ClientRepository> clientRepositories = new ArrayList<>();
 
 
@@ -77,8 +77,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public static List<AppRole> getUserRole() {
+    public AppRole getUserRole() {
         return userRole;
+    }
+
+    public void setUserRole(AppRole userRole) {
+        this.userRole = userRole;
     }
 
     public Contact getContact() {
@@ -87,10 +91,6 @@ public class User {
 
     public void setContact(Contact contact) {
         this.contact = contact;
-    }
-
-    public static void setUserRole(List<AppRole> userRole) {
-        User.userRole = userRole;
     }
 
     public static List<ClientRepository> getClientRepositories() {
