@@ -11,11 +11,10 @@ import java.util.Objects;
 @Entity(name = "PrivilegesModel")
 public class PrivilegeModel {
 
-   private Integer id;
+    private Integer id;
 
     @NotEmpty
     private String name;
-
     private PrivilegeEnum type;
 
     public PrivilegeModel() {

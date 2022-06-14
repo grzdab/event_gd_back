@@ -9,9 +9,7 @@ import java.util.*;
 @Entity(name = "RoleModel")
 public class RoleModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    UUID id;
+    Integer id;
 
     @NotEmpty
     String name;
@@ -26,11 +24,13 @@ public class RoleModel {
         this.name = privilege;
     }
 
-    public UUID getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

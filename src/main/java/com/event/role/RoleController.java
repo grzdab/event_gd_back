@@ -23,7 +23,7 @@ public class RoleController {
     }
 
     @PutMapping("/admin/role/{roleId}")
-    public ResponseEntity<Object> updateRole(@PathVariable UUID roleId, @RequestBody Role newRole) {
+    public ResponseEntity<Object> updateRole(@PathVariable int roleId, @RequestBody Role newRole) {
         Role updateRole = service.updateRole(roleId, newRole);
         if (updateRole == null){
             return ResponseEntity.notFound().build();
@@ -34,7 +34,7 @@ public class RoleController {
     }
 
     @GetMapping("/admin/role/{roleId}")
-    public Role getRole(@PathVariable UUID roleId) {
+    public Role getRole(@PathVariable int roleId) {
         return service.getRole(roleId);
     }
 
@@ -42,7 +42,7 @@ public class RoleController {
     public List<Role> getAllRoles(){return service.getAllRoles();}
 
     @DeleteMapping("/admin/role/{roleId}")
-    public String deleteRole(@PathVariable UUID roleId) {
+    public String deleteRole(@PathVariable int roleId) {
         return service.deleteRole(roleId);
     }
 }

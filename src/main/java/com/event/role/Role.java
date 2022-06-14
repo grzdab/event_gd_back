@@ -6,30 +6,30 @@ import java.util.*;
 
 public class Role {
 
-    private UUID id;
+    private int id;
     private String name;
     private List<Privilege> privilegesList;
 
     public Role() {
     }
 
-    public Role(UUID id, String name) {
+    public Role(int id, String name) {
         this.id = id;
         this.name = name;
         this.privilegesList = new ArrayList<>();
     }
 
-    public Role(UUID id, String name, List<Privilege> privilegesList) {
+    public Role(int id, String name, List<Privilege> privilegesList) {
         this.id = id;
         this.name = name;
         this.privilegesList = privilegesList;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 

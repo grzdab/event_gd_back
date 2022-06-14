@@ -22,7 +22,7 @@ public record RoleService(RoleRepository appRoleRepository) {
         return role;
     }
 
-    public Role getRole(UUID id){
+    public Role getRole(int id){
         RoleModel model = appRoleRepository.findById(id).get();
         return createRole(model);
     }
@@ -37,12 +37,12 @@ public record RoleService(RoleRepository appRoleRepository) {
     }
 
 
-    public String deleteRole(UUID id){
+    public String deleteRole(int id){
         appRoleRepository.deleteById(id);
         return "Delete";
     }
 
-    public Role updateRole(UUID id, Role newRole){
+    public Role updateRole(int id, Role newRole){
         RoleModel model = appRoleRepository.findById(id).get();
         model.setName(newRole.getName());
         appRoleRepository.save(model);
