@@ -4,21 +4,21 @@ import java.util.Objects;
 
 public class Privilege {
 
-    private String id;
+    private int id;
     private String name;
     private PrivilegeEnum privilegesEnum;
 
-    public Privilege(String id, String name, PrivilegeEnum privilegesEnum) {
+    public Privilege(int id, String name, PrivilegeEnum privilegesEnum) {
         this.id = id;
         this.name = name;
         this.privilegesEnum = privilegesEnum;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

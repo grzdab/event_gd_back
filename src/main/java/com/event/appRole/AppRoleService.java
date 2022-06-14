@@ -24,7 +24,7 @@ public record AppRoleService(AppRoleRepository appRoleRepository) {
         return appRole;
     }
 
-    public AppRole getAppRole(String id){
+    public AppRole getAppRole(int id){
         AppRoleModel model = appRoleRepository.findById(id).get();
         return createAppRole(model);
     }
@@ -38,12 +38,12 @@ public record AppRoleService(AppRoleRepository appRoleRepository) {
         return appRoles;
     }
 
-    public String deleteAppRole(String id){
+    public String deleteAppRole(int id){
         appRoleRepository.deleteById(id);
         return "Delete";
     }
 
-    public AppRole updateAppRole(String id, AppRole newAppRole){
+    public AppRole updateAppRole(int id, AppRole newAppRole){
         AppRoleModel model = appRoleRepository.findById(id).get();
         appRoleRepository.save(model);
         return newAppRole;

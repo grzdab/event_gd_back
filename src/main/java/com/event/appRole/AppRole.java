@@ -6,30 +6,23 @@ import java.util.List;
 
 public class AppRole {
 
-    private String id;
+    private int id;
     private List <Role> roleList;
-//    private List<Map<String, Boolean>> privilegesRole = new ArrayList<>();
-
-
-//    public List<Privileges> getPrivileges() {
-//        return privilegesList;
-//    }
-
 
     public AppRole(List<Role> roleList) {
         this.roleList = roleList;
     }
 
-    public AppRole(String id, List<Role> roleList) {
+    public AppRole(int id, List<Role> roleList) {
         this.id = id;
         this.roleList = roleList;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -40,20 +33,7 @@ public class AppRole {
     public void setRoleList(List<Role> roleList) {
         this.roleList = roleList;
     }
-//    public List<Map<String, Boolean>> getPrivilegesRole() {
-//        return privilegesRole;
-//    }
 
-//    public void addToPrivilegesList(Privileges privileges){
-//        privilegesList.add(privileges);
-//    }
-//    public void deletePrivilegesFromList(Privileges privileges){
-//        for (int i=0; privilegesList.size()>i;i++){
-//            if (privilegesList.get(i).equals(privileges)){
-//                privilegesList.remove(privileges);
-//            }
-//        }
-//    }
     public void addToRoleList(Role role){
         roleList.add(role);
     }

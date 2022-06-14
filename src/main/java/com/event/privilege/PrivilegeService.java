@@ -21,7 +21,7 @@ public record PrivilegeService(PrivilegeRepository privilegesRepository) {
         return privileges;
     }
 
-    public Privilege getPrivileges(String id){
+    public Privilege getPrivileges(int id){
         PrivilegeModel model = privilegesRepository.findById(id).get();
         return createPrivileges(model);
     }
@@ -35,12 +35,12 @@ public record PrivilegeService(PrivilegeRepository privilegesRepository) {
         return privileges;
     }
 
-    public String deletePrivileges(String id){
+    public String deletePrivileges(int id){
         privilegesRepository.deleteById(id);
         return "Delete";
     }
 
-    public Privilege updatePrivileges(String id, Privilege newPrivileges){
+    public Privilege updatePrivileges(int id, Privilege newPrivileges){
         PrivilegeModel model = privilegesRepository.findById(id).get();
         model.setName(newPrivileges.getName());
         model.setType(newPrivileges.getPrivilegesEnum());

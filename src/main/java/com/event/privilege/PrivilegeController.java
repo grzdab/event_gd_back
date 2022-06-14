@@ -21,7 +21,7 @@ public class PrivilegeController {
     }
 
     @PutMapping("/admin/privileges/{privilegesId}")
-    public ResponseEntity<Object> updatePrivileges(@PathVariable String privilegesId, @RequestBody Privilege newPrivileges) {
+    public ResponseEntity<Object> updatePrivileges(@PathVariable int privilegesId, @RequestBody Privilege newPrivileges) {
         Privilege updatePrivileges = service.updatePrivileges(privilegesId, newPrivileges);
         if (updatePrivileges == null){
             return ResponseEntity.notFound().build();
@@ -32,7 +32,7 @@ public class PrivilegeController {
     }
 
     @GetMapping("/admin/privileges/{privilegesId}")
-    public Privilege getPrivileges(@PathVariable String privilegesId) {
+    public Privilege getPrivileges(@PathVariable int privilegesId) {
         return service.getPrivileges(privilegesId);
     }
 
@@ -40,7 +40,7 @@ public class PrivilegeController {
     public List<Privilege> getAllRoles(){return service.getAllPrivileges();}
 
     @DeleteMapping("/admin/privileges/{privilegesId}")
-    public String deletePrivileges(@PathVariable String privilegesId) {
+    public String deletePrivileges(@PathVariable int privilegesId) {
         return service.deletePrivileges(privilegesId);
     }
 }

@@ -10,25 +10,18 @@ import java.util.Objects;
 
 @Entity(name = "PrivilegesModel")
 public class PrivilegeModel {
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+
+   private Integer id;
 
     @NotEmpty
     private String name;
 
     private PrivilegeEnum type;
 
-//    @ManyToOne
-//    @JoinColumn
-//    private RoleModel role;
-
-
     public PrivilegeModel() {
     }
 
-    public PrivilegeModel(String id, String name, PrivilegeEnum type) {
+    public PrivilegeModel(int id, String name, PrivilegeEnum type) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -39,11 +32,12 @@ public class PrivilegeModel {
         this.type = type;
     }
 
-    public String getId() {
+    @Id
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

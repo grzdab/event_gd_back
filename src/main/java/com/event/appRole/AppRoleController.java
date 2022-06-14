@@ -15,7 +15,7 @@ public class AppRoleController {
     }
 
     @GetMapping("/appRole/{id}")
-    public AppRole getAppRole(@PathVariable String id) {
+    public AppRole getAppRole(@PathVariable int id) {
         return service.getAppRole(id);
     }
 
@@ -30,12 +30,12 @@ public class AppRoleController {
     }
 
     @PutMapping("/appRole/{id}")
-    public AppRole updateAppRole(@PathVariable String id, @RequestBody AppRole newAppRole) {
+    public AppRole updateAppRole(@PathVariable int id, @RequestBody AppRole newAppRole) {
         return service.updateAppRole(id, newAppRole);
     }
 
     @DeleteMapping("/appRole/{id}")
-    public String deleteAppRole(@PathVariable String id) {
+    public String deleteAppRole(@PathVariable int id) {
         return service.deleteAppRole(id);
     }
 

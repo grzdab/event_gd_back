@@ -9,8 +9,8 @@ import java.util.Objects;
 
 @Entity
 public class AppRoleModel {
-    @Id
-    String id;
+
+    Integer id;
 
     @OneToOne
 //    @JoinColumn(name = "role_id")
@@ -19,15 +19,22 @@ public class AppRoleModel {
     public AppRoleModel() {
     }
 
-    public AppRoleModel(String id, RoleModel role) {
+    public AppRoleModel(Integer id, RoleModel role) {
         this.id = id;
         this.role = role;
+    }
+    @Id
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public RoleModel getRole() {
         return role;
     }
-
 
     public void setRole(RoleModel role) {
         this.role = role;
@@ -36,15 +43,6 @@ public class AppRoleModel {
     public AppRoleModel(RoleModel role) {
         this.role = role;
     }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
 
     @Override
     public boolean equals(Object o) {
