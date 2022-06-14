@@ -1,5 +1,6 @@
 package com.event.equipment;
 
+import com.event.equipment.models.EquipmentCategory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,5 +36,15 @@ public class EquipmentController {
     @DeleteMapping("/equipment/{id}")
     String deleteEquipment(@PathVariable String id) {
         return service.deleteEquipment(id);
+    }
+
+    @GetMapping("/equipment/{id}/categories")//czy to jest wogule potrzebne
+    List<EquipmentCategory> getAllCategories(@PathVariable String id) {
+        return service.getAllCategories(id);
+    }
+
+    @GetMapping("/equipment/{id}/category")
+    EquipmentCategory getCategoryById(String id) {
+        return service.getCategory(id);
     }
 }

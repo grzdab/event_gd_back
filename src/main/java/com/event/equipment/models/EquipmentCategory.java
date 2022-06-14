@@ -1,9 +1,10 @@
 package com.event.equipment.models;
 
 public class EquipmentCategory {
-    int id;
+    private int id;
     private String name;
-    int sortingGroup;
+    private int sortingGroup;
+    private String description;
 
     public EquipmentCategory() {
     }
@@ -20,6 +21,10 @@ public class EquipmentCategory {
         this.sortingGroup = sortingGroup;
     }
 
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public int getId() {
         return id;
     }
@@ -30,5 +35,9 @@ public class EquipmentCategory {
 
     public int getSortingGroup() {
         return sortingGroup;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }
