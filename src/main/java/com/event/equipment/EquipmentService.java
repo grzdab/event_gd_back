@@ -64,22 +64,6 @@ public class EquipmentService {
         return equipment;
     }
 
-    public List<EquipmentCategory> getAllCategories(String id) {//btw to jest w ogule potrzebne?
-        //TODO pobrać equipment i z niego pobrać wszystkie kategorie
-        return null;
-    }
-
-    public EquipmentCategory getCategory(String id) {
-        EquipmentModel equipmentModel = equipmentRepository.findById(UUID.fromString(id)).orElseThrow();
-        return null;
-        //EquipmentCategory category = new EquipmentCategory()
-    }
-
-    private EquipmentCategory getCategoryById(String id) {
-        EquipmentModel categoreey = equipmentRepository.findById(UUID.fromString(id)).orElseThrow();
-        EquipmentCategory category = equipmentRepository.findById()categoreey.getEquipmentCategoryId()
-    }
-
     private Equipment createEquipment(EquipmentModel equipmentFromDb) {
         // to finish
         return new Equipment(equipmentFromDb.getId(), equipmentFromDb.getSortingId(),
