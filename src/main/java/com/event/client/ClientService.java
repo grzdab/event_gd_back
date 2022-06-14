@@ -12,6 +12,7 @@ import com.event.clientType.ClientType;
 import com.event.clientType.ClientTypeService;
 import com.event.contact.Contact;
 import com.event.contact.ContactService;
+import com.event.representative.MiniRepresentative;
 import com.event.representative.Representative;
 import com.event.representative.RepresentativeService;
 import com.event.taxInfo.TaxInfo;
@@ -78,11 +79,11 @@ public class ClientService {
         return "DELETED";
     }
 
-    public List<Client> getAllClients() {
-        List<Client> clients = new ArrayList<>();
+    public List<MiniClient> getAllClients() {
+        List<MiniClient> clients = new ArrayList<>();
         Iterable<ClientModel> clientModels = clientRepository.findAll();
         for (ClientModel model : clientModels) {
-            clients.add(createClient(model));
+            clients.add(createMiniClient(model));
         }
         return clients;
     }
@@ -100,6 +101,14 @@ public class ClientService {
         return new Client(clientModel.getId(), clientModel.getFullName(), clientModel.getShortName(), addresses, contact,
                 clientModel.isActive(), clientType, taxInfo, businessBranches, businessCategories,
                 clientModel.getNotes(), representatives, clientModel.getAppUserId());
+    }
+
+    private MiniClient createMiniClient(ClientModel clientModel){
+        List<MiniRepresentative> representatives = representativeService.getAllMiniRepresentativesForClient(clientModel.getId().toString());
+        Contact contact = contactService.getContact(clientModel.getContactId());
+        List<Address> addresses = addressService.getAllAddressForClient(clientModel.getId().toString());
+        return new MiniClient(clientModel.getId(), clientModel.getShortName(), representatives, contact, addresses,
+                clientModel.getAppUserId());
     }
 
     private List<BusinessBranch> getAllBusinessBranchForClient(List<Integer> businessBranchesId){
