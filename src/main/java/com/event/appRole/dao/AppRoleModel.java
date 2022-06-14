@@ -13,12 +13,13 @@ public class AppRoleModel {
     Integer id;
 
     @OneToOne
-//    @JoinColumn(name = "role_id")
     RoleModel role;
 
     public AppRoleModel() {
     }
-
+    public AppRoleModel(RoleModel role) {
+        this.role = role;
+    }
     public AppRoleModel(Integer id, RoleModel role) {
         this.id = id;
         this.role = role;
@@ -37,10 +38,6 @@ public class AppRoleModel {
     }
 
     public void setRole(RoleModel role) {
-        this.role = role;
-    }
-
-    public AppRoleModel(RoleModel role) {
         this.role = role;
     }
 

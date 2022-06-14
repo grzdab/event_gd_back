@@ -26,15 +26,15 @@ public class User {
         this.login = login;
     }
 
-    public User(UUID id, String login, String password, String firstName, String lastName, Contact contact) {
+    public User(UUID id, String login, String password, String firstName, String lastName, Contact contact, AppRole userRole) {
         this.id = id;
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contact = contact;
+        this.userRole = userRole;
     }
-    //TODO User with AppRole
 
     public UUID getId() {
         return id;

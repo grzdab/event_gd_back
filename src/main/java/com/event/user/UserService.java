@@ -1,5 +1,6 @@
 package com.event.user;
 
+import com.event.appRole.AppRole;
 import com.event.user.dao.UserModel;
 import com.event.user.dao.UserRepository;
 import com.event.contact.Contact;
@@ -57,8 +58,8 @@ public record UserService(UserRepository userRepository) {
     }
 
     private User createUser(UserModel userModel){
-//        List<Map<String,Boolean>> privileges = new ArrayList<>();
+        AppRole appRole = new AppRole();
         Contact contact = new Contact();
-        return new User(userModel.getId(), userModel.getLogin(), userModel.getPassword(), userModel.getFirstName(), userModel.getLastName(), contact);
+        return new User(userModel.getId(), userModel.getLogin(), userModel.getPassword(), userModel.getFirstName(), userModel.getLastName(), contact, appRole);
     }
 }

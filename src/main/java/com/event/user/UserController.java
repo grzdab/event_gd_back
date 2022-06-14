@@ -50,6 +50,5 @@ public class UserController {
         return service.deleteUser(userId);
     }
 
-    //TODO user/{user-id}/adress/{adress-id}
 
 }

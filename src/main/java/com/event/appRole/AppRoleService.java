@@ -18,7 +18,7 @@ public record AppRoleService(AppRoleRepository appRoleRepository) {
     }
 
     public AppRole addAppRole(AppRole appRole) {
-        AppRoleModel model = new AppRoleModel((RoleModel) appRole.getRoleList());
+        AppRoleModel model = new AppRoleModel();
         appRoleRepository.save(model);
         appRole.setId(model.getId());
         return appRole;

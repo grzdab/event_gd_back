@@ -9,6 +9,9 @@ public class AppRole {
     private int id;
     private List <Role> roleList;
 
+    public AppRole() {
+    }
+
     public AppRole(List<Role> roleList) {
         this.roleList = roleList;
     }
