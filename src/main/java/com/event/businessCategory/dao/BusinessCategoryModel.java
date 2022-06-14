@@ -1,7 +1,5 @@
 package com.event.businessCategory.dao;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,10 +9,7 @@ import java.util.Objects;
 @Entity
 public class BusinessCategoryModel {
 
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+    private Integer id;
 
     @NotEmpty
     private String name;
@@ -22,7 +17,7 @@ public class BusinessCategoryModel {
     public BusinessCategoryModel() {
     }
 
-    public BusinessCategoryModel(String id, String name) {
+    public BusinessCategoryModel(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -31,11 +26,13 @@ public class BusinessCategoryModel {
         this.name = name;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getId() {
+    @Id
+    @GeneratedValue
+    public Integer getId() {
         return id;
     }
 

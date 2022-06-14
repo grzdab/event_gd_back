@@ -20,15 +20,15 @@ public record BusinessCategoryService(BusinessCategoryRepository businessCategor
         businessCategory.setId(model.getId());
         return businessCategory;
     }
-    public BusinessCategory getBusinessCategory(String businessCategoryId){
+    public BusinessCategory getBusinessCategory(Integer businessCategoryId){
         BusinessCategoryModel model = businessCategoryRepository.findById(businessCategoryId).get();
         return createBusinessCategory(model);
     }
-    public String deleteBusinessCategory(String businessCategoryId){
+    public String deleteBusinessCategory(Integer businessCategoryId){
         businessCategoryRepository.deleteById(businessCategoryId);
         return "delete";
     }
-    public BusinessCategory updateBusinessCategory(String businessCategoryId, BusinessCategory newBusinessCategory){
+    public BusinessCategory updateBusinessCategory(Integer businessCategoryId, BusinessCategory newBusinessCategory){
         BusinessCategoryModel model = businessCategoryRepository.findById(businessCategoryId).get();
         model.setName(newBusinessCategory.getName());
         businessCategoryRepository.save(model);

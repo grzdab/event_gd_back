@@ -24,17 +24,17 @@ public record ClientTypeService (ClientTypeRepository clientTypeRepository) {
         return clientType;
     }
 
-    public ClientType getClientType(String clientTypeId) {
+    public ClientType getClientType(Integer clientTypeId) {
         ClientTypeModel model = clientTypeRepository.findById(clientTypeId).get();
         return createClientType(model);
     }
 
-    public String deleteClientType(String clientTypeId) {
+    public String deleteClientType(Integer clientTypeId) {
         clientTypeRepository.deleteById(clientTypeId);
         return "Deleted";
     }
 
-    public ClientType updateClientType(String clientTypeId, ClientType newClientType) {
+    public ClientType updateClientType(Integer clientTypeId, ClientType newClientType) {
         ClientTypeModel model = clientTypeRepository.findById(clientTypeId).get();
         model.setTypeName(newClientType.getTypeName());
         clientTypeRepository.save(model);

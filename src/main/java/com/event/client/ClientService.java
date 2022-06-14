@@ -46,7 +46,9 @@ public class ClientService {
     }
 
     public Client addClient(Client client) {
-        ClientModel clientModel = new ClientModel(client.getFullName(), client.getShortName(), client.getContact().getId(), client.isActive(), Integer.parseInt(client.getClientType().getId()), client.getNotes(), client.getTaxInfo().getId(), client.getAppUserId());
+        ClientModel clientModel = new ClientModel(client.getFullName(), client.getShortName(),
+                client.getContact().getId(), client.isActive(), client.getClientType().getId(),
+                client.getNotes(), client.getTaxInfo().getId(), client.getAppUserId());
         clientRepository.save(clientModel);
         client.setId(clientModel.getId());
         return client;
@@ -58,7 +60,7 @@ public class ClientService {
         clientFromDB.setShortName(newClient.getShortName());
         clientFromDB.setContactId(newClient.getContact().getId());
         clientFromDB.setActive(newClient.isActive());
-        clientFromDB.setClientTypeId(Integer.parseInt(newClient.getClientType().getId()));
+        clientFromDB.setClientTypeId(newClient.getClientType().getId());
         clientFromDB.setNotes(newClient.getNotes());
         clientFromDB.setTaxInfoId(newClient.getTaxInfo().getId());
         clientFromDB.setAppUserId(newClient.getAppUserId());
@@ -89,7 +91,7 @@ public class ClientService {
     private Client createClient(ClientModel clientModel) {
         List<Address> addresses = addressService.getAllAddressForClient(clientModel.getId().toString());
         Contact contact = contactService.getContact(clientModel.getContactId());
-        ClientType clientType = clientTypeService.getClientType(String.valueOf(clientModel.getClientTypeId()));
+        ClientType clientType = clientTypeService.getClientType(clientModel.getClientTypeId());
         TaxInfo taxInfo = taxInfoService.getTaxInfo(clientModel.getTaxInfoId());
         List<BusinessBranch> businessBranches = getAllBusinessBranchForClient(clientModel.getBusinessBranchesId());
         List<BusinessCategory> businessCategories = getAllBusinessCategoryForClient(clientModel.getBusinessCategoriesId());
@@ -100,42 +102,42 @@ public class ClientService {
                 clientModel.getNotes(), representatives, clientModel.getAppUserId());
     }
 
-    private List<BusinessBranch> getAllBusinessBranchForClient(List<String> businessBranchesId){
+    private List<BusinessBranch> getAllBusinessBranchForClient(List<Integer> businessBranchesId){
         List<BusinessBranch> businessBranches = new ArrayList<>();
-        for (String id: businessBranchesId){
+        for (Integer id: businessBranchesId){
             businessBranches.add(businessBranchService.getBusinessBranch(id));
         }
         return businessBranches;
     }
 
-    private List<BusinessCategory> getAllBusinessCategoryForClient(List<String> businessCategoriesId){
+    private List<BusinessCategory> getAllBusinessCategoryForClient(List<Integer> businessCategoriesId){
         List<BusinessCategory> businessCategories = new ArrayList<>();
-        for (String id: businessCategoriesId){
+        for (Integer id: businessCategoriesId){
             businessCategories.add(businessCategoryService.getBusinessCategory(id));
         }
         return businessCategories;
     }
 
-    public void addBusinessCategoryToClient(String clientId, String businessCategoryId){
+    public void addBusinessCategoryToClient(String clientId, Integer businessCategoryId){
         ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
         clientFromDB.getBusinessCategoriesId().add(businessCategoryId);
         clientRepository.save(clientFromDB);
     }
 
-    public void deleteBusinessCategoryFromClient(String clientId, String businessCategoryId){
+    public void deleteBusinessCategoryFromClient(String clientId, Integer businessCategoryId){
         ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
         clientFromDB.getBusinessCategoriesId().remove(businessCategoryId);
         clientRepository.save(clientFromDB);
     }
 
-    public void addBusinessBranchToClient(String clientId, String businessBranchId){
+    public void addBusinessBranchToClient(String clientId, Integer businessBranchId){
         ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
         clientFromDB.getBusinessBranchesId().add(businessBranchId);
         clientRepository.save(clientFromDB);
 
     }
 
-    public void deleteBusinessBranchFromClient(String clientId, String businessBranchId){
+    public void deleteBusinessBranchFromClient(String clientId, Integer businessBranchId){
         ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
         clientFromDB.getBusinessBranchesId().remove(businessBranchId);
         clientRepository.save(clientFromDB);

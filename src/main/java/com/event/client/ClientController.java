@@ -42,22 +42,22 @@ public class ClientController {
     }
 
     @PutMapping("/client/{clientId}/business-branch/{businessBranchId}/add")
-    public void addBusinessBranchToClient(@PathVariable String clientId, @PathVariable String businessBranchId) {
+    public void addBusinessBranchToClient(@PathVariable String clientId, @PathVariable Integer businessBranchId) {
         service.addBusinessBranchToClient(clientId, businessBranchId);
     }
 
     @PutMapping("/client/{clientId}/business-branch/{businessBranchId}/delete")
-    public void deleteBusinessBranchFromClient(@PathVariable String clientId, @PathVariable String businessBranchId) {
+    public void deleteBusinessBranchFromClient(@PathVariable String clientId, @PathVariable Integer businessBranchId) {
         service.deleteBusinessBranchFromClient(clientId, businessBranchId);
     }
 
     @PutMapping("/client/{clientId}/business-category/{businessCategoryId}/add")
-    public void addBusinessCategoryToClient(@PathVariable String clientId, @PathVariable String businessCategoryId) {
+    public void addBusinessCategoryToClient(@PathVariable String clientId, @PathVariable Integer businessCategoryId) {
         service.addBusinessCategoryToClient(clientId, businessCategoryId);
     }
 
     @PutMapping("/client/{clientId}/business-category/{businessCategoryId}/delete")
-    public void deleteBusinessCategoryFromClient(@PathVariable String clientId, @PathVariable String businessCategoryId) {
+    public void deleteBusinessCategoryFromClient(@PathVariable String clientId, @PathVariable Integer businessCategoryId) {
         service.deleteBusinessCategoryFromClient(clientId, businessCategoryId);
     }
 }
