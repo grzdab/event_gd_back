@@ -1,58 +1,49 @@
 package com.event.appRole;
 
+import com.event.privilege.Privileges;
+import com.event.role.Role;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 
 public class AppRole {
 
-    private UUID id;
-    private String name;
-    private List<Map<String, Boolean>> privileges;
+    private List <Privileges> privilegesList;
+    private List <Role> roleList;
+    private List<Map<String, Boolean>> privilegesRole = new ArrayList<>();
 
-    public AppRole() {
+
+    public List<Privileges> getPrivileges() {
+        return privilegesList;
     }
 
-    public AppRole(UUID id, String privilege) {
-        this.id = id;
-        this.name = privilege;
+    public List<Role> getRole() {
+        return roleList;
     }
 
-    public UUID getId() {
-        return id;
+    public List<Map<String, Boolean>> getPrivilegesRole() {
+        return privilegesRole;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void addToPrivilegesList(Privileges privileges){
+        privilegesList.add(privileges);
     }
-
-    public String getName() {
-        return name;
+    public void deletePrivilegesFromList(Privileges privileges){
+        for (int i=0; privilegesList.size()>i;i++){
+            if (privilegesList.get(i).equals(privileges)){
+                privilegesList.remove(privileges);
+            }
+        }
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public void addToRoleList(Role role){
+        roleList.add(role);
     }
-
-    public List<Map<String, Boolean>> getPrivileges() {
-        return privileges;
-    }
-
-    public void setPrivileges(List<Map<String, Boolean>> privileges) {
-        this.privileges = privileges;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AppRole role = (AppRole) o;
-        return Objects.equals(id, role.id) && Objects.equals(privileges, role.privileges);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, privileges);
+    public void deleteRoleFromList(Role role){
+        for (int i=0; roleList.size()>i;i++){
+            if (roleList.get(i).equals(role)){
+                roleList.remove(role);
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.event.appRole.roleDao;
+package com.event.role.roleDao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface AppRoleRepository extends CrudRepository<AppRoleModel, UUID>{
+public interface RoleRepository extends CrudRepository<RoleModel, UUID> {
 }

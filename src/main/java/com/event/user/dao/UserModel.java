@@ -1,6 +1,6 @@
 package com.event.user.dao;
 
-import com.event.appRole.roleDao.AppRoleModel;
+import com.event.role.roleDao.RoleModel;
 import com.event.client.dao.ClientModel;
 import com.event.contact.contactDao.ContactModel;
 
@@ -41,7 +41,7 @@ public class UserModel {
     ///////////////////////////////////
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_role_id")
-    private List<AppRoleModel> userRole;
+    private List<RoleModel> userRole;
 //////////////////////////////////////////
 
     @OneToMany(cascade = {CascadeType.ALL})
@@ -106,11 +106,11 @@ public class UserModel {
         this.contact = contact;
     }
 
-    public AppRoleModel getUserRole() {
-        return (AppRoleModel) userRole;
+    public RoleModel getUserRole() {
+        return (RoleModel) userRole;
     }
-    public void setUserRole(AppRoleModel userRole) {
-        this.userRole = (List<AppRoleModel>) userRole;
+    public void setUserRole(RoleModel userRole) {
+        this.userRole = (List<RoleModel>) userRole;
     }
 
     @Override

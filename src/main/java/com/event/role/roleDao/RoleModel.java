@@ -1,4 +1,4 @@
-package com.event.appRole.roleDao;
+package com.event.role.roleDao;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-public class AppRoleModel {
+public class RoleModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,15 +15,11 @@ public class AppRoleModel {
     @NotEmpty
     String name;
 
-//    @Column(columnDefinition = "boolean default false")
-//    Boolean isActive;
-
-    public AppRoleModel() {
+    public RoleModel() {
     }
 
-    public AppRoleModel(String privilege) {
+    public RoleModel(String privilege) {
         this.name = privilege;
-//        this.isActive = active;
     }
 
     public UUID getId() {
@@ -42,20 +38,11 @@ public class AppRoleModel {
         this.name = privilege;
     }
 
-//    public Boolean getActive() {
-//        return isActive;
-//    }
-//
-//    public void setActive(Boolean active) {
-//        isActive = active;
-//    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AppRoleModel that = (AppRoleModel) o;
+        RoleModel that = (RoleModel) o;
         return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 
