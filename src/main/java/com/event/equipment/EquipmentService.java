@@ -2,9 +2,9 @@ package com.event.equipment;
 
 import com.event.equipment.dao.EquipmentModel;
 import com.event.equipment.dao.EquipmentRepository;
-import com.event.equipment.models.EquipmentCategory;
-import com.event.equipment.models.EquipmentData;
-import com.event.equipment.models.EquipmentStatus;
+import com.event.equipmentCategory.EquipmentCategory;
+import com.event.equipmentData.EquipmentData;
+import com.event.equipmentStatus.EquipmentStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -66,6 +66,7 @@ public class EquipmentService {
 
     private Equipment createEquipment(EquipmentModel equipmentFromDb) {
         // to finish
+        EquipmentCategory equipmentCategory = equipmentRepository.findById();
         return new Equipment(equipmentFromDb.getId(), equipmentFromDb.getSortingId(),
                 equipmentFromDb.getName(), new EquipmentCategory(),
                 equipmentFromDb.getNotes(), new EquipmentData(),

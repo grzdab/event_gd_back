@@ -1,6 +1,11 @@
 package com.event.equipment;
 
 import com.event.equipment.models.*;
+import com.event.equipmentBookingStatus.EquipmentBookingStatus;
+import com.event.equipmentCategory.EquipmentCategory;
+import com.event.equipmentData.EquipmentData;
+import com.event.equipmentPhoto.EquipmentPhoto;
+import com.event.equipmentStatus.EquipmentStatus;
 
 import java.util.List;
 import java.util.UUID;
@@ -15,12 +20,12 @@ public class Equipment {
     private List<EquipmentPhoto> photos;
     private EquipmentStatus status;
     private int bookingStatus;
-    private List<BookingStatus> bookingPeriods;
+    private List<EquipmentBookingStatus> equipmentBookingPeriods;
 
     public Equipment() {
     }
 
-    public Equipment(UUID id, int sortingId, String name, EquipmentCategory category, String notes, EquipmentData equipmentData, List<EquipmentPhoto> photos, EquipmentStatus status, int bookingStatus, List<BookingStatus> bookingPeriods) {
+    public Equipment(UUID id, int sortingId, String name, EquipmentCategory category, String notes, EquipmentData equipmentData, List<EquipmentPhoto> photos, EquipmentStatus status, int bookingStatus, List<EquipmentBookingStatus> equipmentBookingPeriods) {
         this.id = id;
         this.sortingId = sortingId;
         this.name = name;
@@ -30,7 +35,7 @@ public class Equipment {
         this.photos = photos;
         this.status = status;
         this.bookingStatus = bookingStatus;
-        this.bookingPeriods = bookingPeriods;
+        this.equipmentBookingPeriods = equipmentBookingPeriods;
     }
 
     public UUID getId() {
@@ -69,8 +74,8 @@ public class Equipment {
         return bookingStatus;
     }
 
-    public List<BookingStatus> getBookingPeriods() {
-        return bookingPeriods;
+    public List<EquipmentBookingStatus> getEquipmentBookingPeriods() {
+        return equipmentBookingPeriods;
     }
 
     public void setId(UUID id) {
@@ -109,7 +114,7 @@ public class Equipment {
         this.bookingStatus = bookingStatus;
     }
 
-    public void setBookingPeriods(List<BookingStatus> bookingPeriods) {
-        this.bookingPeriods = bookingPeriods;
+    public void setEquipmentBookingPeriods(List<EquipmentBookingStatus> equipmentBookingPeriods) {
+        this.equipmentBookingPeriods = equipmentBookingPeriods;
     }
 }
