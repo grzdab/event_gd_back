@@ -66,7 +66,7 @@ public class EquipmentService {
 
     private Equipment createEquipment(EquipmentModel equipmentFromDb) {
         // to finish
-        EquipmentCategory equipmentCategory = equipmentRepository.findById();
+        EquipmentCategory equipmentCategory = equipmentRepository.findById();// tutaj powinien być equipmentCategoryService, który będzie prywatnym finalnym polem nastrzykniętym w konstruktorze
         return new Equipment(equipmentFromDb.getId(), equipmentFromDb.getSortingId(),
                 equipmentFromDb.getName(), new EquipmentCategory(),
                 equipmentFromDb.getNotes(), new EquipmentData(),
