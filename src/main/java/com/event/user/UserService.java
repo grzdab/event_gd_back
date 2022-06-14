@@ -12,8 +12,6 @@ import java.util.*;
 @Service
 public record UserService(UserRepository userRepository) {
 
-    static UserMapper userMapper;
-
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -36,12 +34,6 @@ public record UserService(UserRepository userRepository) {
         userRepository.deleteById(userId);
         return "Deleted";
     }
-//    public User updateUser(UUID userId, User newUser) {
-//        UserModel myUser = userRepository.findById(userId).get();
-//        userMapper.updateUserFromUser(newUser, Optional.of(myUser));
-//        userRepository.save(myUser);
-//        return newUser;
-//    }
 
     //póki co aktualizuje wszystko a nie tylko podmienione dane!
     public User updateUser(UUID userId, User newUser) {
