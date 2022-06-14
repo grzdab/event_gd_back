@@ -15,6 +15,7 @@ import com.event.contact.ContactService;
 import com.event.representative.Representative;
 import com.event.representative.RepresentativeService;
 import com.event.taxInfo.TaxInfo;
+import com.event.taxInfo.TaxInfoService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,8 +32,9 @@ public class ClientService {
     private final ClientTypeService clientTypeService;
     private final BusinessBranchService businessBranchService;
     private final BusinessCategoryService businessCategoryService;
+    private final TaxInfoService taxInfoService;
 
-    public ClientService(ClientRepository clientRepository, RepresentativeService representativeService, AddressService addressService, ContactService contactService, ClientTypeService clientTypeService, BusinessBranchService businessBranchService, BusinessCategoryService businessCategoryService) {
+    public ClientService(ClientRepository clientRepository, RepresentativeService representativeService, AddressService addressService, ContactService contactService, ClientTypeService clientTypeService, BusinessBranchService businessBranchService, BusinessCategoryService businessCategoryService, TaxInfoService taxInfoService) {
         this.clientRepository = clientRepository;
         this.representativeService = representativeService;
         this.addressService = addressService;
@@ -40,6 +42,7 @@ public class ClientService {
         this.clientTypeService = clientTypeService;
         this.businessBranchService = businessBranchService;
         this.businessCategoryService = businessCategoryService;
+        this.taxInfoService = taxInfoService;
     }
 
     public Client addClient(Client client) {
@@ -87,7 +90,7 @@ public class ClientService {
         List<Address> addresses = addressService.getAllAddressForClient(clientModel.getId().toString());
         Contact contact = contactService.getContact(clientModel.getContactId());
         ClientType clientType = clientTypeService.getClientType(String.valueOf(clientModel.getClientTypeId()));
-        TaxInfo taxInfo = new TaxInfo(); // załadowanie TaxInfo dla klienta
+        TaxInfo taxInfo = taxInfoService.getTaxInfo(clientModel.getTaxInfoId());
         List<BusinessBranch> businessBranches = getAllBusinessBranchForClient(clientModel.getBusinessBranchesId());
         List<BusinessCategory> businessCategories = getAllBusinessCategoryForClient(clientModel.getBusinessCategoriesId());
         List<Representative> representatives =
