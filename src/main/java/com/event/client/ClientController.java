@@ -40,4 +40,24 @@ public class ClientController {
     public String deleteClient(@PathVariable String clientId) {
         return service.deleteClient(clientId);
     }
+
+    @PutMapping("/client/{clientId}/business-branch/{businessBranchId}/add")
+    public void addBusinessBranchToClient(@PathVariable String clientId, @PathVariable String businessBranchId) {
+        service.addBusinessBranchToClient(clientId, businessBranchId);
+    }
+
+    @PutMapping("/client/{clientId}/business-branch/{businessBranchId}/delete")
+    public void deleteBusinessBranchFromClient(@PathVariable String clientId, @PathVariable String businessBranchId) {
+        service.deleteBusinessBranchFromClient(clientId, businessBranchId);
+    }
+
+    @PutMapping("/client/{clientId}/business-category/{businessCategoryId}/add")
+    public void addBusinessCategoryToClient(@PathVariable String clientId, @PathVariable String businessCategoryId) {
+        service.addBusinessCategoryToClient(clientId, businessCategoryId);
+    }
+
+    @PutMapping("/client/{clientId}/business-category/{businessCategoryId}/delete")
+    public void deleteBusinessCategoryFromClient(@PathVariable String clientId, @PathVariable String businessCategoryId) {
+        service.deleteBusinessCategoryFromClient(clientId, businessCategoryId);
+    }
 }
