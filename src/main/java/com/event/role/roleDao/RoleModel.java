@@ -1,7 +1,6 @@
 package com.event.role.roleDao;
 
-import com.event.privilege.Privileges;
-import com.event.privilege.dao.PrivilegesModel;
+import com.event.privilege.dao.PrivilegeModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -18,7 +17,7 @@ public class RoleModel {
     String name;
 
     @OneToMany
-    private List<PrivilegesModel> privilegesList = new ArrayList<>();
+    private List<PrivilegeModel> privilegesList = new ArrayList<>();
 
     public RoleModel() {
     }
@@ -43,11 +42,11 @@ public class RoleModel {
         this.name = privilege;
     }
 
-    public List<PrivilegesModel> getPrivilegesList() {
+    public List<PrivilegeModel> getPrivilegesList() {
         return privilegesList;
     }
 
-    public void setPrivilegesList(List<PrivilegesModel> privilegesList) {
+    public void setPrivilegesList(List<PrivilegeModel> privilegesList) {
         this.privilegesList = privilegesList;
     }
 

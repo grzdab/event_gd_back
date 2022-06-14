@@ -39,13 +39,5 @@ public class AddressController {
         return addressService.deleteAddress(addressId);
     }
 
-    //parametrise
-
-//    @GetMapping("/client/{clientId}/address")
-//    public List<Address> getAllParametriseStreet(@PathVariable String clientId,
-//                                                 @RequestParam("street") String street, Model model){
-//        model.addAttribute("street", street);
-//
-//    }
 
 }

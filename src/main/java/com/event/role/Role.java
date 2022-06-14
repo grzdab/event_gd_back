@@ -1,6 +1,6 @@
 package com.event.role;
 
-import com.event.privilege.Privileges;
+import com.event.privilege.Privilege;
 
 import java.util.*;
 
@@ -8,7 +8,7 @@ public class Role {
 
     private UUID id;
     private String name;
-    private List<Privileges> privilegesList;
+    private List<Privilege> privilegesList;
 
     public Role() {
     }
@@ -19,7 +19,7 @@ public class Role {
         this.privilegesList = new ArrayList<>();
     }
 
-    public Role(UUID id, String name, List<Privileges> privilegesList) {
+    public Role(UUID id, String name, List<Privilege> privilegesList) {
         this.id = id;
         this.name = name;
         this.privilegesList = privilegesList;
@@ -41,19 +41,19 @@ public class Role {
         this.name = name;
     }
 
-    public List<Privileges> getPrivileges() {
+    public List<Privilege> getPrivileges() {
         return privilegesList;
     }
 
-    public void setPrivileges(List<Privileges> privilegesList) {
+    public void setPrivileges(List<Privilege> privilegesList) {
         this.privilegesList = privilegesList;
     }
 
-    public void addToPrivilegesList(Privileges privileges){
+    public void addToPrivilegesList(Privilege privileges){
         privilegesList.add(privileges);
     }
 
-    public void deletePrivilegesFromList(Privileges privileges) {
+    public void deletePrivilegesFromList(Privilege privileges) {
         for (int i = 0; privilegesList.size() > i; i++) {
             if (privilegesList.get(i).equals(privileges)) {
                 privilegesList.remove(privileges);

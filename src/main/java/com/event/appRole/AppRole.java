@@ -1,11 +1,8 @@
 package com.event.appRole;
 
-import com.event.privilege.Privileges;
 import com.event.role.Role;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class AppRole {
 

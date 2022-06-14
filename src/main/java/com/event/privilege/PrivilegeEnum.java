@@ -1,6 +1,6 @@
 package com.event.privilege;
 
-public enum PrivilegesEnum {
+public enum PrivilegeEnum {
     CREATE,
     READ,
     UPDATE,

@@ -2,13 +2,13 @@ package com.event.privilege;
 
 import java.util.Objects;
 
-public class Privileges {
+public class Privilege {
 
     private String id;
     private String name;
-    private PrivilegesEnum privilegesEnum;
+    private PrivilegeEnum privilegesEnum;
 
-    public Privileges(String id, String name, PrivilegesEnum privilegesEnum) {
+    public Privilege(String id, String name, PrivilegeEnum privilegesEnum) {
         this.id = id;
         this.name = name;
         this.privilegesEnum = privilegesEnum;
@@ -30,11 +30,11 @@ public class Privileges {
         this.name = name;
     }
 
-    public PrivilegesEnum getPrivilegesEnum() {
+    public PrivilegeEnum getPrivilegesEnum() {
         return privilegesEnum;
     }
 
-    public void setPrivilegesEnum(PrivilegesEnum privilegesEnum) {
+    public void setPrivilegesEnum(PrivilegeEnum privilegesEnum) {
         this.privilegesEnum = privilegesEnum;
     }
 
@@ -42,7 +42,7 @@ public class Privileges {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Privileges that = (Privileges) o;
+        Privilege that = (Privilege) o;
         return Objects.equals(id, that.id) && Objects.equals(name, that.name);
     }
 

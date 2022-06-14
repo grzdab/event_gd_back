@@ -1,6 +1,6 @@
 package com.event.user;
 
-import com.event.role.Role;
+import com.event.appRole.AppRole;
 import com.event.client.dao.ClientRepository;
 import com.event.contact.Contact;
 
@@ -14,7 +14,7 @@ public class User {
     private String firstName;
     private String lastName;
     private Contact contact;
-    private Role userRole;
+    private AppRole userRole;
     static List<ClientRepository> clientRepositories = new ArrayList<>();
 
 
@@ -34,6 +34,7 @@ public class User {
         this.lastName = lastName;
         this.contact = contact;
     }
+    //TODO User with AppRole
 
     public UUID getId() {
         return id;
@@ -75,11 +76,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public Role getUserRole() {
+    public AppRole getUserAppRole() {
         return userRole;
     }
 
-    public void setUserRole(Role userRole) {
+    public void setUserAppRole(AppRole userRole) {
         this.userRole = userRole;
     }
 
