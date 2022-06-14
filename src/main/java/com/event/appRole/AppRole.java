@@ -9,14 +9,13 @@ import java.util.Map;
 
 public class AppRole {
 
-    private List <Privileges> privilegesList;
     private List <Role> roleList;
     private List<Map<String, Boolean>> privilegesRole = new ArrayList<>();
 
 
-    public List<Privileges> getPrivileges() {
-        return privilegesList;
-    }
+//    public List<Privileges> getPrivileges() {
+//        return privilegesList;
+//    }
 
     public List<Role> getRole() {
         return roleList;
@@ -26,16 +25,16 @@ public class AppRole {
         return privilegesRole;
     }
 
-    public void addToPrivilegesList(Privileges privileges){
-        privilegesList.add(privileges);
-    }
-    public void deletePrivilegesFromList(Privileges privileges){
-        for (int i=0; privilegesList.size()>i;i++){
-            if (privilegesList.get(i).equals(privileges)){
-                privilegesList.remove(privileges);
-            }
-        }
-    }
+//    public void addToPrivilegesList(Privileges privileges){
+//        privilegesList.add(privileges);
+//    }
+//    public void deletePrivilegesFromList(Privileges privileges){
+//        for (int i=0; privilegesList.size()>i;i++){
+//            if (privilegesList.get(i).equals(privileges)){
+//                privilegesList.remove(privileges);
+//            }
+//        }
+//    }
     public void addToRoleList(Role role){
         roleList.add(role);
     }
@@ -46,4 +45,6 @@ public class AppRole {
             }
         }
     }
+
+
 }

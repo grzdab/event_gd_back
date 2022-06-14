@@ -4,12 +4,14 @@ import java.util.Objects;
 
 public class Privileges {
 
-    String id;
-    String name;
+    private String id;
+    private String name;
+    private PrivilegesEnum privilegesEnum;
 
-    public Privileges(String id, String name) {
+    public Privileges(String id, String name, PrivilegesEnum privilegesEnum) {
         this.id = id;
         this.name = name;
+        this.privilegesEnum = privilegesEnum;
     }
 
     public String getId() {
@@ -26,6 +28,14 @@ public class Privileges {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public PrivilegesEnum getPrivilegesEnum() {
+        return privilegesEnum;
+    }
+
+    public void setPrivilegesEnum(PrivilegesEnum privilegesEnum) {
+        this.privilegesEnum = privilegesEnum;
     }
 
     @Override

@@ -47,6 +47,6 @@ public record PrivilegesService(PrivilegesRepository privilegesRepository) {
         return newPrivileges;
     }
     private Privileges createPrivileges(PrivilegesModel privilegesModel){
-        return new Privileges(privilegesModel.getId(), privilegesModel.getName());
+        return new Privileges(privilegesModel.getId(), privilegesModel.getName(), privilegesModel.);
     }
 }
