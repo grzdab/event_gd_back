@@ -57,7 +57,7 @@ public record UserService(UserRepository userRepository) {
     }
 
     private User createUser(UserModel userModel){
-        List<Map<String,Boolean>> privileges = new ArrayList<>();
+//        List<Map<String,Boolean>> privileges = new ArrayList<>();
         Contact contact = new Contact();
         return new User(userModel.getId(), userModel.getLogin(), userModel.getPassword(), userModel.getFirstName(), userModel.getLastName(), contact);
     }

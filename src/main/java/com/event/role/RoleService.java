@@ -48,6 +48,7 @@ public record RoleService(RoleRepository appRoleRepository) {
         appRoleRepository.save(model);
         return newRole;
     }
+
     private Role createRole(RoleModel roleModel){
         return new Role(roleModel.getId(), roleModel.getName());
     }

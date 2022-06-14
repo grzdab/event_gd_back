@@ -7,8 +7,6 @@ import com.event.contact.Contact;
 import java.util.*;
 
 public class User {
-    // dodać pola gettery i dwa konstruktory na zero parametrów i na wybrane
-    // ta klasa będzie używana przez springa do zwracanian jsona z api
 
     private UUID id;
     private String login;

@@ -10,7 +10,7 @@ import java.util.Map;
 public class AppRole {
 
     private List <Role> roleList;
-    private List<Map<String, Boolean>> privilegesRole = new ArrayList<>();
+//    private List<Map<String, Boolean>> privilegesRole = new ArrayList<>();
 
 
 //    public List<Privileges> getPrivileges() {
@@ -21,9 +21,9 @@ public class AppRole {
         return roleList;
     }
 
-    public List<Map<String, Boolean>> getPrivilegesRole() {
-        return privilegesRole;
-    }
+//    public List<Map<String, Boolean>> getPrivilegesRole() {
+//        return privilegesRole;
+//    }
 
 //    public void addToPrivilegesList(Privileges privileges){
 //        privilegesList.add(privileges);

@@ -2,10 +2,7 @@ package com.event.role;
 
 import com.event.privilege.Privileges;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class Role {
 
@@ -16,9 +13,16 @@ public class Role {
     public Role() {
     }
 
-    public Role(UUID id, String privilege) {
+    public Role(UUID id, String name) {
         this.id = id;
-        this.name = privilege;
+        this.name = name;
+        this.privilegesList = new ArrayList<>();
+    }
+
+    public Role(UUID id, String name, List<Privileges> privilegesList) {
+        this.id = id;
+        this.name = name;
+        this.privilegesList = privilegesList;
     }
 
     public UUID getId() {
@@ -48,6 +52,7 @@ public class Role {
     public void addToPrivilegesList(Privileges privileges){
         privilegesList.add(privileges);
     }
+
     public void deletePrivilegesFromList(Privileges privileges) {
         for (int i = 0; privilegesList.size() > i; i++) {
             if (privilegesList.get(i).equals(privileges)) {

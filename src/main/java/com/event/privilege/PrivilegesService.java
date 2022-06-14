@@ -15,7 +15,7 @@ public record PrivilegesService(PrivilegesRepository privilegesRepository) {
     }
 
     public Privileges addPrivileges(Privileges privileges) {
-        PrivilegesModel model = new PrivilegesModel(privileges.getName());
+        PrivilegesModel model = new PrivilegesModel(privileges.getName(), privileges.getPrivilegesEnum());
         privilegesRepository.save(model);
         privileges.setId(model.getId());
         return privileges;
@@ -43,10 +43,11 @@ public record PrivilegesService(PrivilegesRepository privilegesRepository) {
     public Privileges updatePrivileges(String id, Privileges newPrivileges){
         PrivilegesModel model = privilegesRepository.findById(id).get();
         model.setName(newPrivileges.getName());
+        model.setType(newPrivileges.getPrivilegesEnum());
         privilegesRepository.save(model);
         return newPrivileges;
     }
     private Privileges createPrivileges(PrivilegesModel privilegesModel){
-        return new Privileges(privilegesModel.getId(), privilegesModel.getName(), privilegesModel.);
+        return new Privileges(privilegesModel.getId(), privilegesModel.getName(), privilegesModel.getType());
     }
 }

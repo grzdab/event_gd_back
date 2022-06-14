@@ -1,11 +1,13 @@
 package com.event.role.roleDao;
 
+import com.event.privilege.Privileges;
+import com.event.privilege.dao.PrivilegesModel;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
-@Entity
+@Entity(name = "RoleModel")
 public class RoleModel {
 
     @Id
@@ -14,6 +16,9 @@ public class RoleModel {
 
     @NotEmpty
     String name;
+
+    @OneToMany
+    private List<PrivilegesModel> privilegesList = new ArrayList<>();
 
     public RoleModel() {
     }
@@ -38,16 +43,24 @@ public class RoleModel {
         this.name = privilege;
     }
 
+    public List<PrivilegesModel> getPrivilegesList() {
+        return privilegesList;
+    }
+
+    public void setPrivilegesList(List<PrivilegesModel> privilegesList) {
+        this.privilegesList = privilegesList;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RoleModel that = (RoleModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(name, that.name);
+        RoleModel roleModel = (RoleModel) o;
+        return Objects.equals(id, roleModel.id) && Objects.equals(name, roleModel.name) && Objects.equals(privilegesList, roleModel.privilegesList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, privilegesList);
     }
 }
