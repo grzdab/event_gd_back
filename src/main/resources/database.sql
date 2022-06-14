@@ -28,7 +28,7 @@ DROP TABLE IF EXISTS equipment_category CASCADE;
 DROP TABLE IF EXISTS equipment CASCADE;
 DROP TABLE IF EXISTS equipment_photo CASCADE;
 DROP TABLE IF EXISTS equipment_data CASCADE;
-DROP TABLE IF EXISTS logistics CASCADE;
+DROP TABLE IF EXISTS logistic CASCADE;
 
 
 -- APPLICATION RELATED
@@ -216,10 +216,15 @@ CREATE TABLE events (
     event_place character varying(100),
     description text,
     event_status_id integer,
-    distance smallint,
-    required_area smallint,
-    power_type_id integer,
-    place_type_id integer,
+    logistic_id integer
+);
+
+CREATE TABLE logistic(
+    id serial PRIMARY KEY,
+    distance integer ,
+    required_area integer ,
+    power_type character varying,
+    place_type character varying,
     notes character varying(50)
 );
 
@@ -291,6 +296,7 @@ ALTER TABLE app_user ADD CONSTRAINT FK_contact_data FOREIGN KEY (contact_data_id
 ALTER TABLE app_user ADD CONSTRAINT FK_app_role FOREIGN KEY (app_role_id) REFERENCES app_role(id);
 ALTER TABLE role_privileges ADD CONSTRAINT FK_app_role FOREIGN KEY (app_role_id) REFERENCES app_role(id);
 ALTER TABLE role_privileges ADD CONSTRAINT FK_app_privileges FOREIGN KEY (app_privileges_id) REFERENCES app_privileges(id);
+ALTER TABLE events ADD CONSTRAINT FK_event_logistic FOREIGN KEY (logistic_id) REFERENCES logistic(id);
 
 -- POPULATE
 
