@@ -11,15 +11,12 @@ import java.util.Objects;
 @Entity
 public class LanguageModel {
 
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    String id;
+    Integer id;
 
     @NotEmpty
     String propertyName;
 
-    public LanguageModel(String id, String propertyName) {
+    public LanguageModel(Integer id, String propertyName) {
         this.id = id;
         this.propertyName = propertyName;
     }
@@ -31,11 +28,13 @@ public class LanguageModel {
     public LanguageModel() {
     }
 
-    public String getId() {
+    @Id
+    @GeneratedValue
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

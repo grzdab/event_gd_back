@@ -20,9 +20,9 @@ public class PrivilegeModel {
 
     private PrivilegeEnum type;
 
-    @ManyToOne
-    @JoinColumn
-    private RoleModel role;
+//    @ManyToOne
+//    @JoinColumn
+//    private RoleModel role;
 
 
     public PrivilegeModel() {

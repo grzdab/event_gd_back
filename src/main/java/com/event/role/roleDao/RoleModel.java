@@ -17,7 +17,7 @@ public class RoleModel {
     String name;
 
     @OneToMany
-    private List<PrivilegeModel> privilegesList = new ArrayList<>();
+    private List<PrivilegeModel> privilegesList;//= new ArrayList<>();
 
     public RoleModel() {
     }

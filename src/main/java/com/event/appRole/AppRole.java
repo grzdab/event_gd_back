@@ -6,6 +6,7 @@ import java.util.List;
 
 public class AppRole {
 
+    private String id;
     private List <Role> roleList;
 //    private List<Map<String, Boolean>> privilegesRole = new ArrayList<>();
 
@@ -14,10 +15,31 @@ public class AppRole {
 //        return privilegesList;
 //    }
 
-    public List<Role> getRole() {
+
+    public AppRole(List<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    public AppRole(String id, List<Role> roleList) {
+        this.id = id;
+        this.roleList = roleList;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<Role> getRoleList() {
         return roleList;
     }
 
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
+    }
 //    public List<Map<String, Boolean>> getPrivilegesRole() {
 //        return privilegesRole;
 //    }
