@@ -2,9 +2,13 @@ package com.event.equipmentPhoto;
 
 import com.event.equipmentPhoto.dao.EquipmentPhotoModel;
 import com.event.equipmentPhoto.dao.EquipmentPhotoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public record EquipmentPhotoService (EquipmentPhotoRepository equipmentPhotoRepository) {
 
+    @Autowired
     public EquipmentPhotoService(EquipmentPhotoRepository equipmentPhotoRepository) {
         this.equipmentPhotoRepository = equipmentPhotoRepository;
     }

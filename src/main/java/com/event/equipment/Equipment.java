@@ -20,11 +20,12 @@ public class Equipment {
     private EquipmentStatus status;
     private int bookingStatus;
     private List<EquipmentBookingStatus> equipmentBookingPeriods;
+    private boolean inUse;
 
     public Equipment() {
     }
 
-    public Equipment(UUID id, int sortingId, String name, EquipmentCategory category, String notes, EquipmentData equipmentData, List<EquipmentPhoto> photos, EquipmentStatus status, int bookingStatus, List<EquipmentBookingStatus> equipmentBookingPeriods) {
+    public Equipment(UUID id, int sortingId, String name, EquipmentCategory category, String notes, EquipmentData equipmentData, List<EquipmentPhoto> photos, EquipmentStatus status, int bookingStatus, List<EquipmentBookingStatus> equipmentBookingPeriods, boolean inUse) {
         this.id = id;
         this.sortingId = sortingId;
         this.name = name;
@@ -35,6 +36,7 @@ public class Equipment {
         this.status = status;
         this.bookingStatus = bookingStatus;
         this.equipmentBookingPeriods = equipmentBookingPeriods;
+        this.inUse = inUse;
     }
 
     public UUID getId() {
@@ -77,6 +79,10 @@ public class Equipment {
         return equipmentBookingPeriods;
     }
 
+    public boolean isInUse() {
+        return inUse;
+    }
+
     public void setId(UUID id) {
         this.id = id;
     }
@@ -115,5 +121,9 @@ public class Equipment {
 
     public void setEquipmentBookingPeriods(List<EquipmentBookingStatus> equipmentBookingPeriods) {
         this.equipmentBookingPeriods = equipmentBookingPeriods;
+    }
+
+    public void setInUse(boolean inUse) {
+        this.inUse = inUse;
     }
 }

@@ -1,5 +1,7 @@
 package com.event.equipment.dao;
 
+import io.swagger.models.auth.In;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.UUID;
@@ -25,8 +27,7 @@ public class EquipmentModel {
     @Column(columnDefinition = "int default 0")
     private int equipmentCategoryId;
 
-    @Column(columnDefinition = "int default 0")
-    private int equipmentPhotoId;
+    private List<Integer> equipmentPhotoId;
 
     @Column(columnDefinition = "boolean default true")
     private boolean inUse;
@@ -34,7 +35,7 @@ public class EquipmentModel {
     public EquipmentModel() {
     }
 
-    public EquipmentModel(int sortingId, String name, String notes, int equipmentDataId, int equipmentCategoryId, int equipmentPhotoId, boolean inUse) {
+    public EquipmentModel(int sortingId, String name, String notes, int equipmentDataId, int equipmentCategoryId, List<Integer> equipmentPhotoId, boolean inUse) {
         this.sortingId = sortingId;
         this.name = name;
         this.notes = notes;
@@ -68,7 +69,7 @@ public class EquipmentModel {
         this.equipmentCategoryId = equipmentCategoryId;
     }
 
-    public void setEquipmentPhotoId(int equipmentPhotoId) {
+    public void setEquipmentPhotoId(List<Integer> equipmentPhotoId) {
         this.equipmentPhotoId = equipmentPhotoId;
     }
 
@@ -96,7 +97,8 @@ public class EquipmentModel {
         return equipmentCategoryId;
     }
 
-    public int getEquipmentPhotoId() {
+    @ElementCollection
+    public List<Integer> getEquipmentPhotoId() {
         return equipmentPhotoId;
     }
 

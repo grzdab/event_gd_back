@@ -13,6 +13,15 @@ public record EquipmentDataService (EquipmentDataRepository equipmentDataReposit
         this.equipmentDataRepository = equipmentDataRepository;
     }
 
+    public EquipmentData addEquipmentData(EquipmentData equipmentData) {
+        EquipmentDataModel equipmentDataModel = new EquipmentDataModel(equipmentData.getWidth(), equipmentData.getLength(),
+                equipmentData.getHeight(), equipmentData.getWeight(), equipmentData.getPowerRequired(),
+                equipmentData.getStaffNeeded(), equipmentData.getMinimumAge(), equipmentData.getMaxParticipants());
+        equipmentDataRepository.save(equipmentDataModel);
+        equipmentData.setId(equipmentDataModel.getId());
+        return equipmentData;
+    }
+
     public EquipmentData getEquipmentData(String equipmentDataId) {
         EquipmentDataModel model = equipmentDataRepository.findById(equipmentDataId).get();
         return createEquipmentData(model);

@@ -30,8 +30,10 @@ public class EquipmentService {
     }
 
     public Equipment addEquipment(Equipment equipment) {
-        //to finish
-        EquipmentModel equipmentModel = new EquipmentModel(0, equipment.getName(), equipment.getNotes(), 0, 0, 0, true);
+        EquipmentData equipmentData = equipmentDataService.addEquipmentData(equipment.getEquipmentData());
+        EquipmentModel equipmentModel = new EquipmentModel(equipment.getSortingId(), equipment.getName(),
+                equipment.getNotes(), equipmentData.getId(), equipment.getCategory().getId(),
+                createListOfPhotoId(equipment), equipment.isInUse());
         equipmentRepository.save(equipmentModel);
         equipment.setId(equipmentModel.getId());
         return equipment;
@@ -70,7 +72,7 @@ public class EquipmentService {
     }
 
     private Equipment createEquipment(EquipmentModel equipmentFromDb) {
-        // to finish
+        //TODO to finish
         EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategory(equipmentFromDb.getEquipmentCategoryId());
         EquipmentData equipmentData = equipmentDataService.getEquipmentData(String.valueOf(equipmentFromDb.getEquipmentDataId()));
         //List<EquipmentPhoto> equipmentPhoto = equipmentPhotoService.getEquipmentPhoto(String.valueOf(equipmentFromDb.getEquipmentPhotoId()));
@@ -78,6 +80,15 @@ public class EquipmentService {
                 equipmentFromDb.getName(), equipmentCategory,
                 equipmentFromDb.getNotes(), equipmentData,
                 new ArrayList<>(), new EquipmentStatus(UUID.randomUUID()), 1,
-                new ArrayList<>());
+                new ArrayList<>(), equipmentFromDb.isInUse());
+    }
+
+    private List<Integer> createListOfPhotoId(Equipment equipment) {
+        List<EquipmentPhoto> photos = equipment.getPhotos();
+        List<Integer> photoIds = new ArrayList<>();
+        for (EquipmentPhoto photo : photos) {
+            photoIds.add(photo.getId());
+        }
+        return photoIds;
     }
 }

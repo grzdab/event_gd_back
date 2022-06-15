@@ -1,6 +1,7 @@
 package com.event.equipmentData;
 
 public class EquipmentData {
+    private int id;
     private int width;
     private int length;
     private int height;
@@ -22,6 +23,10 @@ public class EquipmentData {
         this.staffNeeded = staffNeeded;
         this.minimumAge = minimumAge;
         this.maxParticipants = maxParticipants;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getWidth() {
@@ -54,6 +59,10 @@ public class EquipmentData {
 
     public int getMaxParticipants() {
         return maxParticipants;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setWidth(int width) {

@@ -36,8 +36,7 @@ public class EquipmentDataModel {
     public EquipmentDataModel() {
     }
 
-    public EquipmentDataModel(Integer id, int width, int length, int height, int weight, int powerRequired, int staffNeeded, int minimumAge, int maxParticipants) {
-        this.id = id;
+    public EquipmentDataModel(int width, int length, int height, int weight, int powerRequired, int staffNeeded, int minimumAge, int maxParticipants) {
         this.width = width;
         this.length = length;
         this.height = height;
