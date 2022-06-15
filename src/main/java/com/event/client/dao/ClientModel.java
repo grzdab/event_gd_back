@@ -27,8 +27,8 @@ public class ClientModel {
     private int taxInfoId;
     @Column(nullable = false)
     private String appUserId;
-    private List<String> businessBranchesId;
-    private List<String> businessCategoriesId;
+    private List<Integer> businessBranchesId;
+    private List<Integer> businessCategoriesId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -133,20 +133,20 @@ public class ClientModel {
     }
 
     @ElementCollection
-    public List<String> getBusinessBranchesId() {
+    public List<Integer> getBusinessBranchesId() {
         return businessBranchesId;
     }
 
-    public void setBusinessBranchesId(List<String> businessBranchesId) {
+    public void setBusinessBranchesId(List<Integer> businessBranchesId) {
         this.businessBranchesId = businessBranchesId;
     }
 
     @ElementCollection
-    public List<String> getBusinessCategoriesId() {
+    public List<Integer> getBusinessCategoriesId() {
         return businessCategoriesId;
     }
 
-    public void setBusinessCategoriesId(List<String> businessCategoriesId) {
+    public void setBusinessCategoriesId(List<Integer> businessCategoriesId) {
         this.businessCategoriesId = businessCategoriesId;
     }
 }

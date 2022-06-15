@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class BusinessBranch {
 
-    private String id;
+    private int id;
     private String name;
 
     public BusinessBranch() {
     }
 
-    public BusinessBranch(String id, String name) {
+    public BusinessBranch(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
