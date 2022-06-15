@@ -1,5 +1,6 @@
 package com.event.equipment;
 
+import com.event.equipment.models.EquipmentCategory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

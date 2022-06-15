@@ -21,7 +21,7 @@ public class ClientTypeController {
     }
 
     @PutMapping("/admin/clientType/{clientTypeId}")
-    public ResponseEntity<Object> updateClientType(@PathVariable String clientTypeId, @RequestBody ClientType newClientType) {
+    public ResponseEntity<Object> updateClientType(@PathVariable Integer clientTypeId, @RequestBody ClientType newClientType) {
         ClientType updateClientType = service.updateClientType(clientTypeId, newClientType);
         if (updateClientType == null){
             return ResponseEntity.notFound().build();
@@ -31,7 +31,7 @@ public class ClientTypeController {
     }
 
     @GetMapping("/admin/clientType/{clientTypeId}")
-    public ClientType getClientType(@PathVariable String clientTypeId){
+    public ClientType getClientType(@PathVariable Integer clientTypeId){
         return service.getClientType(clientTypeId);
     }
 
@@ -41,7 +41,7 @@ public class ClientTypeController {
     }
 
     @DeleteMapping("/admin/clientType/{clientTypeId}")
-    public String deleteClientType(@PathVariable String clientTypeId){
+    public String deleteClientType(@PathVariable Integer clientTypeId){
         return service.deleteClientType(clientTypeId);
     }
 

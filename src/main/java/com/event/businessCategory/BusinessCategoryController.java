@@ -23,7 +23,7 @@ public class BusinessCategoryController {
     }
 
     @PutMapping("/admin/businessCategory/{businessCategoryId}")
-    public ResponseEntity<Object> updateBusinessCategory(@PathVariable String businessCategoryId, @RequestBody BusinessCategory newBusinessCategory) {
+    public ResponseEntity<Object> updateBusinessCategory(@PathVariable Integer businessCategoryId, @RequestBody BusinessCategory newBusinessCategory) {
         BusinessCategory updateBusinessCategory = service.updateBusinessCategory(businessCategoryId, newBusinessCategory);
         if (updateBusinessCategory == null){
             return ResponseEntity.notFound().build();
@@ -33,7 +33,7 @@ public class BusinessCategoryController {
     }
 
     @GetMapping("/admin/businessCategory/{businessCategoryId}")
-    public BusinessCategory getBusinessCategory(@PathVariable String businessCategoryId){
+    public BusinessCategory getBusinessCategory(@PathVariable Integer businessCategoryId){
         return service.getBusinessCategory(businessCategoryId);
     }
 
@@ -43,7 +43,7 @@ public class BusinessCategoryController {
     }
 
     @DeleteMapping("/admin/businessCategory/{businessCategoryId}")
-    public String deleteBusinessCategory(@PathVariable String businessCategoryId){
+    public String deleteBusinessCategory(@PathVariable Integer businessCategoryId){
         return service.deleteBusinessCategory(businessCategoryId);
     }
 
