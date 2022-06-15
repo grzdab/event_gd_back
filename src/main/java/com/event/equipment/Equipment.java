@@ -1,6 +1,5 @@
 package com.event.equipment;
 
-import com.event.equipment.models.*;
 import com.event.equipmentBookingStatus.EquipmentBookingStatus;
 import com.event.equipmentCategory.EquipmentCategory;
 import com.event.equipmentData.EquipmentData;
