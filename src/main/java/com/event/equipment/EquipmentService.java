@@ -3,7 +3,11 @@ package com.event.equipment;
 import com.event.equipment.dao.EquipmentModel;
 import com.event.equipment.dao.EquipmentRepository;
 import com.event.equipmentCategory.EquipmentCategory;
+import com.event.equipmentCategory.EquipmentCategoryService;
 import com.event.equipmentData.EquipmentData;
+import com.event.equipmentData.EquipmentDataService;
+import com.event.equipmentPhoto.EquipmentPhoto;
+import com.event.equipmentPhoto.EquipmentPhotoService;
 import com.event.equipmentStatus.EquipmentStatus;
 import org.springframework.stereotype.Service;
 
@@ -14,14 +18,20 @@ import java.util.UUID;
 @Service
 public class EquipmentService {
     private final EquipmentRepository equipmentRepository;
+    private final EquipmentCategoryService equipmentCategoryService;
+    private final EquipmentDataService equipmentDataService;
+    private final EquipmentPhotoService equipmentPhotoService;
 
-    private  EquipmentService(EquipmentRepository equipmentRepository) {
+    private  EquipmentService(EquipmentRepository equipmentRepository, EquipmentCategoryService equipmentCategoryService, EquipmentDataService equipmentDataService, EquipmentPhotoService equipmentPhotoService) {
         this.equipmentRepository = equipmentRepository;
+        this.equipmentCategoryService = equipmentCategoryService;
+        this.equipmentDataService = equipmentDataService;
+        this.equipmentPhotoService = equipmentPhotoService;
     }
 
     public Equipment addEquipment(Equipment equipment) {
         //to finish
-        EquipmentModel equipmentModel = new EquipmentModel(0, equipment.getName(), equipment.getNotes(), equipment.getEquipmentData().getWidth(), equipment.getEquipmentData().getLength(), equipment.getEquipmentData().getHeight(), equipment.getEquipmentData().getWeight(), equipment.getEquipmentData().getPowerRequired(), equipment.getEquipmentData().getStaffNeeded(), equipment.getEquipmentData().getMinimumAge(), equipment.getEquipmentData().getMaxParticipants(), 0, true);
+        EquipmentModel equipmentModel = new EquipmentModel(0, equipment.getName(), equipment.getNotes(), 0, 0, 0, true);
         equipmentRepository.save(equipmentModel);
         equipment.setId(equipmentModel.getId());
         return equipment;
@@ -33,18 +43,11 @@ public class EquipmentService {
     }
 
     public Equipment uploadEquipment(String id, Equipment equipment) {
+        // TODO finish
         EquipmentModel toUpdate = equipmentRepository.findById(UUID.fromString(id)).orElseThrow();
         toUpdate.setSortingId(equipment.getSortingId());
         toUpdate.setName(equipment.getName());
         toUpdate.setNotes(equipment.getNotes());
-        toUpdate.setWidth(equipment.getEquipmentData().getWidth());
-        toUpdate.setLength(equipment.getEquipmentData().getLength());
-        toUpdate.setHeight(equipment.getEquipmentData().getHeight());
-        toUpdate.setWeight(equipment.getEquipmentData().getWeight());
-        toUpdate.setPowerRequired(equipment.getEquipmentData().getPowerRequired());
-        toUpdate.setStaffNeeded(equipment.getEquipmentData().getStaffNeeded());
-        toUpdate.setMinimumAge(equipment.getEquipmentData().getMinimumAge());
-        toUpdate.setMaxParticipants(equipment.getEquipmentData().getMaxParticipants());
         toUpdate.setEquipmentCategoryId(0);
         toUpdate.setInUse(true);
 
@@ -53,6 +56,8 @@ public class EquipmentService {
     }
 
     public String deleteEquipment(String id) {
+
+        //TODO propably to finish
         equipmentRepository.deleteById(UUID.fromString(id));
         return "DELETED";
     }
@@ -66,10 +71,12 @@ public class EquipmentService {
 
     private Equipment createEquipment(EquipmentModel equipmentFromDb) {
         // to finish
-        EquipmentCategory equipmentCategory = equipmentRepository.findById();
+        EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategory(equipmentFromDb.getEquipmentCategoryId());
+        EquipmentData equipmentData = equipmentDataService.getEquipmentData(String.valueOf(equipmentFromDb.getEquipmentDataId()));
+        //List<EquipmentPhoto> equipmentPhoto = equipmentPhotoService.getEquipmentPhoto(String.valueOf(equipmentFromDb.getEquipmentPhotoId()));
         return new Equipment(equipmentFromDb.getId(), equipmentFromDb.getSortingId(),
-                equipmentFromDb.getName(), new EquipmentCategory(),
-                equipmentFromDb.getNotes(), new EquipmentData(),
+                equipmentFromDb.getName(), equipmentCategory,
+                equipmentFromDb.getNotes(), equipmentData,
                 new ArrayList<>(), new EquipmentStatus(UUID.randomUUID()), 1,
                 new ArrayList<>());
     }

@@ -1,4 +1,7 @@
 package com.event.equipmentData.dao;
 
-public interface EquipmentDataRepository {
+import com.event.equipment.EquipmentController;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EquipmentDataRepository extends JpaRepository<EquipmentDataModel, String> {
 }

@@ -13,6 +13,17 @@ public class EquipmentData {
     public EquipmentData() {
     }
 
+    public EquipmentData(int width, int length, int height, int weight, int powerRequired, int staffNeeded, int minimumAge, int maxParticipants) {
+        this.width = width;
+        this.length = length;
+        this.height = height;
+        this.weight = weight;
+        this.powerRequired = powerRequired;
+        this.staffNeeded = staffNeeded;
+        this.minimumAge = minimumAge;
+        this.maxParticipants = maxParticipants;
+    }
+
     public int getWidth() {
         return width;
     }

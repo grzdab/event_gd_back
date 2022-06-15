@@ -1,4 +1,6 @@
 package com.event.equipmentPhoto.dao;
 
-public interface EquipmentPhotoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EquipmentPhotoRepository extends JpaRepository<EquipmentPhotoModel, String> {
 }

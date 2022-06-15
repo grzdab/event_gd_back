@@ -1,4 +1,6 @@
 package com.event.equipmentStatus.dao;
 
-public class EquipmentStatusRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EquipmentStatusRepository extends JpaRepository<EquipmentStatusModel, String> {
 }
