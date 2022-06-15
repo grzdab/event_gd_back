@@ -22,7 +22,7 @@ public class ClientController {
     }
 
     @GetMapping("/client")
-    public List<Client> getAllClients() {
+    public List<MiniClient> getAllClients() {
         return service.getAllClients();
     }
 
@@ -39,5 +39,25 @@ public class ClientController {
     @DeleteMapping("/client/{clientId}")
     public String deleteClient(@PathVariable String clientId) {
         return service.deleteClient(clientId);
+    }
+
+    @PutMapping("/client/{clientId}/business-branch/{businessBranchId}/add")
+    public void addBusinessBranchToClient(@PathVariable String clientId, @PathVariable Integer businessBranchId) {
+        service.addBusinessBranchToClient(clientId, businessBranchId);
+    }
+
+    @PutMapping("/client/{clientId}/business-branch/{businessBranchId}/delete")
+    public void deleteBusinessBranchFromClient(@PathVariable String clientId, @PathVariable Integer businessBranchId) {
+        service.deleteBusinessBranchFromClient(clientId, businessBranchId);
+    }
+
+    @PutMapping("/client/{clientId}/business-category/{businessCategoryId}/add")
+    public void addBusinessCategoryToClient(@PathVariable String clientId, @PathVariable Integer businessCategoryId) {
+        service.addBusinessCategoryToClient(clientId, businessCategoryId);
+    }
+
+    @PutMapping("/client/{clientId}/business-category/{businessCategoryId}/delete")
+    public void deleteBusinessCategoryFromClient(@PathVariable String clientId, @PathVariable Integer businessCategoryId) {
+        service.deleteBusinessCategoryFromClient(clientId, businessCategoryId);
     }
 }

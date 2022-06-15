@@ -63,11 +63,25 @@ public class RepresentativeService {
                 representativeModel.getLastName(), contact, representativeModel.getClientId());
     }
 
+    private MiniRepresentative createMiniRepresentative(RepresentativeModel representativeModel){
+        String name = representativeModel.getFirstName() + " " + representativeModel.getLastName();
+        return new MiniRepresentative(representativeModel.getId(), name);
+    }
+
     public List<Representative> getAllRepresentativesForClient(String clientId) {
         List<Representative> representatives = new ArrayList<>();
         Iterable<RepresentativeModel> representativeModels = representativeRepository.findAllByClientId(clientId);
         for (RepresentativeModel model: representativeModels){
             representatives.add(createRepresentative(model));
+        }
+        return representatives;
+    }
+
+    public List<MiniRepresentative> getAllMiniRepresentativesForClient(String clientId) {
+        List<MiniRepresentative> representatives = new ArrayList<>();
+        Iterable<RepresentativeModel> representativeModels = representativeRepository.findAllByClientId(clientId);
+        for (RepresentativeModel model: representativeModels){
+            representatives.add(createMiniRepresentative(model));
         }
         return representatives;
     }

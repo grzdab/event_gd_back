@@ -5,6 +5,8 @@ import com.event.user.dao.UserModel;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity //mowi springowi, ze ta klasa bedzie modelem w bazie i na jej podstawie ma stworzyc tabele
@@ -25,6 +27,8 @@ public class ClientModel {
     private int taxInfoId;
     @Column(nullable = false)
     private String appUserId;
+    private List<Integer> businessBranchesId;
+    private List<Integer> businessCategoriesId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -42,6 +46,8 @@ public class ClientModel {
         this.notes = notes;
         this.taxInfoId = taxInfoId;
         this.appUserId = appUserId;
+        this.businessBranchesId = new ArrayList<>();
+        this.businessCategoriesId = new ArrayList<>();
     }
 
     @Id //kazda klasa entity musi miec unikatowe id, wiec metoda getId musi miec adnotacje Id
@@ -124,5 +130,23 @@ public class ClientModel {
 
     public void setAppUserId(String appUserId) {
         this.appUserId = appUserId;
+    }
+
+    @ElementCollection
+    public List<Integer> getBusinessBranchesId() {
+        return businessBranchesId;
+    }
+
+    public void setBusinessBranchesId(List<Integer> businessBranchesId) {
+        this.businessBranchesId = businessBranchesId;
+    }
+
+    @ElementCollection
+    public List<Integer> getBusinessCategoriesId() {
+        return businessCategoriesId;
+    }
+
+    public void setBusinessCategoriesId(List<Integer> businessCategoriesId) {
+        this.businessCategoriesId = businessCategoriesId;
     }
 }

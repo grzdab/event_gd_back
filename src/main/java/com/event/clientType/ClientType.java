@@ -5,23 +5,23 @@ import java.util.Objects;
 
 public class ClientType {
 
-    private String id;
+    private int id;
     private String typeName;
     private Map<Integer, String> clientType;
 
     public ClientType() {
     }
 
-    public ClientType(String id, String typeName) {
+    public ClientType(int id, String typeName) {
         this.id = id;
         this.typeName = typeName;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

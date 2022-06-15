@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record BusinessBranchService(BusinessBranchRepository businessBranchRepository) {
+public record   BusinessBranchService(BusinessBranchRepository businessBranchRepository) {
 
     public BusinessBranchService(BusinessBranchRepository businessBranchRepository) {
         this.businessBranchRepository = businessBranchRepository;
@@ -23,15 +23,15 @@ public record BusinessBranchService(BusinessBranchRepository businessBranchRepos
         businessBranch.setId(model.getId());
         return businessBranch;
     }
-    public BusinessBranch getBusinessBranch(String businessBranchId){
+    public BusinessBranch getBusinessBranch(Integer businessBranchId){
         BusinessBranchModel model = businessBranchRepository.findById(businessBranchId).get();
         return createBusinessBranch(model);
     }
-    public String deleteBusinessBranch(String businessBranchId){
+    public String deleteBusinessBranch(Integer businessBranchId){
         businessBranchRepository.deleteById(businessBranchId);
         return "delete";
     }
-    public BusinessBranch updateBusinessBranch(String businessBranchId, BusinessBranch newBusinessBranch){
+    public BusinessBranch updateBusinessBranch(Integer businessBranchId, BusinessBranch newBusinessBranch){
         BusinessBranchModel model = businessBranchRepository.findById(businessBranchId).get();
         model.setName(newBusinessBranch.getName());
         businessBranchRepository.save(model);

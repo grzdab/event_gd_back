@@ -24,7 +24,7 @@ public class BusinessBranchController {
     }
 
     @PutMapping("/admin/businessBranch/{businessBranchId}")
-    public ResponseEntity<Object> updateBusinessBranch(@PathVariable String businessBranchId, @RequestBody BusinessBranch newBusinessBranch) {
+    public ResponseEntity<Object> updateBusinessBranch(@PathVariable Integer businessBranchId, @RequestBody BusinessBranch newBusinessBranch) {
         BusinessBranch updateBusinessBranch = service.updateBusinessBranch(businessBranchId, newBusinessBranch);
         if (updateBusinessBranch == null){
             return ResponseEntity.notFound().build();
@@ -34,7 +34,7 @@ public class BusinessBranchController {
     }
 
     @GetMapping("/admin/businessBranch/{businessBranchId}")
-    public BusinessBranch getBusinessBranch(@PathVariable String businessBranchId){
+    public BusinessBranch getBusinessBranch(@PathVariable Integer businessBranchId){
         return service.getBusinessBranch(businessBranchId);
     }
 
@@ -44,7 +44,7 @@ public class BusinessBranchController {
     }
 
     @DeleteMapping("/admin/businessBranch/{businessBranchId}")
-    public String deleteBusinessBranch(@PathVariable String businessBranchId){
+    public String deleteBusinessBranch(@PathVariable Integer businessBranchId){
         return service.deleteBusinessBranch(businessBranchId);
     }
 

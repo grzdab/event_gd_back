@@ -1,7 +1,5 @@
 package com.event.clientType.dao;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,10 +9,7 @@ import java.util.Objects;
 @Entity
 public class ClientTypeModel {
 
-    @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+    private Integer id;
 
     @NotEmpty
     private String typeName;
@@ -22,7 +17,7 @@ public class ClientTypeModel {
     public ClientTypeModel() {
     }
 
-    public ClientTypeModel(String id, String typeName) {
+    public ClientTypeModel(Integer id, String typeName) {
         this.id = id;
         this.typeName = typeName;
     }
@@ -31,11 +26,13 @@ public class ClientTypeModel {
         this.typeName = typeName;
     }
 
-    public String getId() {
+    @Id
+    @GeneratedValue
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
