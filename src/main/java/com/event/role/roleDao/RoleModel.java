@@ -4,9 +4,11 @@ import com.event.privilege.dao.PrivilegeModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.*;
+import java.util.List;
+import java.util.Objects;
 
-@Entity(name = "RoleModel")
+
+@Entity
 public class RoleModel {
 
     Integer id;
@@ -14,8 +16,7 @@ public class RoleModel {
     @NotEmpty
     String name;
 
-    @OneToMany
-    private List<PrivilegeModel> privilegesList;//= new ArrayList<>();
+    private List<PrivilegeModel> privilegesList;
 
     public RoleModel() {
     }
@@ -25,7 +26,7 @@ public class RoleModel {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return id;
     }
@@ -42,6 +43,8 @@ public class RoleModel {
         this.name = privilege;
     }
 
+//    @Access(AccessType.PROPERTY)
+    @OneToMany
     public List<PrivilegeModel> getPrivilegesList() {
         return privilegesList;
     }

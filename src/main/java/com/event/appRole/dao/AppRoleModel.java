@@ -4,27 +4,29 @@ package com.event.appRole.dao;
 import com.event.role.roleDao.RoleModel;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 
 @Entity
 public class AppRoleModel {
 
+    @Id
     Integer id;
 
-    @OneToOne
-    RoleModel role;
+    @OneToMany
+    List<RoleModel> role;
 
     public AppRoleModel() {
     }
-    public AppRoleModel(RoleModel role) {
+    public AppRoleModel(List<RoleModel> role) {
         this.role = role;
     }
-    public AppRoleModel(Integer id, RoleModel role) {
+    public AppRoleModel(Integer id, List<RoleModel> role) {
         this.id = id;
         this.role = role;
     }
-    @Id
+
     public Integer getId() {
         return id;
     }
@@ -33,11 +35,11 @@ public class AppRoleModel {
         this.id = id;
     }
 
-    public RoleModel getRole() {
+    public List<RoleModel> getRole() {
         return role;
     }
 
-    public void setRole(RoleModel role) {
+    public void setRole(List<RoleModel> role) {
         this.role = role;
     }
 

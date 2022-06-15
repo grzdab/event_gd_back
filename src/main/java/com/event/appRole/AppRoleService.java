@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public record AppRoleService(AppRoleRepository appRoleRepository) {
@@ -49,6 +50,9 @@ public record AppRoleService(AppRoleRepository appRoleRepository) {
         return newAppRole;
     }
     private AppRole createAppRole(AppRoleModel appRoleModel){
-        return new AppRole(appRoleModel.getId(), (List<Role>) appRoleModel.getRole());
+        return new AppRole(appRoleModel.getId(),
+                appRoleModel.getRole().stream()
+                .map(roleModel -> new Role(roleModel.getId(), roleModel.getName()))
+                .collect(Collectors.toList()));
     }
 }
