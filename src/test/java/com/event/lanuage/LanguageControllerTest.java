@@ -3,43 +3,24 @@ package com.event.lanuage;
 import com.event.language.Language;
 import com.event.language.LanguageController;
 import com.event.language.LanguageService;
-import com.event.language.dao.LanguageModel;
-import com.event.language.dao.LanguageRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-//@RunWith(SpringRunner.class)
 @WebMvcTest(LanguageController.class)
 public class LanguageControllerTest {
 
@@ -92,5 +73,23 @@ public class LanguageControllerTest {
 //                .andExpect(jsonPath("$", notNullValue()))
 //                .andExpect(jsonPath("$.name", is("John Doe")));
 
+    }
+
+    @Test
+    public void PUTLanguageAPI_success() throws Exception {
+        Language model = new Language();
+        model.getId(1);
+        model.setPropertyName("DiscoPolo");
+        languageService.updateLanguage(1, model);
+
+        Mockito.when(languageService.updateLanguage(1, model)).thenReturn(model);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(model));
+
+        mvc.perform(mockRequest)
+                .andExpect(status().isOk());
     }
 }
