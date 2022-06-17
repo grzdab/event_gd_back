@@ -18,6 +18,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -31,7 +34,7 @@ public class LanguageControllerTest {
     ObjectMapper mapper;
 
     @MockBean
-    LanguageService languageService;
+    LanguageService service;
 
     Language language1 = new Language(1, "Polski");
     Language language2 = new Language(2, "Francuski");
@@ -40,7 +43,7 @@ public class LanguageControllerTest {
     @Test
     public void getAllLanguages_success() throws Exception {
         List<Language> modelList = new ArrayList<>(Arrays.asList(language1, language2, language3));
-        when(languageService.getAllLanguages()).thenReturn(modelList);
+        when(service.getAllLanguages()).thenReturn(modelList);
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/admin/language")
@@ -59,9 +62,9 @@ public class LanguageControllerTest {
         Language model = new Language();
                 model.setId(4);
                 model.setPropertyName("slaski");
-                languageService.addLanguage(model);
+                service.addLanguage(model);
 
-        Mockito.when(languageService.addLanguage(model)).thenReturn(model);
+        Mockito.when(service.addLanguage(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -80,9 +83,9 @@ public class LanguageControllerTest {
         Language model = new Language();
         model.getId(1);
         model.setPropertyName("DiscoPolo");
-        languageService.updateLanguage(1, model);
+        service.updateLanguage(1, model);
 
-        Mockito.when(languageService.updateLanguage(1, model)).thenReturn(model);
+        Mockito.when(service.updateLanguage(1, model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -92,4 +95,68 @@ public class LanguageControllerTest {
         mvc.perform(mockRequest)
                 .andExpect(status().isOk());
     }
+    @Test
+    public void PUTLanguageAPI_nullId() throws Exception {
+//        Language model = new Language();
+//        model.setPropertyName("Zenek");
+//        service.updateLanguage(1, model);
+//
+//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .content(this.mapper.writeValueAsString(model));
+//
+//        mvc.perform(mockRequest)
+//                .andExpect(status().isBadRequest())
+//                .andExpect(result ->
+//                        assertTrue(result.getResolvedException() instanceof LanguageController.InvalidRequestException))
+//                .andExpect(result ->
+//                        assertEquals("Language or ID must not be null!", result.getResolvedException().getMessage()));
+    }
+
+    @Test
+    public void PUTLanguageAPI_recordNotFound() throws Exception {
+//        Language model = new Language();
+//                model.getId(51);
+//                model.setPropertyName("Sherlock");
+//                service.updateLanguage(51, model);
+//
+//        Mockito.when(service.updateLanguage(51, model)).thenReturn(null);
+//
+//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .accept(MediaType.APPLICATION_JSON)
+//                .content(this.mapper.writeValueAsString(model));
+//
+//        mvc.perform(mockRequest)
+//                .andExpect(status().isBadRequest())
+//                .andExpect(result ->
+//                        assertNotNull(result.getResolvedException()))
+//                .andExpect(result ->
+//                        assertEquals("Language with ID 51 does not exist.", result.getResolvedException().getMessage()));
+    }
+    @Test
+    public void DELETELanguageAPI_success() throws Exception{
+        Mockito.when(service.getLanguage(2)).thenReturn(language2);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/admin/language/2")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void deletePatientById_notFound() throws Exception {
+        Mockito.when(service.getLanguage(51)).thenReturn(null);
+
+        mvc.perform(MockMvcRequestBuilders
+                        .delete("/admin/language/51")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+//                .andExpect(result ->
+//                        assertTrue(result.getResolvedException() instanceof NotFoundException))
+//                .andExpect(result ->
+//                        assertEquals("Patient with ID 5 does not exist.", result.getResolvedException().getMessage()));
+    }
+
 }
