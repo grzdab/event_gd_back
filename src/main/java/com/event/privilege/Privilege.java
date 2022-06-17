@@ -8,6 +8,9 @@ public class Privilege {
     private String name;
     private PrivilegeEnum privilegesEnum;
 
+    public Privilege() {
+    }
+
     public Privilege(int id, String name, PrivilegeEnum privilegesEnum) {
         this.id = id;
         this.name = name;
