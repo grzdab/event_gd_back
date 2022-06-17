@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record PrivilegeService(PrivilegeRepository privilegesRepository) {
+public class PrivilegeService {
+
+    PrivilegeRepository privilegesRepository;
 
     public PrivilegeService(PrivilegeRepository privilegesRepository) {
         this.privilegesRepository = privilegesRepository;

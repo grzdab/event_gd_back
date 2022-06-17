@@ -66,7 +66,7 @@ public class PrivilegeControllerTest {
 
             Mockito.when(service.addPrivileges(model)).thenReturn(model);
 
-            MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/privilege")
+            MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/privileges")
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .content(this.mapper.writeValueAsString(model));
@@ -88,7 +88,7 @@ public class PrivilegeControllerTest {
 
             Mockito.when(service.updatePrivileges(model.getId(), model)).thenReturn(model);
 
-            MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/privilege")
+            MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/privileges")
                     .contentType(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .content(this.mapper.writeValueAsString(model));
@@ -96,69 +96,69 @@ public class PrivilegeControllerTest {
             mvc.perform(mockRequest)
                     .andExpect(status().isOk());
         }
-        @Test
-        public void PUTPrivilegeAPI_nullId() throws Exception {
-//        Language model = new Language();
-//        model.setPropertyName("Zenek");
-//        service.updateLanguage(1, model);
-//
-//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .content(this.mapper.writeValueAsString(model));
-//
-//        mvc.perform(mockRequest)
-//                .andExpect(status().isBadRequest())
-//                .andExpect(result ->
-//                        assertTrue(result.getResolvedException() instanceof LanguageController.InvalidRequestException))
-//                .andExpect(result ->
-//                        assertEquals("Language or ID must not be null!", result.getResolvedException().getMessage()));
-        }
+//        @Test
+//        public void PUTPrivilegeAPI_nullId() throws Exception {
+////        Language model = new Language();
+////        model.setPropertyName("Zenek");
+////        service.updateLanguage(1, model);
+////
+////        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
+////                .contentType(MediaType.APPLICATION_JSON)
+////                .accept(MediaType.APPLICATION_JSON)
+////                .content(this.mapper.writeValueAsString(model));
+////
+////        mvc.perform(mockRequest)
+////                .andExpect(status().isBadRequest())
+////                .andExpect(result ->
+////                        assertTrue(result.getResolvedException() instanceof LanguageController.InvalidRequestException))
+////                .andExpect(result ->
+////                        assertEquals("Language or ID must not be null!", result.getResolvedException().getMessage()));
+//        }
 
-        @Test
-        public void PUTPrivilegeAPI_recordNotFound() throws Exception {
-//        Language model = new Language();
-//                model.getId(51);
-//                model.setPropertyName("Sherlock");
-//                service.updateLanguage(51, model);
-//
-//        Mockito.when(service.updateLanguage(51, model)).thenReturn(null);
-//
-//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .accept(MediaType.APPLICATION_JSON)
-//                .content(this.mapper.writeValueAsString(model));
-//
-//        mvc.perform(mockRequest)
-//                .andExpect(status().isBadRequest())
-//                .andExpect(result ->
-//                        assertNotNull(result.getResolvedException()))
-//                .andExpect(result ->
-//                        assertEquals("Language with ID 51 does not exist.", result.getResolvedException().getMessage()));
-        }
+//        @Test
+//        public void PUTPrivilegeAPI_recordNotFound() throws Exception {
+////        Language model = new Language();
+////                model.getId(51);
+////                model.setPropertyName("Sherlock");
+////                service.updateLanguage(51, model);
+////
+////        Mockito.when(service.updateLanguage(51, model)).thenReturn(null);
+////
+////        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
+////                .contentType(MediaType.APPLICATION_JSON)
+////                .accept(MediaType.APPLICATION_JSON)
+////                .content(this.mapper.writeValueAsString(model));
+////
+////        mvc.perform(mockRequest)
+////                .andExpect(status().isBadRequest())
+////                .andExpect(result ->
+////                        assertNotNull(result.getResolvedException()))
+////                .andExpect(result ->
+////                        assertEquals("Language with ID 51 does not exist.", result.getResolvedException().getMessage()));
+//        }
         @Test
         public void DELETEPrivilegeAPI_success() throws Exception{
             Mockito.when(service.getPrivileges(2)).thenReturn(privilege2);
 
             mvc.perform(MockMvcRequestBuilders
-                            .delete("/admin/privilege/2")
+                            .delete("/admin/privileges/2")
                             .contentType(MediaType.APPLICATION_JSON))
                     .andExpect(status().isOk());
         }
 
-        @Test
-        public void deletePatientById_notFound() throws Exception {
-//        Mockito.when(service.getLanguage(51)).thenReturn(null);
-//
-//        mvc.perform(MockMvcRequestBuilders
-//                        .delete("/admin/language/51")
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isBadRequest())
-//                .andExpect(result ->
-//                        assertNotNull(result.getResolvedException()))
-//                .andExpect(result ->
-//                        assertEquals("Patient with ID 51 does not exist.", result.getResolvedException().getMessage()));
-        }
+//        @Test
+//        public void deletePatientById_notFound() throws Exception {
+////        Mockito.when(service.getLanguage(51)).thenReturn(null);
+////
+////        mvc.perform(MockMvcRequestBuilders
+////                        .delete("/admin/language/51")
+////                        .contentType(MediaType.APPLICATION_JSON))
+////                .andExpect(status().isBadRequest())
+////                .andExpect(result ->
+////                        assertNotNull(result.getResolvedException()))
+////                .andExpect(result ->
+////                        assertEquals("Patient with ID 51 does not exist.", result.getResolvedException().getMessage()));
+//        }
 
     }
 
