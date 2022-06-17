@@ -41,7 +41,7 @@ public class UserModel {
 
     ///////////////////////////////////
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_role_id")
+    //@JoinColumn(name = "user_role_id")
      AppRoleModel userRole;
 //////////////////////////////////////////
 

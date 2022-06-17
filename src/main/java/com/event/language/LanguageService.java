@@ -2,13 +2,15 @@ package com.event.language;
 
 import com.event.language.dao.LanguageModel;
 import com.event.language.dao.LanguageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record LanguageService(LanguageRepository languageRepository) {
+public class LanguageService {
+    LanguageRepository languageRepository;
 
     public LanguageService(LanguageRepository languageRepository){
         this.languageRepository = languageRepository;
