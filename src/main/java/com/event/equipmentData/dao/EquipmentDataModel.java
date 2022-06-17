@@ -1,12 +1,12 @@
 package com.event.equipmentData.dao;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class EquipmentDataModel {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @Column(columnDefinition = "int default 0")
@@ -79,7 +79,6 @@ public class EquipmentDataModel {
         return maxParticipants;
     }
 
-    @Id
     public Integer getId() {
         return id;
     }

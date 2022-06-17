@@ -1,16 +1,15 @@
 package com.event.equipment.dao;
 
-import io.swagger.models.auth.In;
-
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "equipment")
 public class EquipmentModel {
 
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @Column(columnDefinition = "int default 1")
     private int sortingId;
@@ -26,8 +25,11 @@ public class EquipmentModel {
 
     @Column(columnDefinition = "int default 0")
     private int equipmentCategoryId;
+//TODO fix error with table equipment_photo_id
+    //private List<Integer> equipmentPhotoId;
 
-    private List<Integer> equipmentPhotoId;
+    @Column(columnDefinition = "int default 0")
+    private int equipmentStatusId;
 
     @Column(columnDefinition = "boolean default true")
     private boolean inUse;
@@ -35,17 +37,18 @@ public class EquipmentModel {
     public EquipmentModel() {
     }
 
-    public EquipmentModel(int sortingId, String name, String notes, int equipmentDataId, int equipmentCategoryId, List<Integer> equipmentPhotoId, boolean inUse) {
+    public EquipmentModel(int sortingId, String name, String notes, int equipmentDataId, int equipmentCategoryId, List<Integer> equipmentPhotoId, int equipmentStatusId, boolean inUse) {
         this.sortingId = sortingId;
         this.name = name;
         this.notes = notes;
         this.equipmentDataId = equipmentDataId;
         this.equipmentCategoryId = equipmentCategoryId;
-        this.equipmentPhotoId = equipmentPhotoId;
+        //this.equipmentPhotoId = equipmentPhotoId;
+        this.equipmentStatusId = equipmentStatusId;
         this.inUse = inUse;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -69,8 +72,13 @@ public class EquipmentModel {
         this.equipmentCategoryId = equipmentCategoryId;
     }
 
-    public void setEquipmentPhotoId(List<Integer> equipmentPhotoId) {
-        this.equipmentPhotoId = equipmentPhotoId;
+//    public void setEquipmentPhotoId(List<Integer> equipmentPhotoId) {
+//        this.equipmentPhotoId = equipmentPhotoId;
+//    }
+
+
+    public int getEquipmentStatusId() {
+        return equipmentStatusId;
     }
 
     public void setInUse(boolean inUse) {
@@ -97,18 +105,21 @@ public class EquipmentModel {
         return equipmentCategoryId;
     }
 
-    @ElementCollection
-    public List<Integer> getEquipmentPhotoId() {
-        return equipmentPhotoId;
+//    @ElementCollection
+//    public List<Integer> getEquipmentPhotoId() {
+//        return equipmentPhotoId;
+//    }
+
+
+    public void setEquipmentStatusId(int equipmentStatusId) {
+        this.equipmentStatusId = equipmentStatusId;
     }
 
     public boolean isInUse() {
         return inUse;
     }
 
-    @Id
-    @GeneratedValue
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 }

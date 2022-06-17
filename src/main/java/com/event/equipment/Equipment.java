@@ -7,10 +7,9 @@ import com.event.equipmentPhoto.EquipmentPhoto;
 import com.event.equipmentStatus.EquipmentStatus;
 
 import java.util.List;
-import java.util.UUID;
 
 public class Equipment {
-    private UUID id;
+    private int id;
     private int sortingId;
     private String name;
     private EquipmentCategory category;
@@ -25,7 +24,7 @@ public class Equipment {
     public Equipment() {
     }
 
-    public Equipment(UUID id, int sortingId, String name, EquipmentCategory category, String notes, EquipmentData equipmentData, List<EquipmentPhoto> photos, EquipmentStatus status, int bookingStatus, List<EquipmentBookingStatus> equipmentBookingPeriods, boolean inUse) {
+    public Equipment(int id, int sortingId, String name, EquipmentCategory category, String notes, EquipmentData equipmentData, List<EquipmentPhoto> photos, EquipmentStatus status, int bookingStatus, List<EquipmentBookingStatus> equipmentBookingPeriods, boolean inUse) {
         this.id = id;
         this.sortingId = sortingId;
         this.name = name;
@@ -39,7 +38,7 @@ public class Equipment {
         this.inUse = inUse;
     }
 
-    public UUID getId() {
+    public int getId() {
         return id;
     }
 
@@ -83,7 +82,7 @@ public class Equipment {
         return inUse;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 

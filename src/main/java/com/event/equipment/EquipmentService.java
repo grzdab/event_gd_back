@@ -9,11 +9,11 @@ import com.event.equipmentData.EquipmentDataService;
 import com.event.equipmentPhoto.EquipmentPhoto;
 import com.event.equipmentPhoto.EquipmentPhotoService;
 import com.event.equipmentStatus.EquipmentStatus;
+import com.event.equipmentStatus.EquipmentStatusService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class EquipmentService {
@@ -21,46 +21,56 @@ public class EquipmentService {
     private final EquipmentCategoryService equipmentCategoryService;
     private final EquipmentDataService equipmentDataService;
     private final EquipmentPhotoService equipmentPhotoService;
+    private final EquipmentStatusService equipmentStatusService;
 
-    private  EquipmentService(EquipmentRepository equipmentRepository, EquipmentCategoryService equipmentCategoryService, EquipmentDataService equipmentDataService, EquipmentPhotoService equipmentPhotoService) {
+    private  EquipmentService(EquipmentRepository equipmentRepository, EquipmentCategoryService equipmentCategoryService, EquipmentDataService equipmentDataService, EquipmentPhotoService equipmentPhotoService, EquipmentStatusService equipmentStatusService) {
         this.equipmentRepository = equipmentRepository;
         this.equipmentCategoryService = equipmentCategoryService;
         this.equipmentDataService = equipmentDataService;
         this.equipmentPhotoService = equipmentPhotoService;
+        this.equipmentStatusService = equipmentStatusService;
     }
 
     public Equipment addEquipment(Equipment equipment) {
         EquipmentData equipmentData = equipmentDataService.addEquipmentData(equipment.getEquipmentData());
         EquipmentModel equipmentModel = new EquipmentModel(equipment.getSortingId(), equipment.getName(),
                 equipment.getNotes(), equipmentData.getId(), equipment.getCategory().getId(),
-                createListOfPhotoId(equipment), equipment.isInUse());
+                createListOfPhotoId(equipment.getPhotos()), equipment.getStatus().getId(), equipment.isInUse());
         equipmentRepository.save(equipmentModel);
         equipment.setId(equipmentModel.getId());
         return equipment;
     }
 
-    public Equipment getEquipmentById(String id) {
-        EquipmentModel equipmentFromDb = equipmentRepository.findById(UUID.fromString(id)).orElseThrow();
+    public Equipment getEquipmentById(int id) {
+        EquipmentModel equipmentFromDb = equipmentRepository.findById(id).orElseThrow();
         return createEquipment(equipmentFromDb);
     }
 
-    public Equipment uploadEquipment(String id, Equipment equipment) {
-        // TODO finish
-        EquipmentModel toUpdate = equipmentRepository.findById(UUID.fromString(id)).orElseThrow();
+    public Equipment uploadEquipment(int id, Equipment equipment) {
+        //TODO to finish
+        EquipmentModel toUpdate = equipmentRepository.findById(id).orElseThrow();
         toUpdate.setSortingId(equipment.getSortingId());
         toUpdate.setName(equipment.getName());
         toUpdate.setNotes(equipment.getNotes());
-        toUpdate.setEquipmentCategoryId(0);
-        toUpdate.setInUse(true);
+        toUpdate.setEquipmentCategoryId(equipment.getCategory().getId());
+        toUpdate.setInUse(equipment.isInUse());
 
         equipmentRepository.save(toUpdate);
         return equipment;
     }
 
-    public String deleteEquipment(String id) {
-
-        //TODO propably to finish
-        equipmentRepository.deleteById(UUID.fromString(id));
+    public String deleteEquipment(int id) {
+        //TODO to finish when finish other parts of this
+        EquipmentModel model = equipmentRepository.findById(id).get();
+        int equipmentDataId = model.getEquipmentDataId();
+        int equipmentCategoryId = model.getEquipmentCategoryId();
+        int equipmentSortingId = model.getSortingId();
+        int equipmentStatusId = model.getEquipmentStatusId();
+        equipmentRepository.deleteById(id);
+        equipmentRepository.deleteById(equipmentDataId);
+        equipmentRepository.deleteById(equipmentCategoryId);
+        equipmentRepository.deleteById(equipmentSortingId);
+        equipmentRepository.deleteById(equipmentStatusId);
         return "DELETED";
     }
 
@@ -79,12 +89,11 @@ public class EquipmentService {
         return new Equipment(equipmentFromDb.getId(), equipmentFromDb.getSortingId(),
                 equipmentFromDb.getName(), equipmentCategory,
                 equipmentFromDb.getNotes(), equipmentData,
-                new ArrayList<>(), new EquipmentStatus(UUID.randomUUID()), 1,
-                new ArrayList<>(), equipmentFromDb.isInUse());
+                new ArrayList<>(), equipmentStatusService.getEquipmentStatus(equipmentFromDb.getEquipmentStatusId()),
+                1, new ArrayList<>(), equipmentFromDb.isInUse());
     }
 
-    private List<Integer> createListOfPhotoId(Equipment equipment) {
-        List<EquipmentPhoto> photos = equipment.getPhotos();
+    private List<Integer> createListOfPhotoId(List<EquipmentPhoto> photos) {
         List<Integer> photoIds = new ArrayList<>();
         for (EquipmentPhoto photo : photos) {
             photoIds.add(photo.getId());
