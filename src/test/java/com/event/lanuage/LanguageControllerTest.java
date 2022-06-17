@@ -67,9 +67,9 @@ public class LanguageControllerTest {
 
         String responseContent = mvcResult.getResponse().getContentAsString();
 
-        assertEquals(responseContent, "dupa");
+//        assertEquals(responseContent, "dupa");
 //                .andExpect((ResultMatcher) jsonPath("$", hasSize(3)))
-//                .andExpect((ResultMatcher) jsonPath("$[2].propertyName", is("Estoński")));
+//                .andExpect((ResultMatcher) jsonPath("$[2].propertyName", is("Estonski")));
     }
 //    @Test
 //    public void createPOSTLanguageAPI_success() throws Exception {
