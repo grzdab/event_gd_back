@@ -22,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -31,6 +32,7 @@ import java.util.List;
 
 import static org.assertj.core.internal.bytebuddy.matcher.ElementMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
@@ -71,11 +73,24 @@ public class LanguageControllerTest {
 //                .andExpect((ResultMatcher) jsonPath("$", hasSize(3)))
 //                .andExpect((ResultMatcher) jsonPath("$[2].propertyName", is("Estonski")));
     }
-//    @Test
-//    public void createPOSTLanguageAPI_success() throws Exception {
-//        LanguageModel model = LanguageModel.buildier()
-//                .propertyName("śląski")
-//                .build;
-//
-//    }
+    @Test
+    public void createPOSTLanguageAPI_success() throws Exception {
+        Language model = new Language();
+                model.setId(4);
+                model.setPropertyName("slaski");
+                languageService.addLanguage(model);
+
+        Mockito.when(languageService.addLanguage(model)).thenReturn(model);
+
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(this.mapper.writeValueAsString(model));
+
+        mvc.perform(mockRequest)
+                .andExpect(status().isOk());
+//                .andExpect(jsonPath("$", notNullValue()))
+//                .andExpect(jsonPath("$.name", is("John Doe")));
+
+    }
 }
