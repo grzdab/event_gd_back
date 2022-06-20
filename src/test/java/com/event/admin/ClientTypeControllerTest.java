@@ -1,6 +1,7 @@
 package com.event.admin;
 
 import com.event.clientType.ClientType;
+import com.event.clientType.ClientTypeController;
 import com.event.clientType.ClientTypeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ClientType.class)
+@WebMvcTest(ClientTypeController.class)
 public class ClientTypeControllerTest {
     @Autowired
     private MockMvc mvc;
