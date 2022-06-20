@@ -1,8 +1,8 @@
-package com.event.language.dao;
+package com.event.appRole.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LanguageRepository extends CrudRepository<LanguageModel, Integer> {
+public interface AppRoleRepository extends CrudRepository<AppRoleModel, Integer> {
 }

@@ -1,7 +1,7 @@
-package com.event.admin.dao;
+package com.event.user.dao;
 
-import com.event.appRole.roleDao.AppRoleModel;
-import com.event.client.Client;
+import com.event.appRole.AppRole;
+import com.event.appRole.dao.AppRoleModel;
 import com.event.client.dao.ClientModel;
 import com.event.contact.contactDao.ContactModel;
 
@@ -9,7 +9,6 @@ import com.event.contact.contactDao.ContactModel;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -40,9 +39,11 @@ public class UserModel {
     @JoinColumn(name="contact_id")
     ContactModel contact;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    ///////////////////////////////////
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_role_id")
-    private List<AppRoleModel> userRole;
+     AppRoleModel userRole;
+//////////////////////////////////////////
 
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinColumn(name = "client_id")
@@ -110,7 +111,7 @@ public class UserModel {
         return (AppRoleModel) userRole;
     }
     public void setUserRole(AppRoleModel userRole) {
-        this.userRole = (List<AppRoleModel>) userRole;
+        this.userRole = (AppRoleModel) userRole;
     }
 
     @Override

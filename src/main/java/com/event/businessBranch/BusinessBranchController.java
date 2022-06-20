@@ -17,6 +17,7 @@ public class BusinessBranchController {
         this.service = service;
     }
 
+    //admin
     @PostMapping("/admin/businessBranch")
     public BusinessBranch addBusinessBranch(@RequestBody BusinessBranch businessBranch){
         return service.addBusinessBranch(businessBranch);
@@ -46,4 +47,7 @@ public class BusinessBranchController {
     public String deleteBusinessBranch(@PathVariable Integer businessBranchId){
         return service.deleteBusinessBranch(businessBranchId);
     }
+
+    //client
+
 }

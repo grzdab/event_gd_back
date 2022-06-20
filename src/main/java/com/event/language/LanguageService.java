@@ -20,15 +20,15 @@ public record LanguageService(LanguageRepository languageRepository) {
         language.setId(model.getId());
         return language;
     }
-    public Language getLanguage(String languageId){
+    public Language getLanguage(int languageId){
         LanguageModel model = languageRepository.findById(languageId).get();
         return createLanguage(model);
     }
-    public String deleteLanguage(String languageId){
+    public String deleteLanguage(int languageId){
         languageRepository.deleteById(languageId);
         return "delete";
     }
-    public Language updateLanguage(String languageId, Language newLanguage){
+    public Language updateLanguage(int languageId, Language newLanguage){
         LanguageModel model = languageRepository.findById(languageId).get();
         model.setPropertyName(newLanguage.getPropertyName());
         languageRepository.save(model);

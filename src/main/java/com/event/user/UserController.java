@@ -1,6 +1,7 @@
-package com.event.admin;
+package com.event.user;
 
 
+import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,4 +49,6 @@ public class UserController {
     public String deleteUser(@PathVariable UUID userId) {
         return service.deleteUser(userId);
     }
+
+
 }

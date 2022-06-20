@@ -1,7 +1,8 @@
-package com.event.admin;
+package com.event.user;
 
-import com.event.admin.dao.UserModel;
-import com.event.admin.dao.UserRepository;
+import com.event.appRole.AppRole;
+import com.event.user.dao.UserModel;
+import com.event.user.dao.UserRepository;
 import com.event.contact.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,6 @@ import java.util.*;
 
 @Service
 public record UserService(UserRepository userRepository) {
-
-    static UserMapper userMapper;
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -36,12 +35,6 @@ public record UserService(UserRepository userRepository) {
         userRepository.deleteById(userId);
         return "Deleted";
     }
-//    public User updateUser(UUID userId, User newUser) {
-//        UserModel myUser = userRepository.findById(userId).get();
-//        userMapper.updateUserFromUser(newUser, Optional.of(myUser));
-//        userRepository.save(myUser);
-//        return newUser;
-//    }
 
     //póki co aktualizuje wszystko a nie tylko podmienione dane!
     public User updateUser(UUID userId, User newUser) {
@@ -65,8 +58,8 @@ public record UserService(UserRepository userRepository) {
     }
 
     private User createUser(UserModel userModel){
-        List<Map<String,Boolean>> privileges = new ArrayList<>();
+        AppRole appRole = new AppRole();
         Contact contact = new Contact();
-        return new User(userModel.getId(), userModel.getLogin(), userModel.getPassword(), userModel.getFirstName(), userModel.getLastName(), contact);
+        return new User(userModel.getId(), userModel.getLogin(), userModel.getPassword(), userModel.getFirstName(), userModel.getLastName(), contact, appRole);
     }
 }
