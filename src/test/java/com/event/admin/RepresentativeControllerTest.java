@@ -45,7 +45,7 @@ public class RepresentativeControllerTest {
         when(service.getAllRepresentative()).thenReturn(modelList);
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
-                        .get("/admin/representative")
+                        .get("/representative")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -65,7 +65,7 @@ public class RepresentativeControllerTest {
 
         Mockito.when(service.addRepresentative(model)).thenReturn(model);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/representative")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/representative")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(model));
@@ -83,7 +83,7 @@ public class RepresentativeControllerTest {
 
         Mockito.when(service.updateRepresentative(model.getId(), model)).thenReturn(model);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/representative")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/representative")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(model));
@@ -97,7 +97,7 @@ public class RepresentativeControllerTest {
         Mockito.when(service.getRepresentative(2)).thenReturn(representative2);
 
         mvc.perform(MockMvcRequestBuilders
-                        .delete("/admin/representative/2")
+                        .delete("/representative/2")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
