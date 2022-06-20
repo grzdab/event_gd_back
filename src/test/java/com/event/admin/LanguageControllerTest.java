@@ -93,6 +93,7 @@ public class LanguageControllerTest {
         mvc.perform(mockRequest)
                 .andExpect(status().isOk());
     }
+    //TODO
     @Test
     public void PUTLanguageAPI_nullId() throws Exception {
 //        Language model = new Language();
@@ -111,7 +112,7 @@ public class LanguageControllerTest {
 //                .andExpect(result ->
 //                        assertEquals("Language or ID must not be null!", result.getResolvedException().getMessage()));
     }
-
+//TODO
     @Test
     public void PUTLanguageAPI_recordNotFound() throws Exception {
 //        Language model = new Language();
@@ -142,7 +143,7 @@ public class LanguageControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
+//TODO
     @Test
     public void deletePatientById_notFound() throws Exception {
 //        Mockito.when(service.getLanguage(51)).thenReturn(null);
