@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(LanguageController.class)
@@ -47,6 +49,7 @@ public class LanguageControllerTest {
                         .get("/admin/language")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andDo(print())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -94,27 +97,27 @@ public class LanguageControllerTest {
                 .andExpect(status().isOk());
     }
     //TODO
-    @Test
-    public void PUTLanguageAPI_nullId() throws Exception {
+//    @Test
+//    public void PUTLanguageAPI_nullId() throws Exception {
 //        Language model = new Language();
 //        model.setPropertyName("Zenek");
 //        service.updateLanguage(1, model);
 //
-//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
+//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language",1)
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .accept(MediaType.APPLICATION_JSON)
 //                .content(this.mapper.writeValueAsString(model));
 //
 //        mvc.perform(mockRequest)
 //                .andExpect(status().isBadRequest())
-//                .andExpect(result ->
-//                        assertTrue(result.getResolvedException() instanceof LanguageController.InvalidRequestException))
+////                .andExpect(result ->
+////                        assertTrue(result.getResolvedException() instanceof LanguageController.InvalidRequestException))
 //                .andExpect(result ->
 //                        assertEquals("Language or ID must not be null!", result.getResolvedException().getMessage()));
-    }
+//    }
 //TODO
-    @Test
-    public void PUTLanguageAPI_recordNotFound() throws Exception {
+//    @Test
+//    public void PUTLanguageAPI_recordNotFound() throws Exception {
 //        Language model = new Language();
 //                model.getId(51);
 //                model.setPropertyName("Sherlock");
@@ -122,7 +125,7 @@ public class LanguageControllerTest {
 //
 //        Mockito.when(service.updateLanguage(51, model)).thenReturn(null);
 //
-//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language")
+//        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/language",51)
 //                .contentType(MediaType.APPLICATION_JSON)
 //                .accept(MediaType.APPLICATION_JSON)
 //                .content(this.mapper.writeValueAsString(model));
@@ -133,7 +136,7 @@ public class LanguageControllerTest {
 //                        assertNotNull(result.getResolvedException()))
 //                .andExpect(result ->
 //                        assertEquals("Language with ID 51 does not exist.", result.getResolvedException().getMessage()));
-    }
+//    }
     @Test
     public void DELETELanguageAPI_success() throws Exception{
         Mockito.when(service.getLanguage(2)).thenReturn(language2);
@@ -144,18 +147,18 @@ public class LanguageControllerTest {
                 .andExpect(status().isOk());
     }
 //TODO
-    @Test
-    public void deletePatientById_notFound() throws Exception {
+//    @Test
+//    public void deletePatientById_notFound() throws Exception {
 //        Mockito.when(service.getLanguage(51)).thenReturn(null);
 //
 //        mvc.perform(MockMvcRequestBuilders
-//                        .delete("/admin/language/51")
+//                        .delete("/admin/language/51",51)
 //                        .contentType(MediaType.APPLICATION_JSON))
 //                .andExpect(status().isBadRequest())
 //                .andExpect(result ->
 //                        assertNotNull(result.getResolvedException()))
 //                .andExpect(result ->
 //                        assertEquals("Patient with ID 51 does not exist.", result.getResolvedException().getMessage()));
-    }
+//    }
 
 }
