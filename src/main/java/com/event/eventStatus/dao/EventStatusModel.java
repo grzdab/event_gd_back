@@ -1,5 +1,6 @@
 package com.event.eventStatus.dao;
 
+import io.swagger.models.auth.In;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
@@ -12,9 +13,7 @@ import java.util.Objects;
 public class EventStatusModel {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    String id;
+    Integer id;
 
     @NotEmpty
     String eventStatus;
@@ -22,7 +21,7 @@ public class EventStatusModel {
     public EventStatusModel() {
     }
 
-    public EventStatusModel(String id, String eventStatus) {
+    public EventStatusModel(Integer id, String eventStatus) {
         this.id = id;
         this.eventStatus = eventStatus;
     }
@@ -31,11 +30,11 @@ public class EventStatusModel {
         this.eventStatus = eventStatus;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
