@@ -4,5 +4,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LegalEntityTypeRepository extends CrudRepository<LegalEntityTypeModel, String> {
+public interface LegalEntityTypeRepository extends CrudRepository<LegalEntityTypeModel, Integer> {
 }

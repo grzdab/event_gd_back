@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 public class LegalEntityTypeController{
 
-    private final LegalEntityTypeService service;
+    LegalEntityTypeService service;
 
     @Autowired
     public LegalEntityTypeController(LegalEntityTypeService service) {
@@ -22,7 +22,7 @@ public class LegalEntityTypeController{
     }
 
     @PutMapping("/admin/legalEntityType/{legalEntityTypeId}")
-    public ResponseEntity<Object> updateLegalEntityType(@PathVariable String legalEntityTypeId, @RequestBody LegalEntityType newLegalEntityType) {
+    public ResponseEntity<Object> updateLegalEntityType(@PathVariable int legalEntityTypeId, @RequestBody LegalEntityType newLegalEntityType) {
         LegalEntityType updateLegalEntityType = service.updateLegalEntityType(legalEntityTypeId, newLegalEntityType);
         if (updateLegalEntityType == null){
             return ResponseEntity.notFound().build();
@@ -32,7 +32,7 @@ public class LegalEntityTypeController{
     }
 
     @GetMapping("/admin/legalEntityType/{legalEntityTypeId}")
-    public LegalEntityType getLegalEntityType(@PathVariable String legalEntityTypeId){
+    public LegalEntityType getLegalEntityType(@PathVariable int legalEntityTypeId){
         return service.getLegalEntityType(legalEntityTypeId);
     }
 
@@ -42,7 +42,7 @@ public class LegalEntityTypeController{
     }
 
     @DeleteMapping("/admin/legalEntityType/{legalEntityTypeId}")
-    public String deleteLegalEntityType(@PathVariable String legalEntityTypeId){
+    public String deleteLegalEntityType(@PathVariable int legalEntityTypeId){
         return service.deleteLegalEntityType(legalEntityTypeId);
     }
 
