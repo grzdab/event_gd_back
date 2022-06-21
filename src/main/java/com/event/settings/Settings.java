@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class Settings {
 
-    private String id;
+    private int id;
     private String resourcesURI;
 
     public Settings() {
     }
 
-    public Settings(String id, String resourcesURI) {
+    public Settings(int id, String resourcesURI) {
         this.id = id;
         this.resourcesURI = resourcesURI;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -1,9 +1,8 @@
 package com.event.admin;
 
-import com.event.appRole.AppRole;
-import com.event.appRole.AppRoleController;
-import com.event.appRole.AppRoleService;
-import com.event.role.Role;
+import com.event.settings.Settings;
+import com.event.settings.SettingsController;
+import com.event.settings.SettingsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -24,8 +23,8 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(AppRoleController.class)
-public class AppRoleControllerTest {
+@WebMvcTest(SettingsController.class)
+public class SettingsControllerTest {
     @Autowired
     private MockMvc mvc;
 
@@ -33,23 +32,19 @@ public class AppRoleControllerTest {
     ObjectMapper mapper;
 
     @MockBean
-    AppRoleService service;
+    SettingsService service;
 
-    Role role1 = new Role(1, "zenek");
-    Role role2 = new Role(2, "olek");
-    Role role3 = new Role(3, "tomek");
-
-    AppRole appRole1 = new AppRole(1, new ArrayList<>(Arrays.asList(role1, role2)));
-    AppRole appRole2 = new AppRole(2, new ArrayList<>(Arrays.asList(role2, role3, role1)));
-    AppRole appRole3 = new AppRole(3, new ArrayList<>(Arrays.asList(role3, role1)));
+    Settings settings1 = new Settings(1, "zenek");
+    Settings settings2 = new Settings(2, "olek");
+    Settings settings3 = new Settings(3, "tomek");
 
     @Test
-    public void getAllAppRole_success() throws Exception {
-        List<AppRole> modelList = new ArrayList<>(Arrays.asList(appRole1, appRole2, appRole3));
-        when(service.getAllAppRoles()).thenReturn(modelList);
+    public void getAllSettings_success() throws Exception {
+        List<Settings> modelList = new ArrayList<>(Arrays.asList(settings1, settings2, settings3));
+        when(service.getAllSettings()).thenReturn(modelList);
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
-                        .get("/appRole")
+                        .get("/admin/settings")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -59,14 +54,14 @@ public class AppRoleControllerTest {
 
     }
     @Test
-    public void createPOSTAppRoleAPI_success() throws Exception {
-        AppRole model = new AppRole();
+    public void createPOSTSettingsAPI_success() throws Exception {
+        Settings model = new Settings();
         model.setId(4);
-        model.setRoleList(new ArrayList<>(Arrays.asList(role1)));
+        model.setResourcesURI("123456");
 
-        Mockito.when(service.addAppRole(model)).thenReturn(model);
+        Mockito.when(service.addSettings(model)).thenReturn(model);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/appRole")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/settings")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(model));
@@ -77,14 +72,14 @@ public class AppRoleControllerTest {
     }
 
     @Test
-    public void PUTAppRoleAPI_success() throws Exception {
-        AppRole model = new AppRole();
-        model.setRoleList(new ArrayList<>(Arrays.asList(role1, role2)));
-        service.updateAppRole(2, model);
+    public void PUTSettingsAPI_success() throws Exception {
+        Settings model = new Settings();
+        model.setResourcesURI("aaaaaa");
+        service.updateSettings(2, model);
 
-        Mockito.when(service.updateAppRole(model.getId(), model)).thenReturn(model);
+        Mockito.when(service.updateSettings(model.getId(), model)).thenReturn(model);
 
-        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/appRole")
+        MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/settings")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .content(this.mapper.writeValueAsString(model));
@@ -95,11 +90,11 @@ public class AppRoleControllerTest {
     }
 
     @Test
-    public void DELETEAppRoleAPI_success() throws Exception{
-        Mockito.when(service.getAppRole(2)).thenReturn(appRole2);
+    public void DELETESettingsAPI_success() throws Exception{
+        Mockito.when(service.getSettings(2)).thenReturn(settings2);
 
         mvc.perform(MockMvcRequestBuilders
-                        .delete("/appRole/2")
+                        .delete("/admin/settings/2")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print());

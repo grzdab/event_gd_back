@@ -11,16 +11,14 @@ import java.util.Objects;
 public class SettingsModel {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    String id;
+    Integer id;
 
     String resourcesURI;
 
     public SettingsModel() {
     }
 
-    public SettingsModel(String id, String resourcesURI) {
+    public SettingsModel(Integer id, String resourcesURI) {
         this.id = id;
         this.resourcesURI = resourcesURI;
     }
@@ -29,11 +27,11 @@ public class SettingsModel {
         this.resourcesURI = resourcesURI;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

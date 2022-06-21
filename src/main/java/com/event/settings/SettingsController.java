@@ -22,7 +22,7 @@ public class SettingsController {
     }
 
     @PutMapping("/admin/settings/{settingsId}")
-    public ResponseEntity<Object> updateSettings(@PathVariable String settingsId, @RequestBody Settings newSettings) {
+    public ResponseEntity<Object> updateSettings(@PathVariable int settingsId, @RequestBody Settings newSettings) {
         Settings updateSettings = service.updateSettings(settingsId, newSettings);
         if (updateSettings == null){
             return ResponseEntity.notFound().build();
@@ -32,7 +32,7 @@ public class SettingsController {
     }
 
     @GetMapping("/admin/settings/{settingsId}")
-    public Settings getSettings(@PathVariable String settingsId){
+    public Settings getSettings(@PathVariable int settingsId){
         return service.getSettings(settingsId);
     }
 
@@ -42,7 +42,7 @@ public class SettingsController {
     }
 
     @DeleteMapping("/admin/settings/{settingsId}")
-    public String deleteSettings(@PathVariable String settingsId){
+    public String deleteSettings(@PathVariable int settingsId){
         return service.deleteSettings(settingsId);
     }
 }
