@@ -15,7 +15,7 @@ public class Language {
         this.propertyName = propertyName;
     }
 
-    public int getId(int i) {
+    public int getId() {
         return id;
     }
 

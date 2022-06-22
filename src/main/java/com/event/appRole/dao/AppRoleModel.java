@@ -12,7 +12,6 @@ import java.util.Objects;
 public class AppRoleModel {
 
     @Id
-//            @GeneratedValue()
     Integer id;
 
     @OneToMany
