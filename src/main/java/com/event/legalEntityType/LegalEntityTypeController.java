@@ -9,7 +9,7 @@ import java.util.List;
 @RestController
 public class LegalEntityTypeController{
 
-    LegalEntityTypeService service;
+    private final LegalEntityTypeService service;
 
     @Autowired
     public LegalEntityTypeController(LegalEntityTypeService service) {

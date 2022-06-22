@@ -37,8 +37,7 @@ public class ClientTypeController {
 
     @GetMapping("/admin/clientType")
     public List<ClientType> getAllClientTypes(){
-        List<ClientType> allClientTypes = service.getAllClientTypes();
-        return allClientTypes;
+        return service.getAllClientTypes();
     }
 
     @DeleteMapping("/admin/clientType/{clientTypeId}")
