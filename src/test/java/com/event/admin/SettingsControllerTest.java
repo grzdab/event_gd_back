@@ -1,8 +1,8 @@
 package com.event.admin;
 
-import com.event.settings.Settings;
-import com.event.settings.SettingsController;
-import com.event.settings.SettingsService;
+import com.event.representative.settings.Settings;
+import com.event.representative.settings.SettingsController;
+import com.event.representative.settings.SettingsService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
