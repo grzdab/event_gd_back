@@ -82,7 +82,7 @@ public class LanguageControllerTest {
     @Test
     public void PUTLanguageAPI_success() throws Exception {
         Language model = new Language();
-        model.getId(1);
+//        model.getId(1);
         model.setPropertyName("DiscoPolo");
         service.updateLanguage(1, model);
 
