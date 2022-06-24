@@ -4,22 +4,22 @@ import java.util.Objects;
 
 public class Language {
 
-    private String id;
+    private int id;
     private String propertyName;
 
     public Language() {
     }
 
-    public Language(String id, String propertyName) {
+    public Language(int id, String propertyName) {
         this.id = id;
         this.propertyName = propertyName;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

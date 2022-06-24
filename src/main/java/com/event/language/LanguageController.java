@@ -21,7 +21,7 @@ public class LanguageController {
     }
 
     @PutMapping("/admin/language/{languageId}")
-    public ResponseEntity<Object> updateLanguage(@PathVariable String languageId, @RequestBody Language newLanguage) {
+    public ResponseEntity<Object> updateLanguage(@PathVariable int languageId, @RequestBody Language newLanguage) {
         Language updateLanguage = service.updateLanguage(languageId, newLanguage);
         if (updateLanguage == null){
             return ResponseEntity.notFound().build();
@@ -31,7 +31,7 @@ public class LanguageController {
     }
 
     @GetMapping("/admin/language/{languageId}")
-    public Language getLanguage(@PathVariable String languageId){
+    public Language getLanguage(@PathVariable int languageId){
         return service.getLanguage(languageId);
     }
 
@@ -41,7 +41,7 @@ public class LanguageController {
     }
 
     @DeleteMapping("/admin/language/{languageId}")
-    public String deleteLanguage(@PathVariable String languageId){
+    public String deleteLanguage(@PathVariable int languageId){
         return service.deleteLanguage(languageId);
     }
 }

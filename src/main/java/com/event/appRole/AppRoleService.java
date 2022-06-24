@@ -1,65 +1,58 @@
 package com.event.appRole;
 
-import com.event.appRole.roleDao.AppRoleModel;
-import com.event.appRole.roleDao.AppRoleRepository;
+import com.event.appRole.dao.AppRoleModel;
+import com.event.appRole.dao.AppRoleRepository;
+import com.event.role.Role;
+import com.event.role.roleDao.RoleModel;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public record AppRoleService(AppRoleRepository appRoleRepository) {
 
-    static AppRoleMapper appRoleMapper;
 
     public AppRoleService(AppRoleRepository appRoleRepository) {
         this.appRoleRepository = appRoleRepository;
     }
 
-    public AppRole addRole(AppRole role) {
-        AppRoleModel model = new AppRoleModel(role.getPrivilege());
+    public AppRole addAppRole(AppRole appRole) {
+        AppRoleModel model = new AppRoleModel();
         appRoleRepository.save(model);
-        role.setId(model.getId());
-        return role;
+        appRole.setId(model.getId());
+        return appRole;
     }
 
-    public AppRole getRole(UUID id){
+    public AppRole getAppRole(int id){
         AppRoleModel model = appRoleRepository.findById(id).get();
-        return createRole(model);
+        return createAppRole(model);
     }
 
-    public List<AppRole> getAllRoles(){
-        List<AppRole>roles = new ArrayList<>();
+    public List<AppRole> getAllAppRoles(){
+        List<AppRole>appRoles = new ArrayList<>();
         Iterable<AppRoleModel> appRoleModels = appRoleRepository.findAll();
         for (AppRoleModel model: appRoleModels) {
-            roles.add(createRole(model));
+            appRoles.add(createAppRole(model));
         }
-        return roles;
+        return appRoles;
     }
 
-
-    public String deleteRole(UUID id){
+    public String deleteAppRole(int id){
         appRoleRepository.deleteById(id);
         return "Delete";
     }
 
-//    public AppRole updateRole(UUID roleId, AppRole newRole){
-//        AppRoleModel myRole = appRoleRepository.findById(roleId).get();
-////        Optional<AppRoleModel> myRole = appRoleRepository.findById(newRole.id);
-//        appRoleMapper.updateRoleFromAppRole(newRole, Optional.of(myRole));
-//        appRoleRepository.save(myRole);
-//        return newRole;
-//    }
-    public AppRole updateRole(UUID id, AppRole newRole){
+    public AppRole updateAppRole(int id, AppRole newAppRole){
         AppRoleModel model = appRoleRepository.findById(id).get();
-        model.setPrivilege(newRole.getPrivilege());
         appRoleRepository.save(model);
-        return newRole;
+        return newAppRole;
     }
-    private AppRole createRole(AppRoleModel appRoleModel){
-        return new AppRole(appRoleModel.getId(), appRoleModel.getPrivilege());
+    private AppRole createAppRole(AppRoleModel appRoleModel){
+        return new AppRole(appRoleModel.getId(),
+                appRoleModel.getRole().stream()
+                .map(roleModel -> new Role(roleModel.getId(), roleModel.getName()))
+                .collect(Collectors.toList()));
     }
 }

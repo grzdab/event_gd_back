@@ -1,58 +1,52 @@
 package com.event.appRole;
 
+import com.event.role.Role;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 
 public class AppRole {
 
-    private UUID id;
-    private String privilege;
-    private List<Map<String, Boolean>> privileges;
+    private int id;
+    private List <Role> roleList;
 
     public AppRole() {
     }
 
-    public AppRole(UUID id, String privilege) {
-        this.id = id;
-        this.privilege = privilege;
+    public AppRole(List<Role> roleList) {
+        this.roleList = roleList;
     }
 
-    public UUID getId() {
+    public AppRole(int id, List<Role> roleList) {
+        this.id = id;
+        this.roleList = roleList;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getPrivilege() {
-        return privilege;
+    public List<Role> getRoleList() {
+        return roleList;
     }
 
-    public void setPrivilege(String privilege) {
-        this.privilege = privilege;
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 
-    public List<Map<String, Boolean>> getPrivileges() {
-        return privileges;
+    public void addToRoleList(Role role){
+        roleList.add(role);
+    }
+    public void deleteRoleFromList(Role role){
+        for (int i=0; roleList.size()>i;i++){
+            if (roleList.get(i).equals(role)){
+                roleList.remove(role);
+            }
+        }
     }
 
-    public void setPrivileges(List<Map<String, Boolean>> privileges) {
-        this.privileges = privileges;
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        AppRole role = (AppRole) o;
-        return Objects.equals(id, role.id) && Objects.equals(privileges, role.privileges);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, privileges);
-    }
 }
