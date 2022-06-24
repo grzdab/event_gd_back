@@ -25,8 +25,8 @@ public class EquipmentModel {
 
     @Column(columnDefinition = "int default 0")
     private int equipmentCategoryId;
-//TODO fix error with table equipment_photo_id
-    //private List<Integer> equipmentPhotoId;
+
+    private List<Integer> equipmentPhotoId;
 
     @Column(columnDefinition = "int default 0")
     private int equipmentStatusId;
@@ -43,7 +43,7 @@ public class EquipmentModel {
         this.notes = notes;
         this.equipmentDataId = equipmentDataId;
         this.equipmentCategoryId = equipmentCategoryId;
-        //this.equipmentPhotoId = equipmentPhotoId;
+        this.equipmentPhotoId = equipmentPhotoId;
         this.equipmentStatusId = equipmentStatusId;
         this.inUse = inUse;
     }
@@ -72,9 +72,9 @@ public class EquipmentModel {
         this.equipmentCategoryId = equipmentCategoryId;
     }
 
-//    public void setEquipmentPhotoId(List<Integer> equipmentPhotoId) {
-//        this.equipmentPhotoId = equipmentPhotoId;
-//    }
+    public void setEquipmentPhotoId(List<Integer> equipmentPhotoId) {
+        this.equipmentPhotoId = equipmentPhotoId;
+    }
 
 
     public int getEquipmentStatusId() {
@@ -105,10 +105,10 @@ public class EquipmentModel {
         return equipmentCategoryId;
     }
 
-//    @ElementCollection
-//    public List<Integer> getEquipmentPhotoId() {
-//        return equipmentPhotoId;
-//    }
+    @ElementCollection
+    public List<Integer> getEquipmentPhotoId() {
+        return equipmentPhotoId;
+    }
 
 
     public void setEquipmentStatusId(int equipmentStatusId) {
