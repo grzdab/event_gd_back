@@ -1,7 +1,7 @@
 package com.event.client.dao;
 
 
-import com.event.admin.dao.UserModel;
+import com.event.user.dao.UserModel;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;

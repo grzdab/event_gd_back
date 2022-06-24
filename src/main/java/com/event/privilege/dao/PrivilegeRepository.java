@@ -1,8 +1,8 @@
-package com.event.language.dao;
+package com.event.privilege.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LanguageRepository extends CrudRepository<LanguageModel, Integer> {
+public interface PrivilegeRepository extends CrudRepository<PrivilegeModel, Integer> {
 }
