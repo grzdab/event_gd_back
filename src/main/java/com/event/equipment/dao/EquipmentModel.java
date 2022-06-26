@@ -89,7 +89,7 @@ public class EquipmentModel {
     }
 
     @ElementCollection
-    private List<Integer> getEquipmentBookingStatusId() {
+    public List<Integer> getEquipmentBookingStatusId() {
         return equipmentBookingStatusId;
     }
 

@@ -1,4 +1,7 @@
 package com.event.equipmentBookingStatus.dao;
 
-public interface EquipmentBookingStatusRepository {
+import com.event.equipmentBookingStatus.EquipmentBookingStatus;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface EquipmentBookingStatusRepository extends JpaRepository<EquipmentBookingStatusModel, Integer> {
 }
