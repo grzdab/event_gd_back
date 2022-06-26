@@ -3,7 +3,6 @@ package com.event.equipmentBookingStatus;
 import com.event.equipment.dao.EquipmentModel;
 import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusModel;
 import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusRepository;
-import com.event.equipmentPhoto.dao.EquipmentPhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,19 +17,23 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equ
         this.equipmentBookingStatusRepository = equipmentBookingStatusRepository;
     }
 
+    public EquipmentBookingStatus getEquipmentBookingStatusById(int id) {
+        EquipmentBookingStatusModel model = equipmentBookingStatusRepository.findById(id).get();
+        return createEquipmentBookingStatus(model);
+    }
     public List<EquipmentBookingStatus> getEquipmentBookingStatuses(EquipmentModel model) {
         List<Integer> ids = model.getEquipmentBookingStatusId();
         return createListOfEquipmentStatuses(ids);
     }
 
-    private EquipmentBookingStatus createEquipmentStatus(EquipmentBookingStatusModel model) {
+    private EquipmentBookingStatus createEquipmentBookingStatus(EquipmentBookingStatusModel model) {
         return new EquipmentBookingStatus(model.getId(), model.getBookingStatus());
     }
 
     private List<EquipmentBookingStatus> createListOfEquipmentStatuses(List<Integer> ids) {
         List<EquipmentBookingStatus> bookingStatuses = new ArrayList<>();
         for (Integer id : ids) {
-            EquipmentBookingStatus eqStatus = createEquipmentStatus(equipmentBookingStatusRepository.findById(id).get());
+            EquipmentBookingStatus eqStatus = createEquipmentBookingStatus(equipmentBookingStatusRepository.findById(id).get());
             bookingStatuses.add(eqStatus);
         }
         return bookingStatuses;
