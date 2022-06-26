@@ -34,8 +34,9 @@ public class EquipmentService {
     public Equipment addEquipment(Equipment equipment) {
         EquipmentData equipmentData = equipmentDataService.addEquipmentData(equipment.getEquipmentData());
         EquipmentModel equipmentModel = new EquipmentModel(equipment.getSortingId(), equipment.getName(),
-                equipment.getNotes(), equipmentData.getId(), equipment.getCategory().getId(),
-                createListOfPhotoId(equipment.getPhotos()), equipment.getStatus().getId(), equipment.isInUse());
+                    equipment.getNotes(), equipmentData.getId(), equipment.getCategory().getId(),
+                    equipmentPhotoService.createListOfPhotoId(equipment.getPhotos()),
+                    equipment.getStatus().getId(), new ArrayList<>(), equipment.isInUse());
         equipmentRepository.save(equipmentModel);
         equipment.setId(equipmentModel.getId());
         return equipment;
@@ -85,19 +86,11 @@ public class EquipmentService {
         //TODO to finish
         EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategory(equipmentFromDb.getEquipmentCategoryId());
         EquipmentData equipmentData = equipmentDataService.getEquipmentData(String.valueOf(equipmentFromDb.getEquipmentDataId()));
-        //List<EquipmentPhoto> equipmentPhoto = equipmentPhotoService.getEquipmentPhoto(String.valueOf(equipmentFromDb.getEquipmentPhotoId()));
+        List<EquipmentPhoto> equipmentPhotos = equipmentPhotoService.createListOfEquipmentPhoto(equipmentFromDb);
         return new Equipment(equipmentFromDb.getId(), equipmentFromDb.getSortingId(),
                 equipmentFromDb.getName(), equipmentCategory,
                 equipmentFromDb.getNotes(), equipmentData,
-                new ArrayList<>(), equipmentStatusService.getEquipmentStatus(equipmentFromDb.getEquipmentStatusId()),
+                equipmentPhotos, equipmentStatusService.getEquipmentStatus(equipmentFromDb.getEquipmentStatusId()),
                 1, new ArrayList<>(), equipmentFromDb.isInUse());
-    }
-
-    private List<Integer> createListOfPhotoId(List<EquipmentPhoto> photos) {
-        List<Integer> photoIds = new ArrayList<>();
-        for (EquipmentPhoto photo : photos) {
-            photoIds.add(photo.getId());
-        }
-        return photoIds;
     }
 }

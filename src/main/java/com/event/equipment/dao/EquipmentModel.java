@@ -26,10 +26,16 @@ public class EquipmentModel {
     @Column(columnDefinition = "int default 0")
     private int equipmentCategoryId;
 
+    @Column
+    @ElementCollection(targetClass = Integer.class)
     private List<Integer> equipmentPhotoId;
 
     @Column(columnDefinition = "int default 0")
     private int equipmentStatusId;
+
+    @Column
+    @ElementCollection(targetClass = Integer.class)
+    private List<Integer> equipmentBookingStatusId;
 
     @Column(columnDefinition = "boolean default true")
     private boolean inUse;
@@ -37,7 +43,7 @@ public class EquipmentModel {
     public EquipmentModel() {
     }
 
-    public EquipmentModel(int sortingId, String name, String notes, int equipmentDataId, int equipmentCategoryId, List<Integer> equipmentPhotoId, int equipmentStatusId, boolean inUse) {
+    public EquipmentModel(int sortingId, String name, String notes, int equipmentDataId, int equipmentCategoryId, List<Integer> equipmentPhotoId, int equipmentStatusId, List<Integer> equipmentBookingStatusId, boolean inUse) {
         this.sortingId = sortingId;
         this.name = name;
         this.notes = notes;
@@ -45,6 +51,7 @@ public class EquipmentModel {
         this.equipmentCategoryId = equipmentCategoryId;
         this.equipmentPhotoId = equipmentPhotoId;
         this.equipmentStatusId = equipmentStatusId;
+        this.equipmentBookingStatusId = equipmentBookingStatusId;
         this.inUse = inUse;
     }
 
@@ -79,6 +86,15 @@ public class EquipmentModel {
 
     public int getEquipmentStatusId() {
         return equipmentStatusId;
+    }
+
+    @ElementCollection
+    private List<Integer> getEquipmentBookingStatusId() {
+        return equipmentBookingStatusId;
+    }
+
+    public void setEquipmentBookingStatusId(List<Integer> equipmentBookingStatusId) {
+        this.equipmentBookingStatusId = equipmentBookingStatusId;
     }
 
     public void setInUse(boolean inUse) {

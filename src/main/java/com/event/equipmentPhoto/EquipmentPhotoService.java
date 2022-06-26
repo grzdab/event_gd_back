@@ -1,9 +1,13 @@
 package com.event.equipmentPhoto;
 
+import com.event.equipment.dao.EquipmentModel;
 import com.event.equipmentPhoto.dao.EquipmentPhotoModel;
 import com.event.equipmentPhoto.dao.EquipmentPhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public record EquipmentPhotoService (EquipmentPhotoRepository equipmentPhotoRepository) {
@@ -20,5 +24,22 @@ public record EquipmentPhotoService (EquipmentPhotoRepository equipmentPhotoRepo
 
     private EquipmentPhoto createEquipmentPhoto(EquipmentPhotoModel model) {
         return new EquipmentPhoto(model.getId(), model.getPhotoURI());
+    }
+
+    public List<Integer> createListOfPhotoId(List<EquipmentPhoto> photos) {
+        List<Integer> photoIds = new ArrayList<>();
+        for (EquipmentPhoto photo : photos) {
+            photoIds.add(photo.getId());
+        }
+        return photoIds;
+    }
+
+    public List<EquipmentPhoto> createListOfEquipmentPhoto(EquipmentModel model) {
+        List<Integer> photoId = model.getEquipmentPhotoId();
+        List<EquipmentPhoto> photos = new ArrayList<>();
+        for (Integer id : photoId) {
+            photos.add(getEquipmentPhoto(String.valueOf(id)));
+        }
+        return photos;
     }
 }
