@@ -12,8 +12,6 @@ import java.util.Objects;
 public class LegalEntityTypeModel {
 
     @Id
-//    @GeneratedValue(generator = "system-uuid")
-//    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     Integer id;
 
     @NotEmpty

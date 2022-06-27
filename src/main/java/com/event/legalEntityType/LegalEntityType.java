@@ -6,7 +6,7 @@ import java.util.Objects;
 public class LegalEntityType {
     private int id;
     private String typeName;
-//    private Map<String,String> legalEntityType;
+    private Map<String,String> legalEntityType;
 
     public LegalEntityType() {
     }

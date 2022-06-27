@@ -30,6 +30,10 @@ public class ClientModel {
     private List<Integer> businessBranchesId;
     private List<Integer> businessCategoriesId;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserModel userId;
+
     public ClientModel() {
     }
 

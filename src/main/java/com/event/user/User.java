@@ -15,7 +15,7 @@ public class User {
     private String lastName;
     private Contact contact;
     private AppRole userRole;
-    static List<ClientRepository> clients = new ArrayList<>();
+    static List<ClientRepository> clientRepositories = new ArrayList<>();
 
 
     public User() {
@@ -92,12 +92,12 @@ public class User {
         this.contact = contact;
     }
 
-    public static List<ClientRepository> getClient() {
-        return clients;
+    public static List<ClientRepository> getClientRepositories() {
+        return clientRepositories;
     }
 
-    public static void setClientRepositories(List<ClientRepository> clients) {
-        User.clients = clients;
+    public static void setClientRepositories(List<ClientRepository> clientRepositories) {
+        User.clientRepositories = clientRepositories;
     }
 
     @Override

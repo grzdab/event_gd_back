@@ -7,7 +7,7 @@ public class ClientType {
 
     private int id;
     private String typeName;
-//    private Map<Integer, String> clientType;
+    private Map<Integer, String> clientType;
 
     public ClientType() {
     }
