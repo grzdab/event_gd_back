@@ -1,4 +1,4 @@
-package com.event.equipment.models;
+package com.event.equipmentCategory;
 
 public class EquipmentCategory {
     private int id;
@@ -7,6 +7,13 @@ public class EquipmentCategory {
     private String description;
 
     public EquipmentCategory() {
+    }
+
+    public EquipmentCategory(int id, String name, int sortingGroup, String description) {
+        this.id = id;
+        this.name = name;
+        this.sortingGroup = sortingGroup;
+        this.description = description;
     }
 
     public void setId(int id) {

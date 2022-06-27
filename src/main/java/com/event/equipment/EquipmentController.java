@@ -1,6 +1,5 @@
 package com.event.equipment;
 
-import com.event.equipment.models.EquipmentCategory;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,7 +13,7 @@ public class EquipmentController {
     }
 
     @GetMapping("/equipment/{id}")
-    Equipment getEquipmentById(@PathVariable String id) {
+    Equipment getEquipmentById(@PathVariable int id) {
         return service.getEquipmentById(id);
     }
 
@@ -29,12 +28,12 @@ public class EquipmentController {
     }
 
     @PutMapping("/equipment/{id}")
-    Equipment uploadEquipment(@PathVariable String id, @RequestBody Equipment newEquipment) {
+    Equipment uploadEquipment(@PathVariable int id, @RequestBody Equipment newEquipment) {
         return service.uploadEquipment(id, newEquipment);
     }
 
     @DeleteMapping("/equipment/{id}")
-    String deleteEquipment(@PathVariable String id) {
+    String deleteEquipment(@PathVariable int id) {
         return service.deleteEquipment(id);
     }
 }
