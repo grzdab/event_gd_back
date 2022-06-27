@@ -1,7 +1,7 @@
 package com.event.user;
 
 import com.event.appRole.AppRole;
-import com.event.client.dao.Client;
+import com.event.client.dao.ClientRepository;
 import com.event.contact.Contact;
 
 import java.util.*;
@@ -15,7 +15,7 @@ public class User {
     private String lastName;
     private Contact contact;
     private AppRole userRole;
-    static List<Client> clients = new ArrayList<>();
+    static List<ClientRepository> clients = new ArrayList<>();
 
 
     public User() {
@@ -92,11 +92,11 @@ public class User {
         this.contact = contact;
     }
 
-    public static List<Client> getClient() {
+    public static List<ClientRepository> getClient() {
         return clients;
     }
 
-    public static void setClientRepositories(List<Client> clients) {
+    public static void setClientRepositories(List<ClientRepository> clients) {
         User.clients = clients;
     }
 

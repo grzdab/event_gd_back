@@ -7,7 +7,7 @@ import com.event.businessBranch.BusinessBranchService;
 import com.event.businessCategory.BusinessCategory;
 import com.event.businessCategory.BusinessCategoryService;
 import com.event.client.dao.ClientModel;
-import com.event.client.dao.Client;
+import com.event.client.dao.ClientRepository;
 import com.event.clientType.ClientType;
 import com.event.clientType.ClientTypeService;
 import com.event.contact.Contact;
@@ -26,7 +26,7 @@ import java.util.UUID;
 @Service
 public class ClientService {
 
-    private final Client clientRepository;
+    private final ClientRepository clientRepository;
     private final RepresentativeService representativeService;
     private final AddressService addressService;
     private final ContactService contactService;
@@ -35,7 +35,7 @@ public class ClientService {
     private final BusinessCategoryService businessCategoryService;
     private final TaxInfoService taxInfoService;
 
-    public ClientService(Client clientRepository, RepresentativeService representativeService, AddressService addressService, ContactService contactService, ClientTypeService clientTypeService, BusinessBranchService businessBranchService, BusinessCategoryService businessCategoryService, TaxInfoService taxInfoService) {
+    public ClientService(ClientRepository clientRepository, RepresentativeService representativeService, AddressService addressService, ContactService contactService, ClientTypeService clientTypeService, BusinessBranchService businessBranchService, BusinessCategoryService businessCategoryService, TaxInfoService taxInfoService) {
         this.clientRepository = clientRepository;
         this.representativeService = representativeService;
         this.addressService = addressService;
