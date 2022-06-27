@@ -1,15 +1,13 @@
 package com.event.equipment.dao;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.UUID;
 
 @Entity
-@Table(name = "equipment")
+@Table
 public class EquipmentModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private UUID id;
 
     @Column(columnDefinition = "int default 1")
     private int sortingId;
@@ -21,21 +19,31 @@ public class EquipmentModel {
     private String notes;
 
     @Column(columnDefinition = "int default 0")
-    private int equipmentDataId;
+    private int width;
+
+    @Column(columnDefinition = "int default 0")
+    private int length;
+
+    @Column(columnDefinition = "int default 0")
+    private int height;
+
+    @Column(columnDefinition = "int default 0")
+    private int weight;
+
+    @Column(columnDefinition = "int default 0")
+    private int powerRequired;
+
+    @Column(columnDefinition = "int default 0")
+    private int staffNeeded;
+
+    @Column(columnDefinition = "int default 0")
+    private int minimumAge;
+
+    @Column(columnDefinition = "int default 0")
+    private int maxParticipants;
 
     @Column(columnDefinition = "int default 0")
     private int equipmentCategoryId;
-
-    @Column
-    @ElementCollection(targetClass = Integer.class)
-    private List<Integer> equipmentPhotoId;
-
-    @Column(columnDefinition = "int default 0")
-    private int equipmentStatusId;
-
-    @Column
-    @ElementCollection(targetClass = Integer.class)
-    private List<Integer> equipmentBookingStatusId;
 
     @Column(columnDefinition = "boolean default true")
     private boolean inUse;
@@ -43,19 +51,23 @@ public class EquipmentModel {
     public EquipmentModel() {
     }
 
-    public EquipmentModel(int sortingId, String name, String notes, int equipmentDataId, int equipmentCategoryId, List<Integer> equipmentPhotoId, int equipmentStatusId, List<Integer> equipmentBookingStatusId, boolean inUse) {
+    public EquipmentModel(int sortingId, String name, String notes, int width, int length, int height, int weight, int powerRequired, int staffNeeded, int minimumAge, int maxParticipants, int equipmentCategoryId, boolean inUse) {
         this.sortingId = sortingId;
         this.name = name;
         this.notes = notes;
-        this.equipmentDataId = equipmentDataId;
+        this.width = width;
+        this.length = length;
+        this.height = height;
+        this.weight = weight;
+        this.powerRequired = powerRequired;
+        this.staffNeeded = staffNeeded;
+        this.minimumAge = minimumAge;
+        this.maxParticipants = maxParticipants;
         this.equipmentCategoryId = equipmentCategoryId;
-        this.equipmentPhotoId = equipmentPhotoId;
-        this.equipmentStatusId = equipmentStatusId;
-        this.equipmentBookingStatusId = equipmentBookingStatusId;
         this.inUse = inUse;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -71,30 +83,40 @@ public class EquipmentModel {
         this.notes = notes;
     }
 
-    public void setEquipmentDataId(int equipmentDataId) {
-        this.equipmentDataId = equipmentDataId;
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setPowerRequired(int powerRequired) {
+        this.powerRequired = powerRequired;
+    }
+
+    public void setStaffNeeded(int staffNeeded) {
+        this.staffNeeded = staffNeeded;
+    }
+
+    public void setMinimumAge(int minimumAge) {
+        this.minimumAge = minimumAge;
+    }
+
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
     }
 
     public void setEquipmentCategoryId(int equipmentCategoryId) {
         this.equipmentCategoryId = equipmentCategoryId;
-    }
-
-    public void setEquipmentPhotoId(List<Integer> equipmentPhotoId) {
-        this.equipmentPhotoId = equipmentPhotoId;
-    }
-
-
-    public int getEquipmentStatusId() {
-        return equipmentStatusId;
-    }
-
-    @ElementCollection
-    public List<Integer> getEquipmentBookingStatusId() {
-        return equipmentBookingStatusId;
-    }
-
-    public void setEquipmentBookingStatusId(List<Integer> equipmentBookingStatusId) {
-        this.equipmentBookingStatusId = equipmentBookingStatusId;
     }
 
     public void setInUse(boolean inUse) {
@@ -113,29 +135,49 @@ public class EquipmentModel {
         return notes;
     }
 
-    public int getEquipmentDataId() {
-        return equipmentDataId;
+    public int getWidth() {
+        return width;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public int getPowerRequired() {
+        return powerRequired;
+    }
+
+    public int getStaffNeeded() {
+        return staffNeeded;
+    }
+
+    public int getMinimumAge() {
+        return minimumAge;
+    }
+
+    public int getMaxParticipants() {
+        return maxParticipants;
     }
 
     public int getEquipmentCategoryId() {
         return equipmentCategoryId;
     }
 
-    @ElementCollection
-    public List<Integer> getEquipmentPhotoId() {
-        return equipmentPhotoId;
-    }
-
-
-    public void setEquipmentStatusId(int equipmentStatusId) {
-        this.equipmentStatusId = equipmentStatusId;
-    }
-
     public boolean isInUse() {
         return inUse;
     }
 
-    public int getId() {
+    @Id
+    @GeneratedValue
+    public UUID getId() {
         return id;
     }
 }

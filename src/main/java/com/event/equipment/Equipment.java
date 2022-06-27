@@ -1,15 +1,12 @@
 package com.event.equipment;
 
-import com.event.equipmentBookingStatus.EquipmentBookingStatus;
-import com.event.equipmentCategory.EquipmentCategory;
-import com.event.equipmentData.EquipmentData;
-import com.event.equipmentPhoto.EquipmentPhoto;
-import com.event.equipmentStatus.EquipmentStatus;
+import com.event.equipment.models.*;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Equipment {
-    private int id;
+    private UUID id;
     private int sortingId;
     private String name;
     private EquipmentCategory category;
@@ -18,13 +15,12 @@ public class Equipment {
     private List<EquipmentPhoto> photos;
     private EquipmentStatus status;
     private int bookingStatus;
-    private List<EquipmentBookingStatus> equipmentBookingPeriods;
-    private boolean inUse;
+    private List<BookingStatus> bookingPeriods;
 
     public Equipment() {
     }
 
-    public Equipment(int id, int sortingId, String name, EquipmentCategory category, String notes, EquipmentData equipmentData, List<EquipmentPhoto> photos, EquipmentStatus status, int bookingStatus, List<EquipmentBookingStatus> equipmentBookingPeriods, boolean inUse) {
+    public Equipment(UUID id, int sortingId, String name, EquipmentCategory category, String notes, EquipmentData equipmentData, List<EquipmentPhoto> photos, EquipmentStatus status, int bookingStatus, List<BookingStatus> bookingPeriods) {
         this.id = id;
         this.sortingId = sortingId;
         this.name = name;
@@ -34,11 +30,10 @@ public class Equipment {
         this.photos = photos;
         this.status = status;
         this.bookingStatus = bookingStatus;
-        this.equipmentBookingPeriods = equipmentBookingPeriods;
-        this.inUse = inUse;
+        this.bookingPeriods = bookingPeriods;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -74,15 +69,11 @@ public class Equipment {
         return bookingStatus;
     }
 
-    public List<EquipmentBookingStatus> getEquipmentBookingPeriods() {
-        return equipmentBookingPeriods;
+    public List<BookingStatus> getBookingPeriods() {
+        return bookingPeriods;
     }
 
-    public boolean isInUse() {
-        return inUse;
-    }
-
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -118,11 +109,7 @@ public class Equipment {
         this.bookingStatus = bookingStatus;
     }
 
-    public void setEquipmentBookingPeriods(List<EquipmentBookingStatus> equipmentBookingPeriods) {
-        this.equipmentBookingPeriods = equipmentBookingPeriods;
-    }
-
-    public void setInUse(boolean inUse) {
-        this.inUse = inUse;
+    public void setBookingPeriods(List<BookingStatus> bookingPeriods) {
+        this.bookingPeriods = bookingPeriods;
     }
 }
