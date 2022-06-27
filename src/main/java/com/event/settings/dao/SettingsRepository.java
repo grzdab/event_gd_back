@@ -1,4 +1,4 @@
-package com.event.representative.settings.dao;
+package com.event.settings.dao;
 
 import org.springframework.data.repository.CrudRepository;
 

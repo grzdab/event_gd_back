@@ -1,7 +1,7 @@
-package com.event.representative.settings;
+package com.event.settings;
 
-import com.event.representative.settings.dao.SettingsRepository;
-import com.event.representative.settings.dao.SettingsModel;
+import com.event.settings.dao.SettingsRepository;
+import com.event.settings.dao.SettingsModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

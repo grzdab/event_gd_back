@@ -1,4 +1,4 @@
-package com.event.representative.settings;
+package com.event.settings;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
