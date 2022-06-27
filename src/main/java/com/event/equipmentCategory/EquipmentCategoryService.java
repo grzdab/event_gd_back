@@ -35,14 +35,6 @@ public class EquipmentCategoryService {
         return null;
     }
 
-    private EquipmentCategory getEquipmentCategoryByName(String name) {
-        EquipmentCategoryModel model = repository.findByName(name);
-        if (model != null) {
-            return new EquipmentCategory(model.getId(), model.getName(), model.getDescription());
-        }
-        return null;
-    }
-
     public EquipmentCategory updateEquipmentCategory(Long id, EquipmentCategory equipmentCategory) {
         EquipmentCategoryModel model = repository.findById(id).orElseThrow(() -> new IllegalStateException("Could not find equipment category with specified ID"));
         model.setName(equipmentCategory.getName());
@@ -58,6 +50,7 @@ public class EquipmentCategoryService {
 
     public String deleteEquipmentCategory(Long id) {
         String categoryName = getEquipmentCategoryById(id).getName();
+        // TODO check if entry exists
         repository.deleteById(id);
         return String.format("Category #%d (%s) has been deleted from the database.", id, categoryName);
     }
@@ -68,5 +61,13 @@ public class EquipmentCategoryService {
             model.getName(),
             model.getDescription()
         );
+    }
+
+    private EquipmentCategory getEquipmentCategoryByName(String name) {
+        EquipmentCategoryModel model = repository.findByName(name);
+        if (model != null) {
+            return new EquipmentCategory(model.getId(), model.getName(), model.getDescription());
+        }
+        return null;
     }
 }
