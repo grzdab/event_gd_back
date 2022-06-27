@@ -46,7 +46,7 @@ public class ClientService {
         this.taxInfoService = taxInfoService;
     }
 
-    public com.event.client.Client addClient(com.event.client.Client client) {
+    public Client addClient(Client client) {
         ClientModel clientModel = new ClientModel(client.getFullName(), client.getShortName(),
                 client.getContact().getId(), client.isActive(), client.getClientType().getId(),
                 client.getNotes(), client.getTaxInfo().getId(), client.getAppUserId());
@@ -55,7 +55,7 @@ public class ClientService {
         return client;
     }
 
-    public com.event.client.Client updateClient(String clientId, com.event.client.Client newClient) {
+    public Client updateClient(String clientId, Client newClient) {
         ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
         clientFromDB.setFullName(newClient.getFullName());
         clientFromDB.setShortName(newClient.getShortName());
@@ -69,7 +69,7 @@ public class ClientService {
         return newClient;
     }
 
-    public com.event.client.Client getClient(String clientId) {
+    public Client getClient(String clientId) {
         ClientModel clientModel = clientRepository.findById(UUID.fromString(clientId)).get();
         return createClient(clientModel);
     }
@@ -89,7 +89,7 @@ public class ClientService {
     }
 
 
-    private com.event.client.Client createClient(ClientModel clientModel) {
+    private Client createClient(ClientModel clientModel) {
         List<Address> addresses = addressService.getAllAddressForClient(clientModel.getId().toString());
         Contact contact = contactService.getContact(clientModel.getContactId());
         ClientType clientType = clientTypeService.getClientType(clientModel.getClientTypeId());
@@ -98,7 +98,7 @@ public class ClientService {
         List<BusinessCategory> businessCategories = getAllBusinessCategoryForClient(clientModel.getBusinessCategoriesId());
         List<Representative> representatives =
                 representativeService.getAllRepresentativesForClient(clientModel.getId().toString());
-        return new com.event.client.Client(clientModel.getId(), clientModel.getFullName(), clientModel.getShortName(), addresses, contact,
+        return new Client(clientModel.getId(), clientModel.getFullName(), clientModel.getShortName(), addresses, contact,
                 clientModel.isActive(), clientType, taxInfo, businessBranches, businessCategories,
                 clientModel.getNotes(), representatives, clientModel.getAppUserId());
     }
