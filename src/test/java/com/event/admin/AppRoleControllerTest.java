@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,8 +53,8 @@ public class AppRoleControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/appRole")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -64,7 +66,7 @@ public class AppRoleControllerTest {
         model.setId(4);
         model.setRoleList(new ArrayList<>(Arrays.asList(role1)));
 
-        Mockito.when(service.addAppRole(model)).thenReturn(model);
+        when(service.addAppRole(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/appRole")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -72,8 +74,8 @@ public class AppRoleControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -82,7 +84,7 @@ public class AppRoleControllerTest {
         model.setRoleList(new ArrayList<>(Arrays.asList(role1, role2)));
         service.updateAppRole(2, model);
 
-        Mockito.when(service.updateAppRole(model.getId(), model)).thenReturn(model);
+        when(service.updateAppRole(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/appRole")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -90,18 +92,18 @@ public class AppRoleControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     public void DELETEAppRoleAPI_success() throws Exception{
-        Mockito.when(service.getAppRole(2)).thenReturn(appRole2);
+        when(service.getAppRole(2)).thenReturn(appRole2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/appRole/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }

@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,8 +49,8 @@ public class EventStatusControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/admin/eventStatus")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -60,7 +62,7 @@ public class EventStatusControllerTest {
         model.setId(4);
         model.setEventStatus("30");
 
-        Mockito.when(service.addEventStatus(model)).thenReturn(model);
+        when(service.addEventStatus(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/eventStatus")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -68,8 +70,8 @@ public class EventStatusControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -78,7 +80,7 @@ public class EventStatusControllerTest {
         model.setEventStatus("90");
         service.updateEventStatus(2, model);
 
-        Mockito.when(service.updateEventStatus(model.getId(), model)).thenReturn(model);
+        when(service.updateEventStatus(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/eventStatus")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -86,18 +88,18 @@ public class EventStatusControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     public void DELETEEventStatusAPI_success() throws Exception{
-        Mockito.when(service.getEventStatus(2)).thenReturn(eventStatus2);
+        when(service.getEventStatus(2)).thenReturn(eventStatus2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/admin/eventStatus/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }

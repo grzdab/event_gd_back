@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +48,7 @@ public class PrivilegeControllerTest {
             MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                             .get("/admin/privileges")
                             .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk())
+                    .andExpect(MockMvcResultMatchers.status().isOk())
                     .andReturn();
 
             String responseContent = mvcResult.getResponse().getContentAsString();
@@ -64,7 +65,7 @@ public class PrivilegeControllerTest {
             model.setPrivilegesEnum(PrivilegeEnum.READ);
             service.addPrivileges(model);
 
-            Mockito.when(service.addPrivileges(model)).thenReturn(model);
+            when(service.addPrivileges(model)).thenReturn(model);
 
             MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/privileges")
                     .contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +73,7 @@ public class PrivilegeControllerTest {
                     .content(this.mapper.writeValueAsString(model));
 
             mvc.perform(mockRequest)
-                    .andExpect(status().isOk());
+                    .andExpect(MockMvcResultMatchers.status().isOk());
 //                .andExpect(jsonPath("$", notNullValue()))
 //                .andExpect(jsonPath("$.name", is("John Doe")));
 
@@ -86,7 +87,7 @@ public class PrivilegeControllerTest {
             model.setPrivilegesEnum(PrivilegeEnum.READ);
             service.updatePrivileges(1, model);
 
-            Mockito.when(service.updatePrivileges(model.getId(), model)).thenReturn(model);
+            when(service.updatePrivileges(model.getId(), model)).thenReturn(model);
 
             MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/privileges")
                     .contentType(MediaType.APPLICATION_JSON)
@@ -94,7 +95,7 @@ public class PrivilegeControllerTest {
                     .content(this.mapper.writeValueAsString(model));
 
             mvc.perform(mockRequest)
-                    .andExpect(status().isOk());
+                    .andExpect(MockMvcResultMatchers.status().isOk());
         }
 //        @Test
 //        public void PUTPrivilegeAPI_nullId() throws Exception {
@@ -138,12 +139,12 @@ public class PrivilegeControllerTest {
 //        }
         @Test
         public void DELETEPrivilegeAPI_success() throws Exception{
-            Mockito.when(service.getPrivileges(2)).thenReturn(privilege2);
+            when(service.getPrivileges(2)).thenReturn(privilege2);
 
             mvc.perform(MockMvcRequestBuilders
                             .delete("/admin/privileges/2")
                             .contentType(MediaType.APPLICATION_JSON))
-                    .andExpect(status().isOk());
+                    .andExpect(MockMvcResultMatchers.status().isOk());
         }
 
 //        @Test

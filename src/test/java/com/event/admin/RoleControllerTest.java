@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +46,7 @@ public class RoleControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/admin/role")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -58,7 +59,7 @@ public class RoleControllerTest {
         model.setName("mikolaj");
         service.addRole(model);
 
-        Mockito.when(service.addRole(model)).thenReturn(model);
+        when(service.addRole(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/role")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -66,7 +67,7 @@ public class RoleControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -76,7 +77,7 @@ public class RoleControllerTest {
         model.setName("michal");
         service.updateRole(2, model);
 
-        Mockito.when(service.updateRole(model.getId(), model)).thenReturn(model);
+        when(service.updateRole(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/role")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -84,16 +85,16 @@ public class RoleControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void DELETERoleAPI_success() throws Exception{
-        Mockito.when(service.getRole(2)).thenReturn(role2);
+        when(service.getRole(2)).thenReturn(role2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/admin/role/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

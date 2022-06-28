@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +48,7 @@ public class TaxInfoControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/tax-info")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -65,7 +66,7 @@ public class TaxInfoControllerTest {
         model.setInsurance("no");
         service.addTaxInfo(model);
 
-        Mockito.when(service.addTaxInfo(model)).thenReturn(model);
+        when(service.addTaxInfo(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/tax-info")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -73,7 +74,7 @@ public class TaxInfoControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -89,7 +90,7 @@ public class TaxInfoControllerTest {
         model.setInsurance("no");
         service.updateTaxInfo(2, model);
 
-        Mockito.when(service.updateTaxInfo(model.getId(), model)).thenReturn(model);
+        when(service.updateTaxInfo(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/tax-info")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -97,17 +98,17 @@ public class TaxInfoControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void DELETETaxInfoAPI_success() throws Exception{
-        Mockito.when(service.getTaxInfo(2)).thenReturn(taxInfo2);
+        when(service.getTaxInfo(2)).thenReturn(taxInfo2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/tax-info/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }

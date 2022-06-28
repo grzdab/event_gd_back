@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,8 +48,8 @@ public class SettingsControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/admin/settings")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -59,7 +61,7 @@ public class SettingsControllerTest {
         model.setId(4);
         model.setResourcesURI("123456");
 
-        Mockito.when(service.addSettings(model)).thenReturn(model);
+        when(service.addSettings(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/settings")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -67,8 +69,8 @@ public class SettingsControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -77,7 +79,7 @@ public class SettingsControllerTest {
         model.setResourcesURI("aaaaaa");
         service.updateSettings(2, model);
 
-        Mockito.when(service.updateSettings(model.getId(), model)).thenReturn(model);
+        when(service.updateSettings(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/settings")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -85,18 +87,18 @@ public class SettingsControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     public void DELETESettingsAPI_success() throws Exception{
-        Mockito.when(service.getSettings(2)).thenReturn(settings2);
+        when(service.getSettings(2)).thenReturn(settings2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/admin/settings/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }

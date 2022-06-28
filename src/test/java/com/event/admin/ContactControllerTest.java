@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,8 +49,8 @@ public class ContactControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/contact")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -61,7 +63,7 @@ public class ContactControllerTest {
         model.setEmail("tt@wt.pl");
         model.setPhone("54321");
 
-        Mockito.when(service.addContact(model)).thenReturn(model);
+        when(service.addContact(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/contact")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -69,8 +71,8 @@ public class ContactControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -79,7 +81,7 @@ public class ContactControllerTest {
         model.setPhone("232323");
         service.updateContact(2, model);
 
-        Mockito.when(service.updateContact(model.getId(), model)).thenReturn(model);
+        when(service.updateContact(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/contact")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -87,18 +89,18 @@ public class ContactControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     public void DELETEContactAPI_success() throws Exception{
-        Mockito.when(service.getContact(2)).thenReturn(contact2);
+        when(service.getContact(2)).thenReturn(contact2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/contact/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +47,7 @@ public class LegalEntityTypeControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/admin/legalEntityType")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -59,7 +60,7 @@ public class LegalEntityTypeControllerTest {
         model.setTypeName("Mikolaj");
         service.addLegalEntityType(model);
 
-        Mockito.when(service.addLegalEntityType(model)).thenReturn(model);
+        when(service.addLegalEntityType(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/legalEntityType")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -67,7 +68,7 @@ public class LegalEntityTypeControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -77,7 +78,7 @@ public class LegalEntityTypeControllerTest {
         model.setTypeName("Brajanek");
         service.updateLegalEntityType(2, model);
 
-        Mockito.when(service.updateLegalEntityType(model.getId(), model)).thenReturn(model);
+        when(service.updateLegalEntityType(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/legalEntityType")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -85,16 +86,16 @@ public class LegalEntityTypeControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void DELETELegalEntityTypeAPI_success() throws Exception{
-        Mockito.when(service.getLegalEntityType(2)).thenReturn(legalEntityType2);
+        when(service.getLegalEntityType(2)).thenReturn(legalEntityType2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/admin/legalEntityType/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

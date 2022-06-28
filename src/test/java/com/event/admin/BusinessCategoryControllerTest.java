@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,8 +48,8 @@ public class BusinessCategoryControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/admin/businessCategory")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -59,7 +61,7 @@ public class BusinessCategoryControllerTest {
         model.setId(4);
         model.setName("18stki");
 
-        Mockito.when(service.addBusinessCategory(model)).thenReturn(model);
+        when(service.addBusinessCategory(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/businessCategory")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -67,8 +69,8 @@ public class BusinessCategoryControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -77,7 +79,7 @@ public class BusinessCategoryControllerTest {
         model.setName("Integracja");
         service.updateBusinessCategory(2, model);
 
-        Mockito.when(service.updateBusinessCategory(model.getId(), model)).thenReturn(model);
+        when(service.updateBusinessCategory(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/businessCategory")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -85,18 +87,18 @@ public class BusinessCategoryControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     public void DELETEBusinessCategoryAPI_success() throws Exception{
-        Mockito.when(service.getBusinessCategory(2)).thenReturn(businessCategory2);
+        when(service.getBusinessCategory(2)).thenReturn(businessCategory2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/admin/businessCategory/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }

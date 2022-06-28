@@ -18,6 +18,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,8 +78,8 @@ public class CompanyDataControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/companyData")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -90,7 +92,7 @@ public class CompanyDataControllerTest {
         model.setFullName("Maja_i_Guio");
         model.setShortName("Wodecki");
 
-        Mockito.when(service.addCompanyData(model)).thenReturn(model);
+        when(service.addCompanyData(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/companyData")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -98,8 +100,8 @@ public class CompanyDataControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -108,7 +110,7 @@ public class CompanyDataControllerTest {
         model.setShortName("Polo");
         service.updateCompanyData(UUID.fromString("cb6a2ef9-4789-4ccb-b875-7e1fc9b16894"), model);
 
-        Mockito.when(service.updateCompanyData(model.getId(), model)).thenReturn(model);
+        when(service.updateCompanyData(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/companyData")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -116,18 +118,18 @@ public class CompanyDataControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     public void DELETECompanyDataAPI_success() throws Exception{
-        Mockito.when(service.getCompanyData(UUID.fromString("cb6a2ef9-4789-4ccb-b875-7e1fc9b16894"))).thenReturn(companyData2);
+        when(service.getCompanyData(UUID.fromString("cb6a2ef9-4789-4ccb-b875-7e1fc9b16894"))).thenReturn(companyData2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/companyData/cb6a2ef9-4789-4ccb-b875-7e1fc9b16894")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }

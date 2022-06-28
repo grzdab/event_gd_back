@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +46,7 @@ public class ClientTypeControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/admin/clientType")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -58,7 +59,7 @@ public class ClientTypeControllerTest {
         model.setTypeName("mikolaj");
         service.addClientType(model);
 
-        Mockito.when(service.addClientType(model)).thenReturn(model);
+        when(service.addClientType(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/clientType")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -66,7 +67,7 @@ public class ClientTypeControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -76,7 +77,7 @@ public class ClientTypeControllerTest {
         model.setTypeName("michal");
         service.updateClientType(2, model);
 
-        Mockito.when(service.updateClientType(model.getId(), model)).thenReturn(model);
+        when(service.updateClientType(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/clientType")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -84,16 +85,16 @@ public class ClientTypeControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void DELETEClientTypeAPI_success() throws Exception{
-        Mockito.when(service.getClientType(2)).thenReturn(clientType2);
+        when(service.getClientType(2)).thenReturn(clientType2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/admin/clientType/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

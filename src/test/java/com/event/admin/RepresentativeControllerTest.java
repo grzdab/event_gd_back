@@ -15,6 +15,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +48,7 @@ public class RepresentativeControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/representative")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -63,7 +64,7 @@ public class RepresentativeControllerTest {
         model.setClientId("4");
         service.addRepresentative(model);
 
-        Mockito.when(service.addRepresentative(model)).thenReturn(model);
+        when(service.addRepresentative(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/representative")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -71,7 +72,7 @@ public class RepresentativeControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
 
     }
 
@@ -81,7 +82,7 @@ public class RepresentativeControllerTest {
         model.setFirstName("Brajanek");
         service.updateRepresentative(2, model);
 
-        Mockito.when(service.updateRepresentative(model.getId(), model)).thenReturn(model);
+        when(service.updateRepresentative(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/representative")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -89,16 +90,16 @@ public class RepresentativeControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
     public void DELETERepresentativeAPI_success() throws Exception{
-        Mockito.when(service.getRepresentative(2)).thenReturn(representative2);
+        when(service.getRepresentative(2)).thenReturn(representative2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/representative/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 }

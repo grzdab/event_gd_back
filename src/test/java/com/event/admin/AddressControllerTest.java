@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,8 +48,8 @@ public class AddressControllerTest {
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
                         .get("/address/client/{clientId}","cb6a2ef9-4789-4ccb-b875-7e1fc9b16894")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
                 .andReturn();
 
         String responseContent = mvcResult.getResponse().getContentAsString();
@@ -66,7 +68,7 @@ public class AddressControllerTest {
         model.setClientId("f7169af6-dd50-427f-9a94-0ecffdb47f95");
         service.addAddress(model);
 
-        Mockito.when(service.addAddress(model)).thenReturn(model);
+        when(service.addAddress(model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/address")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -74,8 +76,8 @@ public class AddressControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
 
     }
 
@@ -85,7 +87,7 @@ public class AddressControllerTest {
         model.setCity("Lodz");
         service.updateAddress(2, model);
 
-        Mockito.when(service.updateAddress(model.getId(), model)).thenReturn(model);
+        when(service.updateAddress(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/address")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -93,18 +95,18 @@ public class AddressControllerTest {
                 .content(this.mapper.writeValueAsString(model));
 
         mvc.perform(mockRequest)
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
     public void DELETEAddressAPI_success() throws Exception{
-        Mockito.when(service.getAddress(2)).thenReturn(address2);
+        when(service.getAddress(2)).thenReturn(address2);
 
         mvc.perform(MockMvcRequestBuilders
                         .delete("/address/2")
                         .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
-                .andDo(print());
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
     }
 }
