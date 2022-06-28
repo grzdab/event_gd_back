@@ -8,8 +8,8 @@ public class EquipmentStatusModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(columnDefinition = "default value 0")
-    private int Status;
+    @Column(columnDefinition = "int default '0'")
+    private Integer Status;
 
     public EquipmentStatusModel() {
     }
@@ -23,11 +23,11 @@ public class EquipmentStatusModel {
         return id;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return Status;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -2,12 +2,14 @@ package com.event.equipmentBookingStatus.dao;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
 public class EquipmentBookingStatusModel {
 
     @Id
+    @GeneratedValue
     private Integer id;
 
     @Column(columnDefinition = "int default 0")

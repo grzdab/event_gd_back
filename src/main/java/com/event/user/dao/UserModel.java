@@ -45,9 +45,9 @@ public class UserModel {
      AppRoleModel userRole;
 //////////////////////////////////////////
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "client_id")
-    private List<ClientModel> clients;
+//    @OneToMany(cascade = {CascadeType.ALL})
+//    @JoinColumn(name = "client_id")
+//    private List<ClientModel> clients;
 
     public UserModel() {
     }

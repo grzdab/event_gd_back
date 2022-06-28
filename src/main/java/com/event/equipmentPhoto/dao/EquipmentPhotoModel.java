@@ -2,6 +2,7 @@ package com.event.equipmentPhoto.dao;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -9,7 +10,7 @@ public class EquipmentPhotoModel {
 
     private Integer id;
 
-    @Column(columnDefinition = "varchar default undefined")
+    @Column(columnDefinition = "varchar default 'undefined'")
     private String photoURI;
 
     public EquipmentPhotoModel() {
@@ -21,6 +22,7 @@ public class EquipmentPhotoModel {
     }
 
     @Id
+    @GeneratedValue
     public Integer getId() {
         return id;
     }
