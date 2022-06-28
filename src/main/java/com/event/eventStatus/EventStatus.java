@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class EventStatus {
 
-    private String id;
+    private int id;
     private String eventStatus;
 
 
     public EventStatus() {
     }
 
-    public EventStatus(String id, String eventStatus) {
+    public EventStatus(int id, String eventStatus) {
         this.id = id;
         this.eventStatus = eventStatus;
     }
@@ -20,11 +20,11 @@ public class EventStatus {
         this.eventStatus = eventStatus;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

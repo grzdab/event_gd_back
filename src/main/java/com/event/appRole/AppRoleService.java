@@ -11,8 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public record AppRoleService(AppRoleRepository appRoleRepository) {
+public class AppRoleService{
 
+    AppRoleRepository appRoleRepository;
 
     public AppRoleService(AppRoleRepository appRoleRepository) {
         this.appRoleRepository = appRoleRepository;

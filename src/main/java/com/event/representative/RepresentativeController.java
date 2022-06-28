@@ -14,7 +14,7 @@ public class RepresentativeController {
     }
 
     @GetMapping("/representative/{representativeId}")
-    public Representative getRepresentative(@PathVariable String representativeId) {
+    public Representative getRepresentative(@PathVariable int representativeId) {
         return service.getRepresentative(representativeId);
     }
 
@@ -29,12 +29,12 @@ public class RepresentativeController {
     }
 
     @PutMapping("/representative/{representativeId}")
-    public Representative updateRepresentative(@PathVariable String representativeId, @RequestBody Representative newRepresentative) {
+    public Representative updateRepresentative(@PathVariable int representativeId, @RequestBody Representative newRepresentative) {
         return service.updateRepresentative(representativeId, newRepresentative);
     }
 
     @DeleteMapping("/representative/{representativeId}")
-    public String deleteRepresentative(@PathVariable String representativeId) {
+    public String deleteRepresentative(@PathVariable int representativeId) {
         return service.deleteRepresentative(representativeId);
     }
 

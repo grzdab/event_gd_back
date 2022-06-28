@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public record RoleService(RoleRepository appRoleRepository) {
+public class RoleService {
+
+    RoleRepository appRoleRepository;
 
     public RoleService(RoleRepository appRoleRepository) {
         this.appRoleRepository = appRoleRepository;

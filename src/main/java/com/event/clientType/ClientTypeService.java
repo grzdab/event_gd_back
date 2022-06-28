@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record ClientTypeService (ClientTypeRepository clientTypeRepository) {
+public class ClientTypeService {
+
+        ClientTypeRepository clientTypeRepository;
 
     @Autowired
     public ClientTypeService(ClientTypeRepository clientTypeRepository) {

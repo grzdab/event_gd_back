@@ -12,9 +12,7 @@ import java.util.Objects;
 public class LegalEntityTypeModel {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
-    @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    String id;
+    Integer id;
 
     @NotEmpty
     String typeName;
@@ -26,11 +24,11 @@ public class LegalEntityTypeModel {
         this.typeName = typeName;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

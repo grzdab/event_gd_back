@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record BusinessCategoryService(BusinessCategoryRepository businessCategoryRepository) {
+public class BusinessCategoryService {
+
+    BusinessCategoryRepository businessCategoryRepository;
 
     public BusinessCategoryService(BusinessCategoryRepository businessCategoryRepository){
         this.businessCategoryRepository = businessCategoryRepository;

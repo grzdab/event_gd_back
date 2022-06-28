@@ -9,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record EventStatusService(EventStatusRepository eventStatusRepository) {
+public class EventStatusService {
+
+    EventStatusRepository eventStatusRepository;
 
     @Autowired
     public EventStatusService(EventStatusRepository eventStatusRepository){
@@ -23,17 +25,17 @@ public record EventStatusService(EventStatusRepository eventStatusRepository) {
         return eventStatus;
     }
 
-    public EventStatus getEventStatus(String eventStatusId) {
+    public EventStatus getEventStatus(int eventStatusId) {
         EventStatusModel model = eventStatusRepository.findById(eventStatusId).get();
         return createEventStatus(model);
     }
 
-    public String deleteEventStatus(String eventStatusId) {
+    public String deleteEventStatus(int eventStatusId) {
         eventStatusRepository.deleteById(eventStatusId);
         return "Deleted";
     }
 
-    public EventStatus updateEventStatus(String eventStatusId, EventStatus newEventStatus) {
+    public EventStatus updateEventStatus(int eventStatusId, EventStatus newEventStatus) {
         EventStatusModel model = eventStatusRepository.findById(eventStatusId).get();
         model.setEventStatus(newEventStatus.getEventStatus());
         eventStatusRepository.save(model);

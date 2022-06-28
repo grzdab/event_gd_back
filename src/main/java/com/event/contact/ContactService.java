@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record ContactService(ContactRepository contactRepository) {
+public class ContactService {
+
+    ContactRepository contactRepository;
 
     static ContactMapper contactMapper;
 

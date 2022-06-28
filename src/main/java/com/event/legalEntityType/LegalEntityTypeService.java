@@ -9,8 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record LegalEntityTypeService(LegalEntityTypeRepository legalEntityTypeRepository)
-{
+public class LegalEntityTypeService{
+
+    LegalEntityTypeRepository legalEntityTypeRepository;
 
     @Autowired
     public LegalEntityTypeService(LegalEntityTypeRepository legalEntityTypeRepository) {
@@ -25,17 +26,17 @@ public record LegalEntityTypeService(LegalEntityTypeRepository legalEntityTypeRe
         return legalEntityType;
     }
 
-    public LegalEntityType getLegalEntityType(String legalEntityTypeId) {
+    public LegalEntityType getLegalEntityType(int legalEntityTypeId) {
         LegalEntityTypeModel model = legalEntityTypeRepository.findById(legalEntityTypeId).get();
         return createLegalEntityType(model);
     }
 
-    public String deleteLegalEntityType(String legalEntityTypeId) {
+    public String deleteLegalEntityType(int legalEntityTypeId) {
         legalEntityTypeRepository.deleteById(legalEntityTypeId);
         return "Deleted";
     }
 
-    public LegalEntityType updateLegalEntityType(String legalEntityTypeId, LegalEntityType newLegalEntityType) {
+    public LegalEntityType updateLegalEntityType(int legalEntityTypeId, LegalEntityType newLegalEntityType) {
         LegalEntityTypeModel model = legalEntityTypeRepository.findById(legalEntityTypeId).get();
         model.setTypeName(newLegalEntityType.getTypeName());
         legalEntityTypeRepository.save(model);

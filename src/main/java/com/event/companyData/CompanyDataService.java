@@ -14,7 +14,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public record CompanyDataService(CompanyDataRepository companyDataRepository) {
+public class CompanyDataService {
+
+    CompanyDataRepository companyDataRepository;
 
     @Autowired
     public CompanyDataService(CompanyDataRepository companyDataRepository) {

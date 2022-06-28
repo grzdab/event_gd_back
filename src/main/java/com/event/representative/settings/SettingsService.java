@@ -1,7 +1,7 @@
-package com.event.settings;
+package com.event.representative.settings;
 
-import com.event.settings.dao.SettingsModel;
-import com.event.settings.dao.SettingsRepository;
+import com.event.representative.settings.dao.SettingsRepository;
+import com.event.representative.settings.dao.SettingsModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +9,9 @@ import java.util.List;
 
 
 @Service
-public record SettingsService(SettingsRepository settingsRepository) {
+public class SettingsService{
+
+    SettingsRepository settingsRepository;
 
     public SettingsService(SettingsRepository settingsRepository) {
         this.settingsRepository = settingsRepository;
@@ -21,15 +23,15 @@ public record SettingsService(SettingsRepository settingsRepository) {
         settings.setId(model.getId());
         return settings;
     }
-    public Settings getSettings(String settingsId){
+    public Settings getSettings(int settingsId){
         SettingsModel model = settingsRepository.findById(settingsId).get();
         return createSettings(model);
     }
-    public String deleteSettings(String settingsId){
+    public String deleteSettings(int settingsId){
         settingsRepository.deleteById(settingsId);
         return "delete";
     }
-    public Settings updateSettings(String settingsId, Settings newSettings){
+    public Settings updateSettings(int settingsId, Settings newSettings){
         SettingsModel model = settingsRepository.findById(settingsId).get();
         model.setResourcesURI(newSettings.getResourcesURI());
         settingsRepository.save(model);

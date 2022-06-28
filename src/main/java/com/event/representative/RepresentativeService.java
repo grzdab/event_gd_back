@@ -20,7 +20,7 @@ public class RepresentativeService {
         this.contactService = contactService;
     }
 
-    public Representative getRepresentative(String representativeId) {
+    public Representative getRepresentative(int representativeId) {
         RepresentativeModel representativeModel = representativeRepository.findById(Integer.valueOf(representativeId)).get();
         return createRepresentative(representativeModel);
     }
@@ -42,8 +42,8 @@ public class RepresentativeService {
         return representative;
     }
 
-    public Representative updateRepresentative(String representativeId, Representative newRepresentative) {
-        RepresentativeModel representativeFromDB = representativeRepository.findById(Integer.valueOf(representativeId)).get();
+    public Representative updateRepresentative(int representativeId, Representative newRepresentative) {
+        RepresentativeModel representativeFromDB = representativeRepository.findById(representativeId).get();
         representativeFromDB.setFirstName(newRepresentative.getFirstName());
         representativeFromDB.setLastName(newRepresentative.getLastName());
         representativeFromDB.setContactId(newRepresentative.getContact().getId());
@@ -52,8 +52,8 @@ public class RepresentativeService {
         return newRepresentative;
     }
 
-    public String deleteRepresentative(String representativeId) {
-        representativeRepository.deleteById(Integer.valueOf(representativeId));
+    public String deleteRepresentative(int representativeId) {
+        representativeRepository.deleteById(representativeId);
         return "DELETED";
     }
 
