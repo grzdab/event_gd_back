@@ -11,7 +11,6 @@ import java.util.Objects;
 @Entity
 public class PrivilegeModel {
 
-    @Id
     private Integer id;
 
     @NotEmpty
@@ -32,6 +31,7 @@ public class PrivilegeModel {
         this.type = type;
     }
 
+    @Id
     public int getId() {
         return id;
     }
