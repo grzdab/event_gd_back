@@ -45,7 +45,7 @@ public class AddressService {
         addressFromDB.setPostalCode(newAddress.getPostalCode());
         addressFromDB.setCity(newAddress.getCity());
         addressFromDB.setCountryId(newAddress.getCountryId());
-        addressFromDB.setPrimary(newAddress.isPrimary());
+        addressFromDB.setPrimaryAddress(newAddress.isPrimary());
         addressFromDB.setClientId(newAddress.getClientId());
         addressRepository.save(addressFromDB);
         return newAddress;
@@ -59,6 +59,6 @@ public class AddressService {
     private Address createAddress(AddressModel addressModel){
         return new Address(addressModel.getId(), addressModel.getStreet(), addressModel.getStreetNumber(),
                 addressModel.getPostalCode(), addressModel.getCity(), addressModel.getCountryId(),
-                addressModel.isPrimary(), addressModel.getClientId());
+                addressModel.isPrimaryAddress(), addressModel.getClientId());
     }
 }

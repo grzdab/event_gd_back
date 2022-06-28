@@ -1,8 +1,6 @@
 package com.event.address.dao;
 
 
-import org.hibernate.annotations.ColumnDefault;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,22 +18,22 @@ public class AddressModel {
     @Column(length = 100)
     private String city;
     private int countryId;
-    @ColumnDefault("true") // wartosc domyslna
-    private boolean isPrimary;
+    @Column(columnDefinition = "boolean default true")
+    private Boolean isPrimaryAddress;
     private String clientId;
 
     public AddressModel() {
     }
 
     public AddressModel(Integer id, String street, String streetNumber, String postalCode, String city,
-                        int countryId, boolean isPrimary, String clientId) {
+                        int countryId, boolean isPrimaryAddress, String clientId) {
         this.id = id;
         this.street = street;
         this.streetNumber = streetNumber;
         this.postalCode = postalCode;
         this.city = city;
         this.countryId = countryId;
-        this.isPrimary = isPrimary;
+        this.isPrimaryAddress = isPrimaryAddress;
         this.clientId = clientId;
     }
 
@@ -89,12 +87,12 @@ public class AddressModel {
         this.countryId = countryId;
     }
 
-    public boolean isPrimary() {
-        return isPrimary;
+    public Boolean isPrimaryAddress() {
+        return isPrimaryAddress;
     }
 
-    public void setPrimary(boolean primary) {
-        isPrimary = primary;
+    public void setPrimaryAddress(Boolean primary) {
+        isPrimaryAddress = primary;
     }
 
     public String getClientId() {

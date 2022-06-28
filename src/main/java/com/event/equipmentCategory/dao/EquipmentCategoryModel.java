@@ -29,6 +29,7 @@ public class EquipmentCategoryModel {
     }
 
     @Id
+    @GeneratedValue
     public Integer getId() {
         return id;
     }

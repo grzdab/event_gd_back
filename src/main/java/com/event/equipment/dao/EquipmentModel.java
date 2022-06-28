@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "equipment")
+@Table
 public class EquipmentModel {
 
     @Id
@@ -14,10 +14,10 @@ public class EquipmentModel {
     @Column(columnDefinition = "int default 1")
     private int sortingId;
 
-    @Column(columnDefinition = "varchar default unnamed")
+    @Column(columnDefinition = "varchar default 'unnamed'")
     private String name;
 
-    @Column(columnDefinition = "varchar default null")
+    @Column(columnDefinition = "varchar default 'null'")
     private String notes;
 
     @Column(columnDefinition = "int default 0")
