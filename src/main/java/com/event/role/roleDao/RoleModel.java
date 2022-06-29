@@ -12,8 +12,6 @@ import java.util.Objects;
 public class RoleModel {
 
     Integer id;
-
-    @NotEmpty
     String name;
 
     private List<PrivilegeModel> privilegesList;
@@ -35,6 +33,7 @@ public class RoleModel {
         this.id = id;
     }
 
+    @NotEmpty
     public String getName() {
         return name;
     }
@@ -43,7 +42,6 @@ public class RoleModel {
         this.name = privilege;
     }
 
-//    @Access(AccessType.PROPERTY)
     @OneToMany
     public List<PrivilegeModel> getPrivilegesList() {
         return privilegesList;

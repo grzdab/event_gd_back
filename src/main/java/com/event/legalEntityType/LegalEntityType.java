@@ -4,14 +4,14 @@ import java.util.Map;
 import java.util.Objects;
 
 public class LegalEntityType {
-    private String id;
+    private int id;
     private String typeName;
     private Map<String,String> legalEntityType;
 
     public LegalEntityType() {
     }
 
-    public LegalEntityType(String id, String typeName) {
+    public LegalEntityType(int id, String typeName) {
         this.id = id;
         this.typeName = typeName;
     }
@@ -20,11 +20,11 @@ public class LegalEntityType {
         this.typeName = typeName;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

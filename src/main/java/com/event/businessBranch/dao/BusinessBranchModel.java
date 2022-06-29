@@ -12,8 +12,6 @@ import java.util.Objects;
 public class BusinessBranchModel {
 
     private Integer id;
-
-    @NotEmpty
     private String name;
 
     public BusinessBranchModel() {
@@ -38,6 +36,7 @@ public class BusinessBranchModel {
         this.id = id;
     }
 
+    @NotEmpty
     public String getName() {
         return name;
     }

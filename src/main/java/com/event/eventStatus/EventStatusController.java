@@ -21,7 +21,7 @@ public class EventStatusController {
     }
 
     @PutMapping("/admin/eventStatus/{eventStatusId}")
-    public ResponseEntity<Object> updateEventStatus(@PathVariable String eventStatusId, @RequestBody EventStatus newEventStatus) {
+    public ResponseEntity<Object> updateEventStatus(@PathVariable int eventStatusId, @RequestBody EventStatus newEventStatus) {
         EventStatus updateEventStatus = service.updateEventStatus(eventStatusId, newEventStatus);
         if (updateEventStatus == null){
             return ResponseEntity.notFound().build();
@@ -31,7 +31,7 @@ public class EventStatusController {
     }
 
     @GetMapping("/admin/eventStatus/{eventStatusId}")
-    public EventStatus getEventStatus(@PathVariable String eventStatusId){
+    public EventStatus getEventStatus(@PathVariable int eventStatusId){
         return service.getEventStatus(eventStatusId);
     }
 
@@ -41,7 +41,7 @@ public class EventStatusController {
     }
 
     @DeleteMapping("/admin/eventStatus/{eventStatusId}")
-    public String deleteEventStatus(@PathVariable String eventStatusId){
+    public String deleteEventStatus(@PathVariable int eventStatusId){
         return service.deleteEventStatus(eventStatusId);
     }
 }

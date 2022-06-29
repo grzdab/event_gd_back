@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
 
-@Entity(name = "PrivilegesModel")
+@Entity
 public class PrivilegeModel {
 
     private Integer id;

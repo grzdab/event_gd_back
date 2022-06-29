@@ -10,8 +10,6 @@ import java.util.Objects;
 public class BusinessCategoryModel {
 
     private Integer id;
-
-    @NotEmpty
     private String name;
 
     public BusinessCategoryModel() {
@@ -36,7 +34,7 @@ public class BusinessCategoryModel {
         return id;
     }
 
-
+    @NotEmpty
     public String getName() {
         return name;
     }

@@ -19,12 +19,12 @@ public class TaxInfoModel {
     private String krs;
     @Column(length = 20)
     private String insurance;
-    private String legalEntityTypeId;
+    private Integer legalEntityTypeId;
 
     public TaxInfoModel() {
     }
 
-    public TaxInfoModel(Integer id, String regon, String pesel, String nip, String krs, String insurance, String legalEntityTypeId) {
+    public TaxInfoModel(Integer id, String regon, String pesel, String nip, String krs, String insurance, Integer legalEntityTypeId) {
         this.id = id;
         this.regon = regon;
         this.pesel = pesel;
@@ -84,11 +84,11 @@ public class TaxInfoModel {
         this.insurance = insurance;
     }
 
-    public String getLegalEntityTypeId() {
+    public Integer getLegalEntityTypeId() {
         return legalEntityTypeId;
     }
 
-    public void setLegalEntityTypeId(String legalEntityTypeId) {
+    public void setLegalEntityTypeId(Integer legalEntityTypeId) {
         this.legalEntityTypeId = legalEntityTypeId;
     }
 }

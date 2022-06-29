@@ -11,7 +11,6 @@ public class ClientTypeModel {
 
     private Integer id;
 
-    @NotEmpty
     private String typeName;
 
     public ClientTypeModel() {
@@ -36,6 +35,7 @@ public class ClientTypeModel {
         this.id = id;
     }
 
+    @NotEmpty
     public String getTypeName() {
         return typeName;
     }

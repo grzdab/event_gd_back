@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record   BusinessBranchService(BusinessBranchRepository businessBranchRepository) {
+public class BusinessBranchService{
+
+    BusinessBranchRepository businessBranchRepository;
 
     public BusinessBranchService(BusinessBranchRepository businessBranchRepository) {
         this.businessBranchRepository = businessBranchRepository;

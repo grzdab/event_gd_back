@@ -11,6 +11,8 @@ import java.util.Objects;
 @Entity
 public class LanguageModel {
 
+    @Id
+    @GeneratedValue
     Integer id;
 
     @NotEmpty
@@ -28,8 +30,6 @@ public class LanguageModel {
     public LanguageModel() {
     }
 
-    @Id
-    @GeneratedValue
     public Integer getId() {
         return id;
     }

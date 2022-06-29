@@ -1,25 +1,34 @@
-package com.event.settings;
+package com.event.representative.settings.dao;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 
-public class Settings {
+@Entity
+public class SettingsModel {
 
-    private String id;
-    private String resourcesURI;
+    @Id
+    Integer id;
 
-    public Settings() {
+    String resourcesURI;
+
+    public SettingsModel() {
     }
 
-    public Settings(String id, String resourcesURI) {
+    public SettingsModel(Integer id, String resourcesURI) {
         this.id = id;
         this.resourcesURI = resourcesURI;
     }
 
-    public String getId() {
+    public SettingsModel(String resourcesURI) {
+        this.resourcesURI = resourcesURI;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -35,8 +44,8 @@ public class Settings {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Settings settings = (Settings) o;
-        return Objects.equals(id, settings.id) && Objects.equals(resourcesURI, settings.resourcesURI);
+        SettingsModel that = (SettingsModel) o;
+        return Objects.equals(id, that.id) && Objects.equals(resourcesURI, that.resourcesURI);
     }
 
     @Override
