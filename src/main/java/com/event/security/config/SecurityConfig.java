@@ -37,8 +37,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .csrf().disable() // cross site request forgery - TODO ENABLE!
             .authorizeRequests()
-            .antMatchers("/", "index", "/css/*", "/js/*", "/hello").permitAll()
-            .antMatchers("/ram/**").hasRole("ADMIN")
+//            .antMatchers("/", "index", "/css/*", "/js/*", "/hello").permitAll()
+            .antMatchers("/user/**").hasRole("ADMIN")
+            .antMatchers("/client/**").hasRole("ADMIN")
+            .antMatchers("/equipment/**").hasRole("ADMIN")
             .anyRequest()
             .authenticated()
             .and()

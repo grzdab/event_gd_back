@@ -10,6 +10,7 @@ import com.event.user.dao.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,8 @@ public class FakeDataInflator {
     CommandLineRunner run(
         UserRepository userRepository,
         PrivilegeRepository privilegeRepository,
-        RoleRepository roleRepository) {
+        RoleRepository roleRepository,
+        PasswordEncoder passwordEncoder) {
         return args -> {
 
             RoleModel admin = new RoleModel("ADMIN");
@@ -76,8 +78,8 @@ public class FakeDataInflator {
                 privilege_admin_C,privilege_admin_R));
             roleRepository.save(manager);
 
-            UserModel ziutek = new UserModel("ziutek", "123", "Józef", "Baryła");
-            UserModel jadzka = new UserModel("jadźka", "123", "Jadwiga", "Kapusta");
+            UserModel ziutek = new UserModel("ziutek", passwordEncoder.encode("123"), "Józef", "Baryła");
+            UserModel jadzka = new UserModel("jadźka", passwordEncoder.encode("123"), "Jadwiga", "Kapusta");
             ziutek.setRoles(List.of(admin));
             jadzka.setRoles(List.of(manager, guest));
 

@@ -8,8 +8,6 @@ import com.event.role.roleDao.RoleModel;
 import com.event.role.roleDao.RoleRepository;
 import com.event.user.User;
 import com.event.user.UserService;
-import com.event.user.dao.UserModel;
-import com.event.user.dao.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,11 +41,13 @@ public class ApplicationUserDaoService implements ApplicationUserDAO {
     @Override
     public Optional<ApplicationUser> selectApplicationUserByLogin(String login) {
         User user = userService.getUserByLogin(login);
-        return Optional.of(new ApplicationUser(
-            passwordEncoder.encode(user.getPassword()),
+        Optional<ApplicationUser> appUser = Optional.of(new ApplicationUser(
             user.getLogin(),
+            user.getPassword(),
             getGrantedAuthorities(user),
             true, true, true, true));
+
+        return appUser;
     }
 
     private Set<SimpleGrantedAuthority> getGrantedAuthorities(User user) {
