@@ -32,7 +32,8 @@ public class PrivilegeModel {
     }
 
     @Id
-    public int getId() {
+    @GeneratedValue
+    public Integer getId() {
         return id;
     }
 

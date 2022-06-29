@@ -12,6 +12,8 @@ import java.util.Objects;
 public class RoleModel {
 
     Integer id;
+
+    @NotEmpty
     String name;
 
     private List<PrivilegeModel> privilegesList;
@@ -24,6 +26,7 @@ public class RoleModel {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return id;
     }
