@@ -1,25 +1,32 @@
 package com.event.user;
 
-import com.event.appRole.AppRole;
 import com.event.user.dao.UserModel;
 import com.event.user.dao.UserRepository;
 import com.event.contact.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
 @Service
-public record UserService(UserRepository userRepository) {
+public class UserService {
+
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public User addUser(User user) {
-        UserModel model = new UserModel(user.getLogin(),user.getPassword(),user.getFirstName(),user.getLastName());
+        UserModel model = new UserModel(
+            user.getLogin(),
+            passwordEncoder.encode(user.getPassword()),
+            user.getFirstName(),
+            user.getLastName());
         userRepository.save(model);
         //optional
         user.setId(model.getId());
@@ -45,7 +52,7 @@ public record UserService(UserRepository userRepository) {
     public User updateUser(UUID userId, User newUser) {
         UserModel model = userRepository.findById(userId).get();
         model.setLogin(newUser.getLogin());
-        model.setPassword(newUser.getPassword());
+        model.setPassword(passwordEncoder.encode(newUser.getPassword()));
         model.setFirstName(newUser.getFirstName());
         model.setLastName(newUser.getFirstName());
         userRepository.save(model);

@@ -44,7 +44,7 @@ public class ApplicationUserDaoService implements ApplicationUserDAO {
     public Optional<ApplicationUser> selectApplicationUserByLogin(String login) {
         User user = userService.getUserByLogin(login);
         return Optional.of(new ApplicationUser(
-            user.getPassword(),
+            passwordEncoder.encode(user.getPassword()),
             user.getLogin(),
             getGrantedAuthorities(user),
             true, true, true, true));
@@ -54,18 +54,8 @@ public class ApplicationUserDaoService implements ApplicationUserDAO {
         Iterable<RoleModel> applicationRoles = roleRepository.findAll();
         Iterable<PrivilegeModel> applicationPrivileges = privilegeRepository.findAll();
         List<Role> userRoles = user.getUserRoles();
-
-
-        //
-//        for (Integer id : userRolesIds) {
-//            for (RoleModel roleModel : applicationRoles) {
-//                if (id == roleModel.getId()) {
-//                    userRoles.add()
-//                }
-//            }
-//        }
-
         List<String> privilegesList = new ArrayList<>();
+
         for (Role role : userRoles) {
             List<String> prvlgs = role.getPrivileges().stream().map(Privilege::getName).toList();
             privilegesList.addAll(prvlgs);
