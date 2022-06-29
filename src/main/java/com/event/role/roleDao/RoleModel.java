@@ -7,24 +7,24 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 import java.util.Objects;
 
-
 @Entity
 public class RoleModel {
 
-    Integer id;
-    String name;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
+    @NotEmpty
+    private String name;
+    @ManyToMany
     private List<PrivilegeModel> privilegesList;
 
     public RoleModel() {
     }
 
-    public RoleModel(String privilege) {
-        this.name = privilege;
+    public RoleModel(String name) {
+        this.name = name;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return id;
     }
@@ -33,16 +33,14 @@ public class RoleModel {
         this.id = id;
     }
 
-    @NotEmpty
     public String getName() {
         return name;
     }
 
-    public void setName(String privilege) {
-        this.name = privilege;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @OneToMany
     public List<PrivilegeModel> getPrivilegesList() {
         return privilegesList;
     }

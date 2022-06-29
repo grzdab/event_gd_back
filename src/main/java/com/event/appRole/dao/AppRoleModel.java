@@ -36,7 +36,7 @@ public class AppRoleModel {
         this.id = id;
     }
 
-    public List<RoleModel> getRole() {
+    public List<RoleModel> getRoles() {
         return role;
     }
 

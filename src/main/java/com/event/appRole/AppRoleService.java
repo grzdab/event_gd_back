@@ -3,7 +3,6 @@ package com.event.appRole;
 import com.event.appRole.dao.AppRoleModel;
 import com.event.appRole.dao.AppRoleRepository;
 import com.event.role.Role;
-import com.event.role.roleDao.RoleModel;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class AppRoleService{
     }
     private AppRole createAppRole(AppRoleModel appRoleModel){
         return new AppRole(appRoleModel.getId(),
-                appRoleModel.getRole().stream()
+                appRoleModel.getRoles().stream()
                 .map(roleModel -> new Role(roleModel.getId(), roleModel.getName()))
                 .collect(Collectors.toList()));
     }

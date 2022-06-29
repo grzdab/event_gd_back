@@ -10,9 +10,9 @@ import java.util.Objects;
 
 @Entity
 public class PrivilegeModel {
-
+    @Id
+    @GeneratedValue
     private Integer id;
-
     @NotEmpty
     private String name;
     private PrivilegeEnum type;
@@ -31,8 +31,7 @@ public class PrivilegeModel {
         this.type = type;
     }
 
-    @Id
-    @GeneratedValue
+
     public Integer getId() {
         return id;
     }

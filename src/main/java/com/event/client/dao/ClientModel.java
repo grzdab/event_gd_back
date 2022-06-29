@@ -26,8 +26,8 @@ public class ClientModel {
     private int taxInfoId;
     @Column(nullable = false)
     private String appUserId;
-    private List<Integer> businessBranchesId;
-    private List<Integer> businessCategoriesId;
+    private List<Integer> businessBranchesIds;
+    private List<Integer> businessCategoriesIds;
 
     public ClientModel() {
     }
@@ -41,8 +41,8 @@ public class ClientModel {
         this.notes = notes;
         this.taxInfoId = taxInfoId;
         this.appUserId = appUserId;
-        this.businessBranchesId = new ArrayList<>();
-        this.businessCategoriesId = new ArrayList<>();
+        this.businessBranchesIds = new ArrayList<>();
+        this.businessCategoriesIds = new ArrayList<>();
     }
 
     @Id //kazda klasa entity musi miec unikatowe id, wiec metoda getId musi miec adnotacje Id
@@ -129,19 +129,19 @@ public class ClientModel {
 
     @ElementCollection
     public List<Integer> getBusinessBranchesId() {
-        return businessBranchesId;
+        return businessBranchesIds;
     }
 
-    public void setBusinessBranchesId(List<Integer> businessBranchesId) {
-        this.businessBranchesId = businessBranchesId;
+    public void setBusinessBranchesId(List<Integer> businessBranchesIds) {
+        this.businessBranchesIds = businessBranchesIds;
     }
 
     @ElementCollection
     public List<Integer> getBusinessCategoriesId() {
-        return businessCategoriesId;
+        return businessCategoriesIds;
     }
 
-    public void setBusinessCategoriesId(List<Integer> businessCategoriesId) {
-        this.businessCategoriesId = businessCategoriesId;
+    public void setBusinessCategoriesId(List<Integer> businessCategoriesIds) {
+        this.businessCategoriesIds = businessCategoriesIds;
     }
 }

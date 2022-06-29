@@ -21,13 +21,18 @@ public record UserService(UserRepository userRepository) {
     public User addUser(User user) {
         UserModel model = new UserModel(user.getLogin(),user.getPassword(),user.getFirstName(),user.getLastName());
         userRepository.save(model);
-        //opcional
+        //optional
         user.setId(model.getId());
         return user;
     }
 
     public User getUser(UUID id) {
         UserModel model = userRepository.findById(id).get();
+        return createUser(model);
+    }
+
+    public User getUserByLogin(String login) {
+        UserModel model = userRepository.findByLogin(login);
         return createUser(model);
     }
 
@@ -58,8 +63,14 @@ public record UserService(UserRepository userRepository) {
     }
 
     private User createUser(UserModel userModel){
-        AppRole appRole = new AppRole();
         Contact contact = new Contact();
-        return new User(userModel.getId(), userModel.getLogin(), userModel.getPassword(), userModel.getFirstName(), userModel.getLastName(), contact, appRole);
+        return new User(
+            userModel.getId(),
+            userModel.getLogin(),
+            userModel.getPassword(),
+            userModel.getFirstName(),
+            userModel.getLastName(),
+            contact,
+            new ArrayList<>());
     }
 }

@@ -4,6 +4,8 @@ import com.event.appRole.AppRole;
 import com.event.appRole.dao.AppRoleModel;
 import com.event.client.dao.ClientModel;
 import com.event.contact.contactDao.ContactModel;
+import com.event.role.Role;
+import com.event.role.roleDao.RoleModel;
 
 
 import javax.persistence.*;
@@ -38,11 +40,13 @@ public class UserModel {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="contact_id")
     ContactModel contact;
+    @ManyToMany
+    private List<RoleModel> roles;
 
-    ///////////////////////////////////
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_role_id")
-     AppRoleModel userRole;
+//    ///////////////////////////////////
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_role_id")
+//     AppRoleModel userRole;
 //////////////////////////////////////////
 
 //    @OneToMany(cascade = {CascadeType.ALL})
@@ -107,23 +111,48 @@ public class UserModel {
         this.contact = contact;
     }
 
-    public AppRoleModel getUserRole() {
-        return (AppRoleModel) userRole;
+
+    public List<RoleModel> getRoles() {
+        return roles;
     }
-    public void setUserRole(AppRoleModel userRole) {
-        this.userRole = (AppRoleModel) userRole;
+
+    public void setRoles(List<RoleModel> roles) {
+        this.roles = roles;
     }
+
+    ////    @ElementCollection
+//    public List<Integer> getRolesIds() {
+//        return rolesIds;
+//    }
+//
+//    public void setRolesIds(List<Integer> rolesIds) {
+//        this.rolesIds = rolesIds;
+//    }
+
+//    public AppRoleModel getUserRole() {
+//        return (AppRoleModel) userRole;
+//    }
+//
+//    public void setUserRole(AppRoleModel userRole) {
+//        this.userRole = (AppRoleModel) userRole;
+//    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserModel that = (UserModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(login, that.login) && Objects.equals(password, that.password) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(contact, that.contact) && Objects.equals(userRole, that.userRole);
+        return Objects.equals(id, that.id)
+            && Objects.equals(login, that.login)
+            && Objects.equals(password, that.password)
+            && Objects.equals(firstName, that.firstName)
+            && Objects.equals(lastName, that.lastName)
+            && Objects.equals(contact, that.contact)
+            && Objects.equals(roles, that.roles);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, firstName, lastName, contact, userRole);
+        return Objects.hash(id, login, password, firstName, lastName, contact, roles);
     }
 }
