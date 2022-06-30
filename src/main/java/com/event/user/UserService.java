@@ -1,5 +1,6 @@
 package com.event.user;
 
+import com.event.role.roleDao.RoleModel;
 import com.event.user.dao.UserModel;
 import com.event.user.dao.UserRepository;
 import com.event.contact.Contact;
@@ -26,10 +27,14 @@ public class UserService {
             user.getLogin(),
             passwordEncoder.encode(user.getPassword()),
             user.getFirstName(),
-            user.getLastName());
+            user.getLastName()
+        );
+
+        List<RoleModel> userRoles = (List<RoleModel>)(List<?>) user.getUserRoles();
+        model.setRoles(userRoles);
+
         userRepository.save(model);
-        //optional
-        user.setId(model.getId());
+        user.setId(model.getUserModelId());
         return user;
     }
 
@@ -72,7 +77,7 @@ public class UserService {
     private User createUser(UserModel userModel){
         Contact contact = new Contact();
         return new User(
-            userModel.getId(),
+            userModel.getUserModelId(),
             userModel.getLogin(),
             userModel.getPassword(),
             userModel.getFirstName(),

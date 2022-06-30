@@ -12,7 +12,7 @@ public class RoleModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Integer roleModelId;
     @NotEmpty
     private String name;
     @ManyToMany
@@ -25,12 +25,12 @@ public class RoleModel {
         this.name = name;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getRoleModelId() {
+        return roleModelId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setRoleModelId(Integer id) {
+        this.roleModelId = id;
     }
 
     public String getName() {
@@ -54,11 +54,11 @@ public class RoleModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoleModel roleModel = (RoleModel) o;
-        return Objects.equals(id, roleModel.id) && Objects.equals(name, roleModel.name) && Objects.equals(privilegesList, roleModel.privilegesList);
+        return Objects.equals(roleModelId, roleModel.roleModelId) && Objects.equals(name, roleModel.name) && Objects.equals(privilegesList, roleModel.privilegesList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, privilegesList);
+        return Objects.hash(roleModelId, name, privilegesList);
     }
 }

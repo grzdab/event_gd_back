@@ -13,7 +13,7 @@ public class TemplateController {
         return "login";
     }
 
-    @GetMapping("app")
+    @GetMapping
     public String getCourses() {
         return "app";
     }

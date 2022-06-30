@@ -3,8 +3,12 @@ package com.event.databaseDefaults;
 import com.event.privilege.PrivilegeEnum;
 import com.event.privilege.dao.PrivilegeModel;
 import com.event.privilege.dao.PrivilegeRepository;
+import com.event.role.Role;
+import com.event.role.RoleService;
 import com.event.role.roleDao.RoleModel;
 import com.event.role.roleDao.RoleRepository;
+import com.event.user.User;
+import com.event.user.UserService;
 import com.event.user.dao.UserModel;
 import com.event.user.dao.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -21,14 +25,16 @@ public class FakeDataInflator {
     @Bean
     CommandLineRunner run(
         UserRepository userRepository,
+        UserService userService,
         PrivilegeRepository privilegeRepository,
         RoleRepository roleRepository,
+        RoleService roleService,
         PasswordEncoder passwordEncoder) {
         return args -> {
 
-            RoleModel admin = new RoleModel("ADMIN");
-            RoleModel guest = new RoleModel("GUEST");
-            RoleModel manager = new RoleModel("MANAGER");
+            RoleModel admin = new RoleModel("ADMIN"); // ziutek
+            RoleModel guest = new RoleModel("GUEST"); // jadzka
+            RoleModel manager = new RoleModel("MANAGER"); // jadzka
 
             roleRepository.save(guest);
 
@@ -77,6 +83,14 @@ public class FakeDataInflator {
                 privilege_equipment_C,privilege_equipment_R,
                 privilege_admin_C,privilege_admin_R));
             roleRepository.save(manager);
+
+            User stefan = new User(null, "stefek", "123", "Stefan","Burczymucha");
+            Role salesman = new Role(333,"SALESMAN");
+            roleService.addRole(salesman);
+
+            stefan.setUserRoles(List.of(salesman));
+            userService.addUser(stefan);
+
 
             UserModel ziutek = new UserModel("ziutek", passwordEncoder.encode("123"), "Józef", "Baryła");
             UserModel jadzka = new UserModel("jadźka", passwordEncoder.encode("123"), "Jadwiga", "Kapusta");

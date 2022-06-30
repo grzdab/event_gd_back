@@ -1,11 +1,8 @@
 package com.event.user.dao;
 
-import com.event.appRole.AppRole;
-import com.event.appRole.dao.AppRoleModel;
-import com.event.client.dao.ClientModel;
+//import com.event.appRole.dao.AppRoleModel;
 import com.event.contact.contactDao.ContactModel;
-import com.event.role.Role;
-import com.event.role.roleDao.RoleModel;
+    import com.event.role.roleDao.RoleModel;
 
 
 import javax.persistence.*;
@@ -20,27 +17,31 @@ public class UserModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    UUID id;
+    private UUID userModelId;
 
     @NotEmpty(message = "You have to provide your login")
     @Size(min = 2, message = "The login must consist of at least 2 characters")
-    String login;
+    private String login;
 
     @NotEmpty(message = "you have to provide proper password")
-    String password;
+    private String password;
 
     @NotEmpty(message = "You have to provide your name")
     @Size(min = 1, message = "The login must consist of at least 1 character")
-    String firstName;
+    private String firstName;
 
     @NotEmpty(message = "You have to provide your last name")
     @Size(min = 1, message = "The login must consist of at least 1 character")
-    String lastName;
+    private String lastName;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="contact_id")
-    ContactModel contact;
-    @ManyToMany
+    private ContactModel contact;
+    @ManyToMany//(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+        name = "user_to_role",
+        joinColumns = @JoinColumn (name = "user_model_id", nullable = false),
+        inverseJoinColumns = @JoinColumn (name = "role_model_id", nullable = false))
     private List<RoleModel> roles;
 
 //    ///////////////////////////////////
@@ -63,12 +64,20 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public UUID getId() {
-        return id;
+    public UserModel(String login, String password, String firstName, String lastName, List<RoleModel> userRoles) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.roles = userRoles;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public UUID getUserModelId() {
+        return userModelId;
+    }
+
+    public void setUserModelId(UUID id) {
+        this.userModelId = id;
     }
 
     public String getLogin() {
@@ -111,7 +120,6 @@ public class UserModel {
         this.contact = contact;
     }
 
-
     public List<RoleModel> getRoles() {
         return roles;
     }
@@ -142,7 +150,7 @@ public class UserModel {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserModel that = (UserModel) o;
-        return Objects.equals(id, that.id)
+        return Objects.equals(userModelId, that.userModelId)
             && Objects.equals(login, that.login)
             && Objects.equals(password, that.password)
             && Objects.equals(firstName, that.firstName)
@@ -153,6 +161,6 @@ public class UserModel {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, login, password, firstName, lastName, contact, roles);
+        return Objects.hash(userModelId, login, password, firstName, lastName, contact, roles);
     }
 }

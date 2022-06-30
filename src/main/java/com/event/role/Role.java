@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Role {
 
-    private int id;
+    private int roleId;
     private String name;
     private List<Privilege> privilegesList;
 
@@ -14,23 +14,28 @@ public class Role {
     }
 
     public Role(int id, String name) {
-        this.id = id;
+        this.roleId = id;
+        this.name = name;
+        this.privilegesList = new ArrayList<>();
+    }
+
+    public Role(String name) {
         this.name = name;
         this.privilegesList = new ArrayList<>();
     }
 
     public Role(int id, String name, List<Privilege> privilegesList) {
-        this.id = id;
+        this.roleId = id;
         this.name = name;
         this.privilegesList = privilegesList;
     }
 
-    public int getId() {
-        return id;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     public String getName() {
@@ -66,11 +71,11 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Role role = (Role) o;
-        return Objects.equals(id, role.id) && Objects.equals(name, role.name) && Objects.equals(privilegesList, role.privilegesList);
+        return Objects.equals(roleId, role.roleId) && Objects.equals(name, role.name) && Objects.equals(privilegesList, role.privilegesList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, privilegesList);
+        return Objects.hash(roleId, name, privilegesList);
     }
 }

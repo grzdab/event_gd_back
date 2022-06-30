@@ -1,6 +1,9 @@
 package com.event.security.config;
 
 import com.event.security.auth.ApplicationUserService;
+import com.event.security.jwt.JwtConfig;
+import com.event.security.jwt.JwtTokenVerifier;
+import com.event.security.jwt.JwtUsernameAndPasswordAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,9 +13,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import javax.crypto.SecretKey;
 import java.util.concurrent.TimeUnit;
 
 @Configuration
@@ -22,32 +27,57 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
     private final ApplicationUserService applicationUserService;
+    private final SecretKey secretKey;
+    private final JwtConfig jwtConfig;
 
     @Autowired
     public SecurityConfig(PasswordEncoder passwordEncoder,
-                                     ApplicationUserService applicationUserService) {
+                                     ApplicationUserService applicationUserService,
+                                     SecretKey secretKey,
+                                     JwtConfig jwtConfig) {
         this.passwordEncoder = passwordEncoder;
         this.applicationUserService = applicationUserService;
+        this.secretKey = secretKey;
+        this.jwtConfig = jwtConfig;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
+//        // JWT
+//        http
+//            .csrf().disable()
+//            .sessionManagement()
+//            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//            .and()
+//            .addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager(), jwtConfig, secretKey))
+//            .addFilterAfter(new JwtTokenVerifier(secretKey, jwtConfig),JwtUsernameAndPasswordAuthenticationFilter.class)
+//            .authorizeRequests()
+//            .antMatchers("/", "index", "/css/*", "/js/*").permitAll()
+//            .antMatchers("/api/**").hasRole("ADMIN")
+//            .anyRequest()
+//            .authenticated();
+
+
+
+
+
+
         // VERSION FOR FORM LOGIN
         http
             .csrf().disable() // cross site request forgery - TODO ENABLE!
             .authorizeRequests()
-//            .antMatchers("/", "index", "/css/*", "/js/*", "/hello").permitAll()
-            .antMatchers("/user/**").hasRole("ADMIN")
-            .antMatchers("/client/**").hasRole("ADMIN")
-            .antMatchers("/equipment/**").hasRole("ADMIN")
+            .antMatchers("/", "index", "/css/*", "/js/*", "/hello").permitAll()
+//            .antMatchers("admin/**").hasRole("ADMIN")
+//            .antMatchers("user/**", "/client/**").hasAnyRole("ADMIN", "GUEST")
+//            .antMatchers("equipment/**").hasRole("MANAGER")
             .anyRequest()
             .authenticated()
             .and()
             .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/app", true)
+                .defaultSuccessUrl("/", true)
                 .passwordParameter("password")
                 .usernameParameter("username")
             .and()
@@ -65,8 +95,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/logout");
     }
 
-
-    // this is how application gets users from the database
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());

@@ -16,7 +16,7 @@ public class User {
     private String lastName;
     private Contact contact;
     private List<Role> userRoles;
-    static List<ClientRepository> clientRepositories = new ArrayList<>();
+//    static List<ClientRepository> clientRepositories = new ArrayList<>();
 
     public User() {
     }
@@ -24,6 +24,14 @@ public class User {
     public User(UUID id, String login) {
         this.id = id;
         this.login = login;
+    }
+
+    public User(UUID id, String login, String password, String firstName, String lastName) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public User(UUID id, String login, String password, String firstName, String lastName, Contact contact, List<Role> userRoles) {
@@ -92,13 +100,13 @@ public class User {
         this.contact = contact;
     }
 
-    public static List<ClientRepository> getClientRepositories() {
-        return clientRepositories;
-    }
-
-    public static void setClientRepositories(List<ClientRepository> clientRepositories) {
-        User.clientRepositories = clientRepositories;
-    }
+//    public static List<ClientRepository> getClientRepositories() {
+//        return clientRepositories;
+//    }
+//
+//    public static void setClientRepositories(List<ClientRepository> clientRepositories) {
+//        User.clientRepositories = clientRepositories;
+//    }
 
     @Override
     public boolean equals(Object o) {
