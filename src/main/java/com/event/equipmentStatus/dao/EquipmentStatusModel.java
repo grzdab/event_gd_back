@@ -4,8 +4,11 @@ import javax.persistence.*;
 
 @Entity
 public class EquipmentStatusModel {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "equipment_status", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "equipment_status", sequenceName = "equipment_status",allocationSize=1)
+    @Column
     private int id;
 
     @Column(columnDefinition = "int default '0'")

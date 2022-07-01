@@ -6,7 +6,9 @@ import javax.persistence.*;
 public class EquipmentDataModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "equipment_data", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "equipment_data", sequenceName = "equipment_data",allocationSize=1)
+    @Column
     private Integer id;
 
     @Column(columnDefinition = "int default 0")

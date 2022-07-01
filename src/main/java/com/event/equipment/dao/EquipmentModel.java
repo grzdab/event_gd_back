@@ -1,15 +1,26 @@
 package com.event.equipment.dao;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "equipment")
 public class EquipmentModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    @GeneratedValue(generator = "equipment", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "equipment", sequenceName = "equipment_model",allocationSize=1)
+    @Column
+    private Integer id;
 
     @Column(columnDefinition = "int default 1")
     private int sortingId;
@@ -33,111 +44,16 @@ public class EquipmentModel {
     @Column(columnDefinition = "int default 0")
     private int equipmentStatusId;
 
-    @Column
+    @Column(columnDefinition = "int default 0")
     @ElementCollection(targetClass = Integer.class)
     private List<Integer> equipmentBookingStatusId;
 
+    @Column
+    @ElementCollection(targetClass = Integer.class)
+    private List<Integer> equipmentBookingPeriodsId;
+
     @Column(columnDefinition = "boolean default true")
     private boolean inUse;
-
-    public EquipmentModel() {
-    }
-
-    public EquipmentModel(int sortingId, String name, String notes, int equipmentDataId, int equipmentCategoryId, List<Integer> equipmentPhotoId, int equipmentStatusId, List<Integer> equipmentBookingStatusId, boolean inUse) {
-        this.sortingId = sortingId;
-        this.name = name;
-        this.notes = notes;
-        this.equipmentDataId = equipmentDataId;
-        this.equipmentCategoryId = equipmentCategoryId;
-        this.equipmentPhotoId = equipmentPhotoId;
-        this.equipmentStatusId = equipmentStatusId;
-        this.equipmentBookingStatusId = equipmentBookingStatusId;
-        this.inUse = inUse;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setSortingId(int sortingId) {
-        this.sortingId = sortingId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public void setEquipmentDataId(int equipmentDataId) {
-        this.equipmentDataId = equipmentDataId;
-    }
-
-    public void setEquipmentCategoryId(int equipmentCategoryId) {
-        this.equipmentCategoryId = equipmentCategoryId;
-    }
-
-    public void setEquipmentPhotoId(List<Integer> equipmentPhotoId) {
-        this.equipmentPhotoId = equipmentPhotoId;
-    }
-
-
-    public int getEquipmentStatusId() {
-        return equipmentStatusId;
-    }
-
-    @ElementCollection
-    public List<Integer> getEquipmentBookingStatusId() {
-        return equipmentBookingStatusId;
-    }
-
-    public void setEquipmentBookingStatusId(List<Integer> equipmentBookingStatusId) {
-        this.equipmentBookingStatusId = equipmentBookingStatusId;
-    }
-
-    public void setInUse(boolean inUse) {
-        this.inUse = inUse;
-    }
-
-    public int getSortingId() {
-        return sortingId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public int getEquipmentDataId() {
-        return equipmentDataId;
-    }
-
-    public int getEquipmentCategoryId() {
-        return equipmentCategoryId;
-    }
-
-    @ElementCollection
-    public List<Integer> getEquipmentPhotoId() {
-        return equipmentPhotoId;
-    }
-
-
-    public void setEquipmentStatusId(int equipmentStatusId) {
-        this.equipmentStatusId = equipmentStatusId;
-    }
-
-    public boolean isInUse() {
-        return inUse;
-    }
-
-    public int getId() {
-        return id;
-    }
 }
 
 

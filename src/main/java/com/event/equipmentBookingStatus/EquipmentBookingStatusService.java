@@ -1,5 +1,6 @@
 package com.event.equipmentBookingStatus;
 
+import com.event.equipment.Equipment;
 import com.event.equipment.dao.EquipmentModel;
 import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusModel;
 import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusRepository;
@@ -21,21 +22,43 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equ
         EquipmentBookingStatusModel model = equipmentBookingStatusRepository.findById(id).get();
         return createEquipmentBookingStatus(model);
     }
-    public List<EquipmentBookingStatus> getEquipmentBookingStatuses(EquipmentModel model) {
+
+    public List<EquipmentBookingStatus> getEquipmentBookingStatus(EquipmentModel model) {
+        List<EquipmentBookingStatusModel> bookingStatusModels = createListOfEquipmentBookingStatusModel(model);
+        return createListOfBookingStatus(bookingStatusModels);
+    }
+
+    private List<EquipmentBookingStatusModel> createListOfEquipmentBookingStatusModel(EquipmentModel model) {
+        List<EquipmentBookingStatusModel> bookingStatusModels = new ArrayList<>();
         List<Integer> ids = model.getEquipmentBookingStatusId();
-        return createListOfEquipmentStatuses(ids);
+        for (int id : ids) {
+            bookingStatusModels.add(equipmentBookingStatusRepository.findById(id).orElseThrow());
+        }
+        return bookingStatusModels;
+    }
+
+    private List<EquipmentBookingStatus> createListOfBookingStatus(List<EquipmentBookingStatusModel> bookingStatusModel) {
+        List<EquipmentBookingStatus> bookingStatuses = new ArrayList<>();
+        for (EquipmentBookingStatusModel bookinSstatus : bookingStatusModel) {
+            bookingStatuses.add(createEquipmentBookingStatus(bookinSstatus));
+        }
+        return bookingStatuses;
     }
 
     private EquipmentBookingStatus createEquipmentBookingStatus(EquipmentBookingStatusModel model) {
         return new EquipmentBookingStatus(model.getId(), model.getBookingStatus());
     }
 
-    private List<EquipmentBookingStatus> createListOfEquipmentStatuses(List<Integer> ids) {
-        List<EquipmentBookingStatus> bookingStatuses = new ArrayList<>();
-        for (Integer id : ids) {
-            EquipmentBookingStatus eqStatus = createEquipmentBookingStatus(equipmentBookingStatusRepository.findById(id).get());
-            bookingStatuses.add(eqStatus);
+    public List<Integer> getEquipmentBookingStatusId(Equipment equipment) {
+        List<EquipmentBookingStatus> bookingStatus = equipment.getBookingStatus();
+        return createListOfId(bookingStatus);
+    }
+
+    private List<Integer> createListOfId(List<EquipmentBookingStatus> statuses) {
+        List<Integer> ids = new ArrayList<>();
+        for (EquipmentBookingStatus status : statuses) {
+            ids.add(status.getId());
         }
-        return bookingStatuses;
+        return ids;
     }
 }
