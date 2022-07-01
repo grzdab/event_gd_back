@@ -1,7 +1,6 @@
-package com.event.imageUpload;
+package com.event.image;
 
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,7 +12,7 @@ import java.nio.file.Paths;
 
 @Service
 @CrossOrigin("http://localhost:3000/%22")
-public class ImageUploadService {
+public class ImageService {
 
     public void saveImage(MultipartFile imageFile) throws IOException {
         //String image = StringUtils.cleanPath(imageFile.getOriginalFilename());

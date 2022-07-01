@@ -1,4 +1,4 @@
-package com.event.imageUpload;
+package com.event.image;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;

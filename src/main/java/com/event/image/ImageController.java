@@ -1,4 +1,4 @@
-package com.event.imageUpload;
+package com.event.image;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -6,10 +6,10 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-public class ImageUploadController {
-    private final ImageUploadService service;
+public class ImageController {
+    private final ImageService service;
 
-    public ImageUploadController(ImageUploadService service) {
+    public ImageController(ImageService service) {
         this.service = service;
     }
 
@@ -31,8 +31,8 @@ public class ImageUploadController {
         return returnValue;
     }
 
-    @DeleteMapping("/delete-image/{path}")
-    public String deleteImage(@PathVariable String path) {
+    @DeleteMapping("/delete-image/")
+    public String deleteImage(@RequestParam String path) {
         return service.deleteImage(path);
     }
 }
