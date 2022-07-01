@@ -1,7 +1,5 @@
 package com.event.legalEntityType.dao;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +10,7 @@ import java.util.Objects;
 public class LegalEntityTypeModel {
 
     @Id
+    @GeneratedValue
     Integer id;
 
     @NotEmpty
