@@ -14,7 +14,7 @@ public record EquipmentCategoryService (EquipmentCategoryRepository equipmentCat
     }
 
     public EquipmentCategory getEquipmentCategory(int equipmentCategoryId) {
-        EquipmentCategoryModel model = equipmentCategoryRepository.findById(String.valueOf(equipmentCategoryId)).get();
+        EquipmentCategoryModel model = equipmentCategoryRepository.findById(equipmentCategoryId).get();
         return createEquipmentCategory(model);
     }
 

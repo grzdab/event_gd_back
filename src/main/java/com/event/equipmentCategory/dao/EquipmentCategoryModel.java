@@ -7,6 +7,10 @@ import javax.persistence.*;
 @Entity
 public class EquipmentCategoryModel {
 
+    @Id
+    @GeneratedValue(generator = "equipment_category", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "equipment_category", sequenceName = "equipment_category",allocationSize=1)
+    @Column
     private Integer id;
 
     @Column(columnDefinition = "varchar default unnamed")

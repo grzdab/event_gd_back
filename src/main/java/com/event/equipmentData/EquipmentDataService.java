@@ -23,8 +23,13 @@ public record EquipmentDataService (EquipmentDataRepository equipmentDataReposit
     }
 
     public EquipmentData getEquipmentData(String equipmentDataId) {
-        EquipmentDataModel model = equipmentDataRepository.findById(equipmentDataId).get();
+        EquipmentDataModel model = equipmentDataRepository.findById(Integer.parseInt(equipmentDataId)).get();
         return createEquipmentData(model);
+    }
+
+    public EquipmentData getEquipmentDataById(int id) {
+        EquipmentDataModel dataModel = equipmentDataRepository.findById(id).get();
+        return createEquipmentData(dataModel);
     }
 
     private EquipmentData createEquipmentData(EquipmentDataModel model) {

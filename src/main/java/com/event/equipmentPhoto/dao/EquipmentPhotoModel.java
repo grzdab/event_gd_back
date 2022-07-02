@@ -1,13 +1,14 @@
 package com.event.equipmentPhoto.dao;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class EquipmentPhotoModel {
 
+    @Id
+    @GeneratedValue(generator = "equipment_photo", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "equipment_photo", sequenceName = "equipment_photo",allocationSize=1)
+    @Column
     private Integer id;
 
     @Column(columnDefinition = "varchar default 'undefined'")

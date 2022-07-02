@@ -17,7 +17,7 @@ public record EquipmentPhotoService (EquipmentPhotoRepository equipmentPhotoRepo
         this.equipmentPhotoRepository = equipmentPhotoRepository;
     }
 
-    public EquipmentPhoto getEquipmentPhoto(String equipmentPhotoId) {
+    public EquipmentPhoto getEquipmentPhoto(Integer equipmentPhotoId) {
         EquipmentPhotoModel model = equipmentPhotoRepository.findById(equipmentPhotoId).get();
         return createEquipmentPhoto(model);
     }
@@ -38,7 +38,7 @@ public record EquipmentPhotoService (EquipmentPhotoRepository equipmentPhotoRepo
         List<Integer> photoId = model.getEquipmentPhotoId();
         List<EquipmentPhoto> photos = new ArrayList<>();
         for (Integer id : photoId) {
-            photos.add(getEquipmentPhoto(String.valueOf(id)));
+            photos.add(getEquipmentPhoto(id));
         }
         return photos;
     }
