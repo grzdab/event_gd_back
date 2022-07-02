@@ -1,15 +1,14 @@
 package com.event.equipmentBookingStatus.dao;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class EquipmentBookingStatusModel {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "equipment_booking_status", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "equipment_booking_status", sequenceName = "equipment_model",allocationSize=1)
+    @Column
     private Integer id;
 
     @Column(columnDefinition = "int default 0")
