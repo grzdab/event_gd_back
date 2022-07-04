@@ -2,7 +2,9 @@ package com.event.language;
 
 import com.event.language.dao.LanguageModel;
 import com.event.language.dao.LanguageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @Service
 public class LanguageService {
+    Pageable firstPageWithTenElements = PageRequest.of(0,10);
     LanguageRepository languageRepository;
 
     public LanguageService(LanguageRepository languageRepository){
@@ -47,5 +50,18 @@ public class LanguageService {
 
     private Language createLanguage(LanguageModel languageModel){
         return new Language(languageModel.getId(), languageModel.getPropertyName());
+    }
+
+    public List<Language> getAllTenLanguage(int pageNo){
+
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(pageNo -1, pageSize);
+        List<Language> languages = new ArrayList<>();
+        Iterable<LanguageModel> languageModels = languageRepository.findAll(pageable);
+        for (LanguageModel model: languageModels){
+            languages.add(createLanguage(model));
+        }
+        System.out.println(languages);
+        return languages;
     }
 }

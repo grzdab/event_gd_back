@@ -20,6 +20,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="entityManagerFactory" value="4ea341fc-b709-4560-9153-7eeca15c3299" />
+          <factory-entry name="event" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

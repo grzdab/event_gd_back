@@ -35,12 +35,19 @@ public class LanguageController {
         return service.getLanguage(languageId);
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/admin/language")
     public List<Language> getAllLanguages(){
         return service.getAllLanguages();
     }
 
-    @DeleteMapping("/admin/language/{languageId}")
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/admin/language/languagePage/{pageNum}")
+    public List<Language> getTenLanguages(@PathVariable int pageNum) {
+        return service.getAllTenLanguage(pageNum);
+    }
+
+    @DeleteMapping("/{languageId}")
     public String deleteLanguage(@PathVariable int languageId){
         return service.deleteLanguage(languageId);
     }
