@@ -36,6 +36,7 @@ public class LanguageService {
     public Language updateLanguage(int languageId, Language newLanguage){
         LanguageModel model = languageRepository.findById(languageId).get();
         model.setPropertyName(newLanguage.getPropertyName());
+        model.setId(languageId);
         languageRepository.save(model);
         return newLanguage;
     }
