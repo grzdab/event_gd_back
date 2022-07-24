@@ -8,27 +8,26 @@ public class Role {
 
     private int roleId;
     private String name;
-    private List<Privilege> privilegesList;
+//    private List<Privilege> privilegesList;
 
     public Role() {
     }
 
-    public Role(int id, String name) {
-        this.roleId = id;
-        this.name = name;
-        this.privilegesList = new ArrayList<>();
-    }
+//    public Role(int id, String name) {
+//        this.roleId = id;
+//        this.name = name;
+//        this.privilegesList = new ArrayList<>();
+//    }
 
     public Role(String name) {
         this.name = name;
-        this.privilegesList = new ArrayList<>();
+//        this.privilegesList = new ArrayList<>();
     }
 
-    public Role(int id, String name, List<Privilege> privilegesList) {
-        this.roleId = id;
-        this.name = name;
-        this.privilegesList = privilegesList;
-    }
+//    public Role(String name, List<Privilege> privilegesList) {
+//        this.name = name;
+//        this.privilegesList = privilegesList;
+//    }
 
     public int getRoleId() {
         return roleId;
@@ -46,36 +45,36 @@ public class Role {
         this.name = name;
     }
 
-    public List<Privilege> getPrivileges() {
-        return privilegesList;
-    }
+//    public List<Privilege> getPrivileges() {
+//        return privilegesList;
+//    }
 
-    public void setPrivileges(List<Privilege> privilegesList) {
-        this.privilegesList = privilegesList;
-    }
+//    public void setPrivileges(List<Privilege> privilegesList) {
+//        this.privilegesList = privilegesList;
+//    }
 
-    public void addToPrivilegesList(Privilege privileges){
-        privilegesList.add(privileges);
-    }
+//    public void addToPrivilegesList(Privilege privileges){
+//        privilegesList.add(privileges);
+//    }
 
-    public void deletePrivilegesFromList(Privilege privileges) {
-        for (int i = 0; privilegesList.size() > i; i++) {
-            if (privilegesList.get(i).equals(privileges)) {
-                privilegesList.remove(privileges);
-            }
-        }
-    }
+//    public void deletePrivilegesFromList(Privilege privileges) {
+//        for (int i = 0; privilegesList.size() > i; i++) {
+//            if (privilegesList.get(i).equals(privileges)) {
+//                privilegesList.remove(privileges);
+//            }
+//        }
+//    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Role role = (Role) o;
-        return Objects.equals(roleId, role.roleId) && Objects.equals(name, role.name) && Objects.equals(privilegesList, role.privilegesList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(roleId, name, privilegesList);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        Role role = (Role) o;
+//        return Objects.equals(roleId, role.roleId) && Objects.equals(name, role.name) && Objects.equals(privilegesList, role.privilegesList);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(roleId, name, privilegesList);
+//    }
 }

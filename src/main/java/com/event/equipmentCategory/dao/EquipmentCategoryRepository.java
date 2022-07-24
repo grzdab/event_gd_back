@@ -1,6 +1,11 @@
 package com.event.equipmentCategory.dao;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface EquipmentCategoryRepository extends CrudRepository<EquipmentCategoryModel, String> {
+@Repository
+public interface EquipmentCategoryRepository extends JpaRepository<EquipmentCategoryModel, Long> {
+
+    EquipmentCategoryModel findByName(String name);
+
 }

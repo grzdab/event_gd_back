@@ -13,10 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Repository
@@ -56,10 +53,13 @@ public class ApplicationUserDaoService implements ApplicationUserDAO {
         List<Role> userRoles = user.getUserRoles();
         List<String> privilegesList = new ArrayList<>();
 
-        for (Role role : userRoles) {
-            List<String> prvlgs = role.getPrivileges().stream().map(Privilege::getName).toList();
-            privilegesList.addAll(prvlgs);
-        }
+
+
+
+//        for (Role role : userRoles) {
+//            List<String> prvlgs = role.getPrivileges().stream().map(Privilege::getName).toList();
+//            privilegesList.addAll(prvlgs);
+//        }
 
         Set<SimpleGrantedAuthority> permissions = privilegesList.stream()
             .map(SimpleGrantedAuthority::new)

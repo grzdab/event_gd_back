@@ -1,25 +1,35 @@
 package com.event.user;
 
-import com.event.role.roleDao.RoleModel;
+import com.event.role.Role;
+import com.event.role.RoleService;
+import com.event.role.roleDao.RoleRepository;
 import com.event.user.dao.UserModel;
 import com.event.user.dao.UserRepository;
 import com.event.contact.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleService roleService;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
     }
 
     public User addUser(User user) {
@@ -29,10 +39,12 @@ public class UserService {
             user.getFirstName(),
             user.getLastName()
         );
+        List<Integer> userRoles = new ArrayList<>();
+        for (Role r : user.getUserRoles()) {
+            userRoles.add(r.getRoleId());
+        }
 
-        List<RoleModel> userRoles = (List<RoleModel>)(List<?>) user.getUserRoles();
-        model.setRoles(userRoles);
-
+        model.setUserRolesIds(userRoles);
         userRepository.save(model);
         user.setId(model.getUserModelId());
         return user;
@@ -42,6 +54,26 @@ public class UserService {
         UserModel model = userRepository.findById(id).get();
         return createUser(model);
     }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserModel model = userRepository.findByLogin(username);
+        if (model == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        User appUser = createUser(model);
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        appUser.getUserRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+        return new org.springframework.security.core.userdetails.User(
+            appUser.getLogin(),
+            appUser.getPassword(),
+            authorities
+        );
+    }
+
 
     public User getUserByLogin(String login) {
         UserModel model = userRepository.findByLogin(login);
@@ -76,13 +108,22 @@ public class UserService {
 
     private User createUser(UserModel userModel){
         Contact contact = new Contact();
-        return new User(
-            userModel.getUserModelId(),
+        List<Role> userRoles = getUserRoles(userModel.getUserRolesIds());
+        User user = new User(
             userModel.getLogin(),
             userModel.getPassword(),
             userModel.getFirstName(),
             userModel.getLastName(),
             contact,
-            new ArrayList<>());
+            userRoles);
+        return user;
+    }
+
+    private List<Role> getUserRoles(List<Integer> userRolesIds) {
+        List<Role> userRoles = new ArrayList<>();
+        for (Integer roleId : userRolesIds) {
+            userRoles.add(roleService.getRole(roleId));
+        }
+        return userRoles;
     }
 }

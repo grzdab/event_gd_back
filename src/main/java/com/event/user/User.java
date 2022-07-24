@@ -16,26 +16,22 @@ public class User {
     private String lastName;
     private Contact contact;
     private List<Role> userRoles;
-//    static List<ClientRepository> clientRepositories = new ArrayList<>();
 
     public User() {
     }
 
-    public User(UUID id, String login) {
-        this.id = id;
+    public User(String login) {
         this.login = login;
     }
 
-    public User(UUID id, String login, String password, String firstName, String lastName) {
-        this.id = id;
+    public User(String login, String password, String firstName, String lastName) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public User(UUID id, String login, String password, String firstName, String lastName, Contact contact, List<Role> userRoles) {
-        this.id = id;
+    public User(String login, String password, String firstName, String lastName, Contact contact, List<Role> userRoles) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;

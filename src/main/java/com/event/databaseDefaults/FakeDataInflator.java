@@ -1,5 +1,13 @@
 package com.event.databaseDefaults;
 
+import com.event.equipment.Equipment;
+import com.event.equipment.EquipmentService;
+import com.event.equipmentBookingStatus.EquipmentBookingStatus;
+import com.event.equipmentCategory.EquipmentCategory;
+import com.event.equipmentCategory.EquipmentCategoryService;
+import com.event.equipmentData.EquipmentData;
+import com.event.equipmentPhoto.EquipmentPhoto;
+import com.event.equipmentStatus.EquipmentStatus;
 import com.event.privilege.PrivilegeEnum;
 import com.event.privilege.dao.PrivilegeModel;
 import com.event.privilege.dao.PrivilegeRepository;
@@ -15,9 +23,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-import java.util.ArrayList;
 import java.util.List;
+
 
 @Configuration
 public class FakeDataInflator {
@@ -29,14 +36,18 @@ public class FakeDataInflator {
         PrivilegeRepository privilegeRepository,
         RoleRepository roleRepository,
         RoleService roleService,
+        EquipmentCategoryService equipmentCategoryService,
+        EquipmentService equipmentService,
         PasswordEncoder passwordEncoder) {
         return args -> {
 
-            RoleModel admin = new RoleModel("ADMIN"); // ziutek
-            RoleModel guest = new RoleModel("GUEST"); // jadzka
-            RoleModel manager = new RoleModel("MANAGER"); // jadzka
+            // AUTH
 
-            roleRepository.save(guest);
+            RoleModel roleAdmin = new RoleModel("ADMIN");
+            RoleModel roleGuest = new RoleModel("GUEST");
+            RoleModel roleUser = new RoleModel("USER");
+
+            roleRepository.save(roleGuest);
 
             PrivilegeModel privilege_clients_C = new PrivilegeModel("clients", PrivilegeEnum.CREATE);
             PrivilegeModel privilege_clients_R = new PrivilegeModel("clients", PrivilegeEnum.READ);
@@ -68,37 +79,65 @@ public class FakeDataInflator {
             privilegeRepository.save(privilege_admin_U);
             privilegeRepository.save(privilege_admin_D);
 
-            admin.setPrivilegesList(List.of(
-                privilege_clients_C,privilege_clients_R,privilege_clients_U,privilege_clients_D,
-                privilege_equipment_C,privilege_equipment_R,privilege_equipment_U,privilege_equipment_D,
-                privilege_admin_C,privilege_admin_R,privilege_admin_U,privilege_admin_D));
-            roleRepository.save(admin);
+//            roleAdmin.setPrivilegesList(List.of(
+//                privilege_clients_C,privilege_clients_R,privilege_clients_U,privilege_clients_D,
+//                privilege_equipment_C,privilege_equipment_R,privilege_equipment_U,privilege_equipment_D,
+//                privilege_admin_C,privilege_admin_R,privilege_admin_U,privilege_admin_D));
+            roleRepository.save(roleAdmin);
 
-            PrivilegeModel privilege_xxx = new PrivilegeModel("xxx", PrivilegeEnum.CREATE);
-            privilegeRepository.save(privilege_xxx);
-            manager.setPrivilegesList(List.of(privilege_admin_C));
+//            roleUser.setPrivilegesList(List.of(privilege_admin_C));
 
-            manager.setPrivilegesList(List.of(
-                privilege_clients_C,privilege_clients_R,
-                privilege_equipment_C,privilege_equipment_R,
-                privilege_admin_C,privilege_admin_R));
-            roleRepository.save(manager);
+//            roleUser.setPrivilegesList(List.of(
+//                privilege_clients_C,privilege_clients_R,
+//                privilege_equipment_C,privilege_equipment_R,
+//                privilege_admin_C,privilege_admin_R));
+            roleRepository.save(roleUser);
 
-            User stefan = new User(null, "stefek", "123", "Stefan","Burczymucha");
-            Role salesman = new Role(333,"SALESMAN");
-            roleService.addRole(salesman);
+            // USER
 
-            stefan.setUserRoles(List.of(salesman));
+            UserModel userAdmin = new UserModel("admin", passwordEncoder.encode("123"), "Józef", "Baryła");
+            UserModel userUser = new UserModel("user", passwordEncoder.encode("123"), "Jadwiga", "Kapusta");
+            UserModel userGuest = new UserModel("guest", passwordEncoder.encode("123"), "Stefan", "Burczymucha");
+            userAdmin.setUserRolesIds(List.of(roleAdmin.getRoleModelId()));
+            userUser.setUserRolesIds(List.of(roleUser.getRoleModelId()));
+            userGuest.setUserRolesIds(List.of(roleGuest.getRoleModelId()));
+
+            userRepository.save(userAdmin);
+            userRepository.save(userUser);
+            userRepository.save(userGuest);
+
+
+            // WERSJA Z TWORZENIEM USERA I ROLE PRZEZ SERVICE
+
+            User stefan = new User("hirek", "123", "Hieronim","Trąbka");
+            Role cleaner = new Role("CLEANER");
+            Role postman = new Role("POSTMAN");
+            roleService.addRole(cleaner);
+            roleService.addRole(postman);
+
+            stefan.setUserRoles(List.of(cleaner, postman));
             userService.addUser(stefan);
 
+            // EQUIPMENT
 
-            UserModel ziutek = new UserModel("ziutek", passwordEncoder.encode("123"), "Józef", "Baryła");
-            UserModel jadzka = new UserModel("jadźka", passwordEncoder.encode("123"), "Jadwiga", "Kapusta");
-            ziutek.setRoles(List.of(admin));
-            jadzka.setRoles(List.of(manager, guest));
 
-            userRepository.save(ziutek);
-            userRepository.save(jadzka);
+
+            // EQUIPMENT CATEGORY
+            EquipmentCategory ec1 = new EquipmentCategory(0L, "Category1", "Description1");
+            EquipmentCategory ec2 = new EquipmentCategory(0L, "Category2", "Description2");
+            EquipmentCategory ec3 = new EquipmentCategory(0L, "Category3", "Description3");
+
+            equipmentCategoryService.addEquipmentCategory(ec1);
+            equipmentCategoryService.addEquipmentCategory(ec3);
+            equipmentCategoryService.addEquipmentCategory(ec2);
+
+            Equipment e1 = new Equipment(1, 1, "EQ1", null, "Notes 111", null, null, null, 0, null, true);
+            Equipment e2 = new Equipment(2, 1, "EQ2", null, "Notes 222", null, null, null, 0, null, true);
+            Equipment e3 = new Equipment(3, 1, "EQ3", null, "Notes 333", null, null, null, 0, null, true);
+
+            equipmentService.addEquipment(e1);
+            equipmentService.addEquipment(e2);
+            equipmentService.addEquipment(e3);
 
         };
     }

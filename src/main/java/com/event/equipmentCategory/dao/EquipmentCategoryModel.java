@@ -7,7 +7,11 @@ import javax.persistence.*;
 @Entity
 public class EquipmentCategoryModel {
 
-    private Integer id;
+    @Id
+    @GeneratedValue(generator = "equipment_category", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "equipment_category", sequenceName = "equipment_category",allocationSize=1)
+    @Column
+    private Long id;
 
     @Column(columnDefinition = "varchar default unnamed")
     private String name;
@@ -21,7 +25,7 @@ public class EquipmentCategoryModel {
     public EquipmentCategoryModel() {
     }
 
-    public EquipmentCategoryModel(Integer id, String name, int sortingGroup, String description) {
+    public EquipmentCategoryModel(Long id, String name, int sortingGroup, String description) {
         this.id = id;
         this.name = name;
         this.SortingGroup = sortingGroup;
@@ -30,7 +34,7 @@ public class EquipmentCategoryModel {
 
     @Id
     @GeneratedValue
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
@@ -46,7 +50,7 @@ public class EquipmentCategoryModel {
         return description;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

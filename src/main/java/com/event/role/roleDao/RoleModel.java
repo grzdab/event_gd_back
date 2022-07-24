@@ -15,8 +15,8 @@ public class RoleModel {
     private Integer roleModelId;
     @NotEmpty
     private String name;
-    @ManyToMany
-    private List<PrivilegeModel> privilegesList;
+//    @ManyToMany
+//    private List<PrivilegeModel> privilegesList;
 
     public RoleModel() {
     }
@@ -41,24 +41,24 @@ public class RoleModel {
         this.name = name;
     }
 
-    public List<PrivilegeModel> getPrivilegesList() {
-        return privilegesList;
-    }
+//    public List<PrivilegeModel> getPrivilegesList() {
+//        return privilegesList;
+//    }
+//
+//    public void setPrivilegesList(List<PrivilegeModel> privilegesList) {
+//        this.privilegesList = privilegesList;
+//    }
 
-    public void setPrivilegesList(List<PrivilegeModel> privilegesList) {
-        this.privilegesList = privilegesList;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        RoleModel roleModel = (RoleModel) o;
-        return Objects.equals(roleModelId, roleModel.roleModelId) && Objects.equals(name, roleModel.name) && Objects.equals(privilegesList, roleModel.privilegesList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(roleModelId, name, privilegesList);
-    }
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        RoleModel roleModel = (RoleModel) o;
+//        return Objects.equals(roleModelId, roleModel.roleModelId) && Objects.equals(name, roleModel.name) && Objects.equals(privilegesList, roleModel.privilegesList);
+//    }
+//
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(roleModelId, name, privilegesList);
+//    }
 }

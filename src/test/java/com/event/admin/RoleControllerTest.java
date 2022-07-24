@@ -32,9 +32,9 @@ public class RoleControllerTest {
     @MockBean
     RoleService service;
 
-    Role role1 = new Role(1, "zenek");
-    Role role2 = new Role(2, "olek");
-    Role role3 = new Role(3, "tomek");
+    Role role1 = new Role("zenek");
+    Role role2 = new Role("olek");
+    Role role3 = new Role("tomek");
 
     @Test
     public void getAllRole_success() throws Exception {

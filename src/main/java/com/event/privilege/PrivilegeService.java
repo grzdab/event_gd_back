@@ -2,6 +2,7 @@ package com.event.privilege;
 
 import com.event.privilege.dao.PrivilegeModel;
 import com.event.privilege.dao.PrivilegeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class PrivilegeService {
 
     PrivilegeRepository privilegesRepository;
 
+    @Autowired
     public PrivilegeService(PrivilegeRepository privilegesRepository) {
         this.privilegesRepository = privilegesRepository;
     }
