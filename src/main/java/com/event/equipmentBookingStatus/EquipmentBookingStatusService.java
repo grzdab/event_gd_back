@@ -39,6 +39,7 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equ
     }
 
     private EquipmentBookingStatus createEquipmentBookingStatus(EquipmentBookingStatusModel model) {
+        if (model == null) return null;
         return new EquipmentBookingStatus(model.getId(), model.getName());
     }
 
