@@ -1,7 +1,5 @@
 package com.event.equipmentCategory.dao;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 
 @Entity
@@ -10,32 +8,32 @@ public class EquipmentCategoryModel {
 
     @Id
     @GeneratedValue(generator = "equipment_category", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "equipment_category", sequenceName = "equipment_category",allocationSize=1)
+    @SequenceGenerator(name = "equipment_category", sequenceName = "equipment_category_model",allocationSize=1)
     @Column
-    private Integer id;
+    private int id;
 
     @Column(columnDefinition = "int default 0")
-    private int SortingGroup;
+    private int sortingGroup;
 
-    @Column(columnDefinition = "varchar default unnamed")
+    @Column(columnDefinition = "varchar default 'unnamed'")
     private String name;
 
-    @Column(columnDefinition = "varchar default nunnamed")
+    @Column(columnDefinition = "varchar default 'unnamed'")
     private String description;
 
     public EquipmentCategoryModel() {
     }
 
-    public EquipmentCategoryModel(Integer id, String name, int sortingGroup, String description) {
+    public EquipmentCategoryModel(int id, String name, int sortingGroup, String description) {
         this.id = id;
         this.name = name;
-        this.SortingGroup = sortingGroup;
+        this.sortingGroup = sortingGroup;
         this.description = description;
     }
 
     @Id
     @GeneratedValue
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
@@ -44,14 +42,14 @@ public class EquipmentCategoryModel {
     }
 
     public int getSortingGroup() {
-        return SortingGroup;
+        return sortingGroup;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -60,7 +58,7 @@ public class EquipmentCategoryModel {
     }
 
     public void setSortingGroup(int sortingGroup) {
-        SortingGroup = sortingGroup;
+        this.sortingGroup = sortingGroup;
     }
 
     public void setDescription(String description) {

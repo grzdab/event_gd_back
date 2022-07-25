@@ -19,4 +19,5 @@ public class EquipmentBookingStatusController {
     public EquipmentBookingStatus getEquipmentBookingStatusById(int bookingStatusId) {
         return service.getEquipmentBookingStatusById(bookingStatusId);
     }
+    //TODO crud to add
 }

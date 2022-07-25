@@ -3,39 +3,40 @@ package com.event.equipmentBookingStatus.dao;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "equipment_booking_status_model")
 public class EquipmentBookingStatusModel {
 
     @Id
     @GeneratedValue(generator = "equipment_booking_status", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "equipment_booking_status", sequenceName = "equipment_model",allocationSize=1)
+    @SequenceGenerator(name = "equipment_booking_status", sequenceName = "equipment_booking_status",allocationSize=1)
     @Column
-    private Integer id;
+    private int id;
 
-    @Column(columnDefinition = "int default 0")
-    private int bookingStatus;
+    @Column(columnDefinition = "varchar default 'unnamed'")
+    private String name;
 
-    public EquipmentBookingStatusModel(Integer id, int bookingStatus) {
+    public EquipmentBookingStatusModel(int id, String name) {
         this.id = id;
-        this.bookingStatus = bookingStatus;
+        this.name = name;
     }
 
 
     public EquipmentBookingStatusModel() {
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public int getBookingStatus() {
-        return bookingStatus;
+    public String getName() {
+        return name;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public void setBookingStatus(int bookingStatus) {
-        this.bookingStatus = bookingStatus;
+    public void setName(String bookingStatus) {
+        this.name = name;
     }
 }

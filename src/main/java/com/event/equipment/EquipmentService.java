@@ -56,12 +56,23 @@ public class EquipmentService {
 
     public Equipment addEquipment(Equipment equipment) {
         //TODO finish
-        EquipmentData equipmentData = equipmentDataService.addEquipmentData(equipment.getEquipmentData());
+        EquipmentData equipmentData = null;
+        if (equipment.getEquipmentData().getEquipmentId() != 0) {
+            equipmentData = equipmentDataService.addEquipmentData(equipment.getEquipmentData());
+        }
         List<Integer> periodIds = equipmentBookingPeriodsService.createListOfPeriodsIds(equipment);
-        EquipmentModel equipmentModel = new EquipmentModel(equipment.getId(), equipment.getSortingId(), equipment.getName(),
-                    equipment.getNotes(), equipmentData.getId(), equipment.getCategory().getId(),
+        EquipmentModel equipmentModel = new EquipmentModel(
+                equipment.getId(),
+                equipment.getSortingId(),
+                equipment.getName(),
+                    equipment.getNotes(),
+                (equipmentData != null? equipmentData.getId():0),
+                equipment.getCategory().getId(),
                     equipmentPhotoService.createListOfPhotoId(equipment.getPhotos()),
-                    equipment.getStatus().getId(), equipmentBookingStatusService.getEquipmentBookingStatusId(equipment), periodIds, equipment.isInUse());
+                    equipment.getStatus().getId(),
+                equipmentBookingStatusService.getEquipmentBookingStatusId(equipment),
+                periodIds,
+                equipment.isInUse());
         equipmentRepository.save(equipmentModel);
         equipment.setId(equipmentModel.getId());
         return equipment;
@@ -74,7 +85,8 @@ public class EquipmentService {
 
     public Equipment uploadEquipment(int id, Equipment equipment) {
         //TODO to finish
-        EquipmentModel toUpdate = equipmentRepository.findById(id).orElseThrow();
+        EquipmentModel toUpdate = equipmentRepository.findById(id).orElse(null);
+        if (toUpdate == null) return null;
         toUpdate.setSortingId(equipment.getSortingId());
         toUpdate.setName(equipment.getName());
         toUpdate.setNotes(equipment.getNotes());
@@ -96,14 +108,14 @@ public class EquipmentService {
         int equipmentCategoryId = model.getEquipmentCategoryId();
         List<Integer> equipmentPhotoId = model.getEquipmentPhotoId();
         int equipmentStatusId = model.getEquipmentStatusId();
-        List<Integer> equipmentBookingStatusId = model.getEquipmentBookingStatusId();
+        Integer equipmentBookingStatusId = model.getEquipmentBookingStatusId();
         //TODO add deleting of periods when finish it in the other pars of app
         equipmentRepository.deleteById(id);
         equipmentDataRepository.deleteById(equipmentDataId);
         equipmentCategoryRepository.deleteById(equipmentCategoryId);
         deletePhotoByListOfIds(equipmentPhotoId);
         equipmentRepository.deleteById(equipmentStatusId);
-        deleteBookingStatusByListOfIds(equipmentBookingStatusId);
+        deleteBookingStatusById(equipmentBookingStatusId);
         //TODO add deleting of periods when finish it in the other pars of app
         return "DELETED";
     }
@@ -114,10 +126,8 @@ public class EquipmentService {
         }
     }
 
-    private void deleteBookingStatusByListOfIds(List<Integer> ids) {
-        for (int id : ids) {
-            equipmentBookingStatusRepository.deleteById(id);
-        }
+    private void deleteBookingStatusById(Integer id) {
+        equipmentBookingStatusRepository.deleteById(id);
     }
 
     public List<Equipment> getAllEquipment() {
@@ -129,16 +139,22 @@ public class EquipmentService {
 
     private Equipment createEquipment(EquipmentModel equipmentFromDb) {
         //TODO finish booking periods as we already agree
-        //EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategory(equipmentFromDb.getEquipmentCategoryId());
+        EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategoryById(equipmentFromDb.getEquipmentCategoryId());
         EquipmentData equipmentData = equipmentDataService.getEquipmentData(String.valueOf(equipmentFromDb.getEquipmentDataId()));
         List<EquipmentPhoto> equipmentPhotos = equipmentPhotoService.createListOfEquipmentPhoto(equipmentFromDb);
         List<EquipmentBookingPeriods> periods = equipmentBookingPeriodsService.getEquipmentBookingPeriods(equipmentFromDb);
         EquipmentStatus status = equipmentStatusService.getEquipmentStatus(equipmentFromDb.getEquipmentStatusId());
-        List<EquipmentBookingStatus> equipmentBookingStatus = equipmentBookingStatusService.getEquipmentBookingStatus(equipmentFromDb);
-        return new Equipment(equipmentFromDb.getId(), equipmentFromDb.getSortingId(),
-                equipmentFromDb.getName(), null, //equipmentCategory,
-                equipmentFromDb.getNotes(), equipmentData,
-                equipmentPhotos, status, equipmentBookingStatus,
+        EquipmentBookingStatus equipmentBookingStatus = equipmentBookingStatusService.getEquipmentBookingStatus(equipmentFromDb);
+        return new Equipment(
+                equipmentFromDb.getId(),
+                equipmentFromDb.getSortingId(),
+                equipmentFromDb.getName(),
+                equipmentCategory,
+                equipmentFromDb.getNotes(),
+                equipmentData,
+                equipmentPhotos,
+                status,
+                equipmentBookingStatus,
                 // do not write here periods because it's not ready yet
                 new ArrayList<>(),
                 equipmentFromDb.isInUse());
