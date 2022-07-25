@@ -1,33 +1,18 @@
 package com.event.equipmentStatus;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Id;
 import java.util.UUID;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class EquipmentStatus {
     private int id;
-    private int status;
-
-    public EquipmentStatus() {
-    }
-
-    public EquipmentStatus(int id, int status) {
-        this.id = id;
-        this.status = status;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
+    private String name;
 }

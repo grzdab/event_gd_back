@@ -1,8 +1,12 @@
 package com.event.equipmentStatus.dao;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
+@Table(name = "equipment_status_model")
 public class EquipmentStatusModel {
 
     @Id
@@ -11,30 +15,30 @@ public class EquipmentStatusModel {
     @Column
     private int id;
 
-    @Column(columnDefinition = "int default '0'")
-    private Integer Status;
+    @Column(columnDefinition = "varchar default 'unnamed'")
+    private String name;
 
     public EquipmentStatusModel() {
     }
 
-    public EquipmentStatusModel(int id, int status) {
+    public EquipmentStatusModel(int id, String name) {
         this.id = id;
-        Status = status;
+        this.name = name;
     }
 
     public int getId() {
         return id;
     }
 
-    public Integer getStatus() {
-        return Status;
+    public String getName() {
+        return name;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setStatus(int status) {
-        Status = status;
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "equipment_category_model")
 public class EquipmentCategoryModel {
 
     @Id
@@ -13,11 +14,11 @@ public class EquipmentCategoryModel {
     @Column
     private Integer id;
 
-    @Column(columnDefinition = "varchar default unnamed")
-    private String name;
-
     @Column(columnDefinition = "int default 0")
     private int SortingGroup;
+
+    @Column(columnDefinition = "varchar default unnamed")
+    private String name;
 
     @Column(columnDefinition = "varchar default nunnamed")
     private String description;

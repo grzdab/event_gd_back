@@ -129,14 +129,14 @@ public class EquipmentService {
 
     private Equipment createEquipment(EquipmentModel equipmentFromDb) {
         //TODO finish booking periods as we already agree
-        EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategory(equipmentFromDb.getEquipmentCategoryId());
+        //EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategory(equipmentFromDb.getEquipmentCategoryId());
         EquipmentData equipmentData = equipmentDataService.getEquipmentData(String.valueOf(equipmentFromDb.getEquipmentDataId()));
         List<EquipmentPhoto> equipmentPhotos = equipmentPhotoService.createListOfEquipmentPhoto(equipmentFromDb);
         List<EquipmentBookingPeriods> periods = equipmentBookingPeriodsService.getEquipmentBookingPeriods(equipmentFromDb);
         EquipmentStatus status = equipmentStatusService.getEquipmentStatus(equipmentFromDb.getEquipmentStatusId());
         List<EquipmentBookingStatus> equipmentBookingStatus = equipmentBookingStatusService.getEquipmentBookingStatus(equipmentFromDb);
         return new Equipment(equipmentFromDb.getId(), equipmentFromDb.getSortingId(),
-                equipmentFromDb.getName(), equipmentCategory,
+                equipmentFromDb.getName(), null, //equipmentCategory,
                 equipmentFromDb.getNotes(), equipmentData,
                 equipmentPhotos, status, equipmentBookingStatus,
                 // do not write here periods because it's not ready yet
