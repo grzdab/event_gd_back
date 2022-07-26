@@ -5,6 +5,7 @@ import com.event.language.dao.LanguageRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class LanguageService {
         return new Language(languageModel.getId(), languageModel.getPropertyName());
     }
 
+//PAGINACJA
     public List<Language> getAllTenLanguage(int pageNo){
 
         int pageSize = 10;
