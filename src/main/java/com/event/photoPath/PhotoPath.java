@@ -1,13 +1,13 @@
-package com.event.equipmentPhoto;
+package com.event.photoPath;
 
-public class EquipmentPhoto {
+public class PhotoPath {
     private int id;
     private String photoURI;
 
-    public EquipmentPhoto() {
+    public PhotoPath() {
     }
 
-    public EquipmentPhoto(int id, String photoURI) {
+    public PhotoPath(int id, String photoURI) {
         this.id = id;
         this.photoURI = photoURI;
     }

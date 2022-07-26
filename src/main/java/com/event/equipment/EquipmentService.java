@@ -13,9 +13,9 @@ import com.event.equipmentCategory.dao.EquipmentCategoryRepository;
 import com.event.equipmentData.EquipmentData;
 import com.event.equipmentData.EquipmentDataService;
 import com.event.equipmentData.dao.EquipmentDataRepository;
-import com.event.equipmentPhoto.EquipmentPhoto;
-import com.event.equipmentPhoto.EquipmentPhotoService;
-import com.event.equipmentPhoto.dao.EquipmentPhotoRepository;
+import com.event.photoPath.PhotoPath;
+import com.event.photoPath.PhotoPathService;
+import com.event.photoPath.dao.PhotoPathRepository;
 import com.event.equipmentStatus.EquipmentStatus;
 import com.event.equipmentStatus.EquipmentStatusService;
 import com.event.equipmentStatus.dao.EquipmentStatusRepository;
@@ -29,26 +29,26 @@ public class EquipmentService {
     private final EquipmentRepository equipmentRepository;
     private final EquipmentDataRepository equipmentDataRepository;
     private final EquipmentCategoryRepository equipmentCategoryRepository;
-    private final EquipmentPhotoRepository equipmentPhotoRepository;
+    private final PhotoPathRepository photoPathRepository;
     private final EquipmentStatusRepository equipmentStatusRepository;
     private final EquipmentBookingStatusRepository equipmentBookingStatusRepository;
     private final EquipmentCategoryService equipmentCategoryService;
     private final EquipmentDataService equipmentDataService;
-    private final EquipmentPhotoService equipmentPhotoService;
+    private final PhotoPathService photoPathService;
     private final EquipmentStatusService equipmentStatusService;
     private final EquipmentBookingStatusService equipmentBookingStatusService;
     private final EquipmentBookingPeriodsService equipmentBookingPeriodsService;
 
-    private  EquipmentService(EquipmentRepository equipmentRepository, EquipmentDataRepository equipmentDataRepository, EquipmentCategoryRepository equipmentCategoryRepository, EquipmentPhotoRepository equipmentPhotoRepository, EquipmentStatusRepository equipmentStatusRepository, EquipmentBookingStatusRepository equipmentBookingStatusRepository, EquipmentCategoryService equipmentCategoryService, EquipmentDataService equipmentDataService, EquipmentPhotoService equipmentPhotoService, EquipmentStatusService equipmentStatusService, EquipmentBookingStatusService equipmentBookingStatusService, EquipmentBookingPeriodsService equipmentBookingPeriodsService) {
+    private  EquipmentService(EquipmentRepository equipmentRepository, EquipmentDataRepository equipmentDataRepository, EquipmentCategoryRepository equipmentCategoryRepository, PhotoPathRepository photoPathRepository, EquipmentStatusRepository equipmentStatusRepository, EquipmentBookingStatusRepository equipmentBookingStatusRepository, EquipmentCategoryService equipmentCategoryService, EquipmentDataService equipmentDataService, PhotoPathService photoPathService, EquipmentStatusService equipmentStatusService, EquipmentBookingStatusService equipmentBookingStatusService, EquipmentBookingPeriodsService equipmentBookingPeriodsService) {
         this.equipmentRepository = equipmentRepository;
         this.equipmentDataRepository = equipmentDataRepository;
         this.equipmentCategoryRepository = equipmentCategoryRepository;
-        this.equipmentPhotoRepository = equipmentPhotoRepository;
+        this.photoPathRepository = photoPathRepository;
         this.equipmentStatusRepository = equipmentStatusRepository;
         this.equipmentBookingStatusRepository = equipmentBookingStatusRepository;
         this.equipmentCategoryService = equipmentCategoryService;
         this.equipmentDataService = equipmentDataService;
-        this.equipmentPhotoService = equipmentPhotoService;
+        this.photoPathService = photoPathService;
         this.equipmentStatusService = equipmentStatusService;
         this.equipmentBookingStatusService = equipmentBookingStatusService;
         this.equipmentBookingPeriodsService = equipmentBookingPeriodsService;
@@ -68,7 +68,7 @@ public class EquipmentService {
                     equipment.getNotes(),
                 (equipmentData != null? equipmentData.getId():0),
                 equipment.getCategory().getId(),
-                    equipmentPhotoService.createListOfPhotoId(equipment.getPhotos()),
+                    photoPathService.createListOfPhotoId(equipment.getPhotos()),
                     equipment.getStatus().getId(),
                 equipmentBookingStatusService.getEquipmentBookingStatusId(equipment),
                 periodIds,
@@ -122,7 +122,7 @@ public class EquipmentService {
 
     private void deletePhotoByListOfIds(List<Integer> ids) {
         for (int id : ids) {
-            equipmentPhotoRepository.deleteById(id);
+            photoPathRepository.deleteById(id);
         }
     }
 
@@ -141,7 +141,7 @@ public class EquipmentService {
         //TODO finish booking periods as we already agree
         EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategoryById(equipmentFromDb.getEquipmentCategoryId());
         EquipmentData equipmentData = equipmentDataService.getEquipmentData(equipmentFromDb.getEquipmentDataId());
-        List<EquipmentPhoto> equipmentPhotos = equipmentPhotoService.createListOfEquipmentPhoto(equipmentFromDb);
+        List<PhotoPath> equipmentPhotos = photoPathService.createListOfEquipmentPhoto(equipmentFromDb);
         List<EquipmentBookingPeriods> periods = equipmentBookingPeriodsService.getEquipmentBookingPeriods(equipmentFromDb);
         EquipmentStatus status = equipmentStatusService.getEquipmentStatus(equipmentFromDb.getEquipmentStatusId());
         EquipmentBookingStatus equipmentBookingStatus = equipmentBookingStatusService.getEquipmentBookingStatus(equipmentFromDb);

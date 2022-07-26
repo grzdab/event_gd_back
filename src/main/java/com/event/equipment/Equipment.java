@@ -4,7 +4,7 @@ import com.event.equipmentBookingPeriods.EquipmentBookingPeriods;
 import com.event.equipmentBookingStatus.EquipmentBookingStatus;
 import com.event.equipmentCategory.EquipmentCategory;
 import com.event.equipmentData.EquipmentData;
-import com.event.equipmentPhoto.EquipmentPhoto;
+import com.event.photoPath.PhotoPath;
 import com.event.equipmentStatus.EquipmentStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +24,7 @@ public class Equipment {
     private EquipmentCategory category;
     private String notes;
     private EquipmentData equipmentData;
-    private List<EquipmentPhoto> photos;
+    private List<PhotoPath> photos;
     private EquipmentStatus status;
     private EquipmentBookingStatus bookingStatus;
     private List<EquipmentBookingPeriods> equipmentBookingPeriods;

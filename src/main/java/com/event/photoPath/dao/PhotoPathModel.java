@@ -1,24 +1,24 @@
-package com.event.equipmentPhoto.dao;
+package com.event.photoPath.dao;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "equipment_photo_model")
-public class EquipmentPhotoModel {
+@Table(name = "photo_path_model")
+public class PhotoPathModel {
 
     @Id
-    @GeneratedValue(generator = "equipment_photo", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "equipment_photo", sequenceName = "equipment_photo",allocationSize=1)
+    @GeneratedValue(generator = "photo_path", strategy = GenerationType.SEQUENCE)
+    @SequenceGenerator(name = "photo_path", sequenceName = "photo_path",allocationSize=1)
     @Column
     private Integer id;
 
     @Column(columnDefinition = "varchar default 'undefined'")
     private String photoURI;
 
-    public EquipmentPhotoModel() {
+    public PhotoPathModel() {
     }
 
-    public EquipmentPhotoModel(Integer id, String photoURI) {
+    public PhotoPathModel(Integer id, String photoURI) {
         this.id = id;
         this.photoURI = photoURI;
     }
