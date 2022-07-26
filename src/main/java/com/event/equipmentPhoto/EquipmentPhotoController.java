@@ -2,10 +2,7 @@ package com.event.equipmentPhoto;
 
 import com.event.equipment.Equipment;
 import com.event.equipment.dao.EquipmentModel;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,6 +14,12 @@ public class EquipmentPhotoController {
     public EquipmentPhotoController(EquipmentPhotoService service) {
         this.service = service;
     }
+
+    //TODO adding photos and list of photos
+//    @PostMapping("equipment-photo")
+//    EquipmentPhoto addEquipmentPhotoPath(@RequestBody EquipmentPhoto equipmentPhoto) {
+//        return service.add
+//    }
 
     @GetMapping("/equipment-photo/{photoId}")
     EquipmentPhoto getPhotoById(@PathVariable int photoId) {

@@ -14,8 +14,12 @@ public record EquipmentStatusService(EquipmentStatusRepository equipmentStatusRe
     }
 
     public EquipmentStatus getEquipmentStatus(int id) {
-        EquipmentStatusModel model = equipmentStatusRepository.getById(id);
-        return createEquipmentStatus(model);
+        try {
+            EquipmentStatusModel model = equipmentStatusRepository.getById(id);
+            return createEquipmentStatus(model);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public EquipmentStatus createEquipmentStatus(EquipmentStatusModel model) {
@@ -35,11 +39,17 @@ public record EquipmentStatusService(EquipmentStatusRepository equipmentStatusRe
         return null;
     }
 
+
+    //TODO propably error while more than one object
     private EquipmentStatus getEquipmentStatusByName(String name) {
         EquipmentStatusModel model = equipmentStatusRepository.findByName(name);
         if (model != null) {
             return new EquipmentStatus(model.getId(), model.getName());
         }
         return null;
+    }
+
+    public String deleteEquipmentStatus(int id) {
+        return "null";
     }
 }

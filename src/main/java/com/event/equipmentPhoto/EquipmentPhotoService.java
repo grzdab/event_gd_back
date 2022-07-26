@@ -18,21 +18,30 @@ public record EquipmentPhotoService (EquipmentPhotoRepository equipmentPhotoRepo
     }
 
     public EquipmentPhoto getEquipmentPhoto(Integer equipmentPhotoId) {
-        EquipmentPhotoModel model = equipmentPhotoRepository.findById(equipmentPhotoId).get();
-        return createEquipmentPhoto(model);
+        try {
+            EquipmentPhotoModel model = equipmentPhotoRepository.findById(equipmentPhotoId).get();
+            return createEquipmentPhoto(model);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private EquipmentPhoto createEquipmentPhoto(EquipmentPhotoModel model) {
+        if (model == null) return null;
         return new EquipmentPhoto(model.getId(), model.getPhotoURI());
     }
 
     public List<Integer> createListOfPhotoId(List<EquipmentPhoto> photos) {
         if (photos == null) return null;
-        List<Integer> photoIds = new ArrayList<>();
-        for (EquipmentPhoto photo : photos) {
-            photoIds.add(photo.getId());
+        try {
+            List<Integer> photoIds = new ArrayList<>();
+            for (EquipmentPhoto photo : photos) {
+                photoIds.add(photo.getId());
+            }
+            return photoIds;
+        } catch (Exception e) {
+            return null;
         }
-        return photoIds;
     }
 
     public List<EquipmentPhoto> createListOfEquipmentPhoto(EquipmentModel model) {

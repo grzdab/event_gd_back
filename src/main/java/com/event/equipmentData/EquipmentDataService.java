@@ -5,6 +5,8 @@ import com.event.equipmentData.dao.EquipmentDataRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
+
 @Service
 public record EquipmentDataService (EquipmentDataRepository equipmentDataRepository) {
 
@@ -14,6 +16,7 @@ public record EquipmentDataService (EquipmentDataRepository equipmentDataReposit
     }
 
     public EquipmentData addEquipmentData(EquipmentData equipmentData) {
+        if (equipmentData == null) return null;
         EquipmentDataModel equipmentDataModel = new EquipmentDataModel(
                 equipmentData.getEquipmentId(),
                 equipmentData.getWidth(),
@@ -29,14 +32,13 @@ public record EquipmentDataService (EquipmentDataRepository equipmentDataReposit
         return equipmentData;
     }
 
-    public EquipmentData getEquipmentData(String equipmentDataId) {
-        EquipmentDataModel model = equipmentDataRepository.findById(Integer.parseInt(equipmentDataId)).get();
-        return createEquipmentData(model);
-    }
-
-    public EquipmentData getEquipmentDataById(int id) {
-        EquipmentDataModel dataModel = equipmentDataRepository.findById(id).get();
-        return createEquipmentData(dataModel);
+    public EquipmentData getEquipmentData(Integer equipmentDataId) {
+        try {
+            EquipmentDataModel model = equipmentDataRepository.findById(equipmentDataId).get();
+            return createEquipmentData(model);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private EquipmentData createEquipmentData(EquipmentDataModel model) {

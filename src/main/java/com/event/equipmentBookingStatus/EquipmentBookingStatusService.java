@@ -21,11 +21,16 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equ
     }
 
     public EquipmentBookingStatus getEquipmentBookingStatusById(int id) {
-        EquipmentBookingStatusModel model = equipmentBookingStatusRepository.findById(id).get();
-        return createEquipmentBookingStatus(model);
+        try {
+            EquipmentBookingStatusModel model = equipmentBookingStatusRepository.findById(id).get();
+            return createEquipmentBookingStatus(model);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public EquipmentBookingStatus getEquipmentBookingStatus(EquipmentModel model) {
+        if (model == null) return null;
         EquipmentBookingStatusModel bookingStatusModel = createEquipmentBookingStatusModel(model);
         return createEquipmentBookingStatus(bookingStatusModel);
     }
@@ -44,12 +49,13 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equ
     }
 
     public Integer getEquipmentBookingStatusId(Equipment equipment) {
+        if (equipment.getBookingStatus() == null) return null;
         EquipmentBookingStatus bookingStatus = equipment.getBookingStatus();
         return bookingStatus.getId();
     }
 
     public EquipmentBookingStatus addEquipmentBookingStatus(EquipmentBookingStatus bookingStatus) {
-        if (getEquipmentBookingStatusByName(bookingStatus.getName()) == null) {
+       // if (getEquipmentBookingStatusByName(bookingStatus.getName()) == null) {
             EquipmentBookingStatusModel model = new EquipmentBookingStatusModel(
                     bookingStatus.getId(),
                     bookingStatus.getName()
@@ -57,15 +63,22 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equ
             equipmentBookingStatusRepository.save(model);
             bookingStatus.setId(model.getId());
             return bookingStatus;
-        }
-        return null;
+        //}
+        //return null;
     }
 
-    private EquipmentBookingStatus getEquipmentBookingStatusByName(String name) {
+    //TODO error while more than one equipmentBookingStatus
+    public EquipmentBookingStatus getEquipmentBookingStatusByName(String name) {
         EquipmentBookingStatusModel model = equipmentBookingStatusRepository.findByName(name);
         if (model != null) {
             return new EquipmentBookingStatus(model.getId(), model.getName());
         }
         return null;
+    }
+
+
+    //TODO delete propably with List
+    public String deleteEquipmentBookingStatus(Integer id) {
+        return "null";
     }
 }

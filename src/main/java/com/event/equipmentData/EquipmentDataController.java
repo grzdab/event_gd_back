@@ -11,8 +11,15 @@ public class EquipmentDataController {
         this.service = service;
     }
 
+    @PostMapping("/equipment/data")
+    EquipmentData addEquipmentData(@RequestBody EquipmentData equipmentData) {
+        return service.addEquipmentData(equipmentData);
+    }
+
     @GetMapping("/equipment-data/{dataId}")
     EquipmentData getEquipmentDataById(@PathVariable int dataId) {
-        return service.getEquipmentDataById(dataId);
+        return service.getEquipmentData(dataId);
     }
+
+    //TODO update
 }

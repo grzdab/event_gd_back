@@ -51,12 +51,15 @@ public class EquipmentCategoryService {
 
     public String deleteEquipmentCategory(int id) {
         String categoryName = getEquipmentCategoryById(id).getName();
+        if (categoryName == null) categoryName = "unnamed";
         // TODO check if entry exists
+        if (repository.getById(id) == null) return String.format("Cannot delete category #%d (%s) because it's not exists.", id, categoryName);
         repository.deleteById(id);
         return String.format("Category #%d (%s) has been deleted from the database.", id, categoryName);
     }
 
     private EquipmentCategory createEquipmentCategory(EquipmentCategoryModel model) {
+        if (model == null) return null;
         return new EquipmentCategory(
                 model.getId(),
                 model.getSortingGroup(),

@@ -48,10 +48,17 @@ public class FakeDataInflator {
 
             EquipmentBookingStatus equipmentBookingStatus1 = new EquipmentBookingStatus(0, "a");
             EquipmentBookingStatus equipmentBookingStatus3 = new EquipmentBookingStatus(0, "af");
-            EquipmentBookingStatus equipmentBookingStatus4 = new EquipmentBookingStatus(0, "ag");
+            EquipmentBookingStatus equipmentBookingStatus4 = new EquipmentBookingStatus(0, "ax");
             equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus1);
             equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus3);
             equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus4);
+
+            equipmentBookingStatusService.getEquipmentBookingStatusByName("a");
+
+            EquipmentData equipmentData1 = new EquipmentData(1,2,3,4,5,6,7,8,9);
+            equipmentDataService.addEquipmentData(equipmentData1);
+
+            equipmentDataService.getEquipmentData(1);
 
 
             Equipment equipment1 = new Equipment(

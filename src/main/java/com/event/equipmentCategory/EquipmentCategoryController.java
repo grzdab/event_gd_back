@@ -15,29 +15,29 @@ import java.util.List;
 
         @GetMapping
         public List<EquipmentCategory> getAllEquipmentCategories() {
-        return service.getEquipmentCategories();
+                return service.getEquipmentCategories();
         }
 
         @GetMapping(path = "/{id}")
         public EquipmentCategory getEquipmentCategoryById(@PathVariable("id") int id) {
-        return service.getEquipmentCategoryById(id);
+                return service.getEquipmentCategoryById(id);
         }
 
-@PostMapping
-public EquipmentCategory addEquipmentCategory(@RequestBody EquipmentCategory equipmentCategory) {
-        return service.addEquipmentCategory(equipmentCategory);
+        @PostMapping
+        public EquipmentCategory addEquipmentCategory(@RequestBody EquipmentCategory equipmentCategory) {
+                return service.addEquipmentCategory(equipmentCategory);
         }
 
-@PutMapping("/{id}")
-public EquipmentCategory updateEquipmentCategory(
-@PathVariable("id") int id,
-@RequestBody EquipmentCategory equipmentCategory) {
-        return service.updateEquipmentCategory(id, equipmentCategory);
+        @PutMapping("/{id}")
+        public EquipmentCategory updateEquipmentCategory(
+                @PathVariable("id") int id,
+                @RequestBody EquipmentCategory equipmentCategory) {
+                        return service.updateEquipmentCategory(id, equipmentCategory);
         }
 
-@DeleteMapping(path = "{id}")
-public String deleteEquipmentCategory(@PathVariable("id") int id) {
-        return service.deleteEquipmentCategory(id);
+        @DeleteMapping(path = "/{id}")
+        public String deleteEquipmentCategory(@PathVariable("id") int id) {
+                return service.deleteEquipmentCategory(id);
         }
 
-        }
+}
