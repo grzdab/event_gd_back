@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public record PhotoPathService(PhotoPathRepository photoPathRepository) {
+public class PhotoPathService {
+    private PhotoPathRepository photoPathRepository;
 
     @Autowired
     public PhotoPathService(PhotoPathRepository photoPathRepository) {
@@ -18,7 +19,14 @@ public record PhotoPathService(PhotoPathRepository photoPathRepository) {
     }
 
     public PhotoPath addPhotoPath(PhotoPath photoPath) {
-        return null;
+        if (photoPath == null) return null;
+        PhotoPathModel model = new PhotoPathModel(
+                photoPath.getId(),
+                photoPath.getPhotoURI()
+        );
+        photoPathRepository.save(model);
+        photoPath.setId(model.getId());
+        return photoPath;
     }
 
     public PhotoPath addPhotoPaths(List<PhotoPath> photoPaths) {

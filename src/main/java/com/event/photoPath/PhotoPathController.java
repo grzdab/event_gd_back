@@ -15,7 +15,7 @@ public class PhotoPathController {
     }
 
     //TODO adding photos and list of photos
-    @PostMapping("photo-path")
+    @PostMapping("/photo-path")
     PhotoPath addPhotoPath(@RequestBody PhotoPath photoPath) {
         return service.addPhotoPath(photoPath);
     }
