@@ -21,7 +21,6 @@ public class LanguageController {
         return service.addLanguage(language);
     }
 
-//    @CrossOrigin(origins = "http://localhost:3000")
     @PutMapping("/admin/language/{languageId}")
     public ResponseEntity<Object> updateLanguage(@PathVariable int languageId, @RequestBody Language newLanguage) {
         System.out.println("ID");
@@ -39,14 +38,12 @@ public class LanguageController {
         return service.getLanguage(languageId);
     }
 
-//    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/admin/language")
     public List<Language> getAllLanguages(){
         return service.getAllLanguages();
     }
 
-//    @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("/admin/language/languagePage/{pageNum}")
+    @GetMapping("/admin/language/languagePage={pageNum}")
     public List<Language> getTenLanguages(@PathVariable int pageNum) {
         return service.getAllTenLanguage(pageNum);
     }
@@ -55,4 +52,7 @@ public class LanguageController {
     public String deleteLanguage(@PathVariable int languageId){
         return service.deleteLanguage(languageId);
     }
+
+    @GetMapping("/admin/language/count")
+    public String countLanguage() {return service.getCountLanguage();}
 }

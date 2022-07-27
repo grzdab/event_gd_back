@@ -67,4 +67,6 @@ public class LanguageService {
         System.out.println(languages);
         return languages;
     }
+    public String getCountLanguage(){
+        return Long.toString(languageRepository.count());    }
 }
