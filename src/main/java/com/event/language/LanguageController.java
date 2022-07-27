@@ -54,5 +54,5 @@ public class LanguageController {
     }
 
     @GetMapping("/admin/language/count")
-    public String countLanguage() {return service.getCountLanguage();}
+    public Long countLanguage() {return service.getCountLanguage();}
 }
