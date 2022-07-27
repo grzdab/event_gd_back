@@ -11,12 +11,13 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Service
-@CrossOrigin("http://localhost:3000/%22")
+@CrossOrigin("http://localhost:3000")
 public class ImageService {
 
     public void saveImage(MultipartFile imageFile) throws IOException {
         //String image = StringUtils.cleanPath(imageFile.getOriginalFilename());
-        String folder = "src/main/resources/photos/";
+        //String folder = "src/main/java/com/event/image/photos/";
+        String folder = "C:\\event\\photos";
         byte[] bytes = imageFile.getBytes();
         Path path = Paths.get(folder + imageFile.getOriginalFilename());
         Files.write(path, bytes);
