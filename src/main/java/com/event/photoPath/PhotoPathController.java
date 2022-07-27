@@ -15,14 +15,10 @@ public class PhotoPathController {
     }
 
     //TODO adding photos and list of photos
-    @PostMapping("/photo-path")
-    PhotoPath addPhotoPath(@RequestBody PhotoPath photoPath) {
-        return service.addPhotoPath(photoPath);
-    }
 
     @PostMapping("/photo-paths")
-    PhotoPath addPhotoPath(@RequestBody List<PhotoPath> photos) {
-        return service.addPhotoPaths(photos);
+    List<String> addPhotoPaths(@RequestBody List<String> photoNames) {
+        return service.addPhotoPaths(photoNames);
     }
 
     @GetMapping("/photo-path/{photoId}")
@@ -33,5 +29,10 @@ public class PhotoPathController {
     @GetMapping("/photo-path-by-equipment")
     List<PhotoPath> getPhotoByEquipment(EquipmentModel equipmentModel) {
         return service.createListOfEquipmentPhotoPaths(equipmentModel);
+    }
+
+    @GetMapping("/photo-paths")
+    List<PhotoPath> getAllPaths() {
+        return service.getAllPhotoPaths();
     }
 }

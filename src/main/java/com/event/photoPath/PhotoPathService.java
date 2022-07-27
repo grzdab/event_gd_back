@@ -12,29 +12,28 @@ import java.util.List;
 @Service
 public class PhotoPathService {
     private PhotoPathRepository photoPathRepository;
+    private String PATH_TO_PHOTO_FOLDER = "src/main/java/com/event/photoPath/photo/";
 
     @Autowired
     public PhotoPathService(PhotoPathRepository photoPathRepository) {
         this.photoPathRepository = photoPathRepository;
     }
 
-    // it mus go into list must be rebuild
-    public PhotoPath addPhotoPath(PhotoPath photoPath) {
-        if (photoPath == null) return null;
-        PhotoPathModel model = new PhotoPathModel(
-                photoPath.getId(),
-                photoPath.getPhotoURI()
-        );
-
-
-        photoPathRepository.save(model);
-        photoPath.setId(model.getId());
-        return photoPath;
-    }
-
-    public PhotoPath addPhotoPaths(List<PhotoPath> photoPaths) {
+    public List<String> addPhotoPaths(List<String> photoNames) {
+        //TODO logic to get list of paths to update write here
+        List<PhotoPath> pathsToSave = new ArrayList<>();//in future rebuild for logic
+        for (String photoName : photoNames) {
+            String path = PATH_TO_PHOTO_FOLDER + photoName;
+            PhotoPath photoPath = new PhotoPath(0, path);
+            pathsToSave.add(photoPath);
+        }
+//        getPhotoPathsById(id);
         return null;
     }
+
+//    public List<PhotoPath> getPhotoPathsById(int id) {
+//
+//    }
 
     public PhotoPath getPhotoPath(Integer equipmentPhotoId) {
         try {
@@ -43,6 +42,12 @@ public class PhotoPathService {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public List<PhotoPath> getAllPhotoPaths() {
+        List<PhotoPathModel> pathModels = photoPathRepository.findAll();
+        if (pathModels.isEmpty()) return null;
+        return createListOfPhotoPaths(pathModels);
     }
 
     private PhotoPath createPhotoPath(PhotoPathModel model) {
@@ -61,6 +66,15 @@ public class PhotoPathService {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public List<PhotoPath> createListOfPhotoPaths(List<PhotoPathModel> pathModels) {
+        List<PhotoPath> paths = new ArrayList<>();
+        for (PhotoPathModel pathModel : pathModels) {
+            PhotoPath path = new PhotoPath(0, pathModel.getPhotoURI());
+            paths.add(path);
+        }
+        return paths;
     }
 
     public List<PhotoPath> createListOfEquipmentPhotoPaths(EquipmentModel model) {
