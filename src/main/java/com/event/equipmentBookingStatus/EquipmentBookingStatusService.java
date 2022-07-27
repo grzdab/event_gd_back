@@ -55,7 +55,7 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equ
     }
 
     public EquipmentBookingStatus addEquipmentBookingStatus(EquipmentBookingStatus bookingStatus) {
-       // if (getEquipmentBookingStatusByName(bookingStatus.getName()) == null) {
+        if (getEquipmentBookingStatusByName(bookingStatus.getName()) == null) {
             EquipmentBookingStatusModel model = new EquipmentBookingStatusModel(
                     bookingStatus.getId(),
                     bookingStatus.getName()
@@ -63,8 +63,8 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equ
             equipmentBookingStatusRepository.save(model);
             bookingStatus.setId(model.getId());
             return bookingStatus;
-        //}
-        //return null;
+        }
+        return null;
     }
 
     //TODO error while more than one equipmentBookingStatus

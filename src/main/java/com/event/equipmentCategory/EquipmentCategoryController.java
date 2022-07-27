@@ -15,7 +15,7 @@ import java.util.List;
 
         @GetMapping
         public List<EquipmentCategory> getAllEquipmentCategories() {
-                return service.getEquipmentCategories();
+        return service.getEquipmentCategories();
         }
 
         @GetMapping(path = "/{id}")
