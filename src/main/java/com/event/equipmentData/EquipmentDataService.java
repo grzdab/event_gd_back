@@ -14,9 +14,16 @@ public record EquipmentDataService (EquipmentDataRepository equipmentDataReposit
     }
 
     public EquipmentData addEquipmentData(EquipmentData equipmentData) {
-        EquipmentDataModel equipmentDataModel = new EquipmentDataModel(equipmentData.getWidth(), equipmentData.getLength(),
-                equipmentData.getHeight(), equipmentData.getWeight(), equipmentData.getPowerRequired(),
-                equipmentData.getStaffNeeded(), equipmentData.getMinimumAge(), equipmentData.getMaxParticipants());
+        EquipmentDataModel equipmentDataModel = new EquipmentDataModel(
+                equipmentData.getEquipmentId(),
+                equipmentData.getWidth(),
+                equipmentData.getLength(),
+                equipmentData.getHeight(),
+                equipmentData.getWeight(),
+                equipmentData.getPowerRequired(),
+                equipmentData.getStaffNeeded(),
+                equipmentData.getMinimumAge(),
+                equipmentData.getMaxParticipants());
         equipmentDataRepository.save(equipmentDataModel);
         equipmentData.setId(equipmentDataModel.getId());
         return equipmentData;
@@ -33,8 +40,15 @@ public record EquipmentDataService (EquipmentDataRepository equipmentDataReposit
     }
 
     private EquipmentData createEquipmentData(EquipmentDataModel model) {
-        return new EquipmentData(model.getWidth(), model.getLength(), model.getHeight(),
-                model.getWeight(), model.getPowerRequired(), model.getStaffNeeded(),
-                model.getMinimumAge(), model.getMaxParticipants());
+        return new EquipmentData(
+                model.getEquipmentId(),
+                model.getWidth(),
+                model.getLength(),
+                model.getHeight(),
+                model.getWeight(),
+                model.getPowerRequired()
+                , model.getStaffNeeded(),
+                model.getMinimumAge(),
+                model.getMaxParticipants());
     }
 }

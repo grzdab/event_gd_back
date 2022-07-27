@@ -4,6 +4,8 @@ import com.event.equipment.Equipment;
 import com.event.equipment.dao.EquipmentModel;
 import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusModel;
 import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusRepository;
+import com.event.equipmentStatus.EquipmentStatus;
+import com.event.equipmentStatus.dao.EquipmentStatusModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,42 +25,47 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equ
         return createEquipmentBookingStatus(model);
     }
 
-    public List<EquipmentBookingStatus> getEquipmentBookingStatus(EquipmentModel model) {
-        List<EquipmentBookingStatusModel> bookingStatusModels = createListOfEquipmentBookingStatusModel(model);
-        return createListOfBookingStatus(bookingStatusModels);
+    public EquipmentBookingStatus getEquipmentBookingStatus(EquipmentModel model) {
+        EquipmentBookingStatusModel bookingStatusModel = createEquipmentBookingStatusModel(model);
+        return createEquipmentBookingStatus(bookingStatusModel);
     }
 
-    private List<EquipmentBookingStatusModel> createListOfEquipmentBookingStatusModel(EquipmentModel model) {
-        List<EquipmentBookingStatusModel> bookingStatusModels = new ArrayList<>();
-        List<Integer> ids = model.getEquipmentBookingStatusId();
-        for (int id : ids) {
-            bookingStatusModels.add(equipmentBookingStatusRepository.findById(id).orElseThrow());
-        }
-        return bookingStatusModels;
-    }
-
-    private List<EquipmentBookingStatus> createListOfBookingStatus(List<EquipmentBookingStatusModel> bookingStatusModel) {
-        List<EquipmentBookingStatus> bookingStatuses = new ArrayList<>();
-        for (EquipmentBookingStatusModel bookinSstatus : bookingStatusModel) {
-            bookingStatuses.add(createEquipmentBookingStatus(bookinSstatus));
-        }
-        return bookingStatuses;
+    private EquipmentBookingStatusModel createEquipmentBookingStatusModel(EquipmentModel model) {
+            EquipmentBookingStatusModel bookingStatusModel;
+            Integer bookingStatusId = model.getEquipmentBookingStatusId();
+            if (bookingStatusId == 0) return null;
+            bookingStatusModel = equipmentBookingStatusRepository.findById(bookingStatusId).orElseThrow();
+        return bookingStatusModel;
     }
 
     private EquipmentBookingStatus createEquipmentBookingStatus(EquipmentBookingStatusModel model) {
-        return new EquipmentBookingStatus(model.getId(), model.getBookingStatus());
+        if (model == null) return null;
+        return new EquipmentBookingStatus(model.getId(), model.getName());
     }
 
-    public List<Integer> getEquipmentBookingStatusId(Equipment equipment) {
-        List<EquipmentBookingStatus> bookingStatus = equipment.getBookingStatus();
-        return createListOfId(bookingStatus);
+    public Integer getEquipmentBookingStatusId(Equipment equipment) {
+        EquipmentBookingStatus bookingStatus = equipment.getBookingStatus();
+        return bookingStatus.getId();
     }
 
-    private List<Integer> createListOfId(List<EquipmentBookingStatus> statuses) {
-        List<Integer> ids = new ArrayList<>();
-        for (EquipmentBookingStatus status : statuses) {
-            ids.add(status.getId());
+    public EquipmentBookingStatus addEquipmentBookingStatus(EquipmentBookingStatus bookingStatus) {
+        if (getEquipmentBookingStatusByName(bookingStatus.getName()) == null) {
+            EquipmentBookingStatusModel model = new EquipmentBookingStatusModel(
+                    bookingStatus.getId(),
+                    bookingStatus.getName()
+            );
+            equipmentBookingStatusRepository.save(model);
+            bookingStatus.setId(model.getId());
+            return bookingStatus;
         }
-        return ids;
+        return null;
+    }
+
+    private EquipmentBookingStatus getEquipmentBookingStatusByName(String name) {
+        EquipmentBookingStatusModel model = equipmentBookingStatusRepository.findByName(name);
+        if (model != null) {
+            return new EquipmentBookingStatus(model.getId(), model.getName());
+        }
+        return null;
     }
 }

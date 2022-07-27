@@ -18,4 +18,6 @@ public class EquipmentStatusController {
     EquipmentStatus getEquipmentStatusById(@PathVariable int statusId) {
         return service.getEquipmentStatus(statusId);
     }
+
+    //TODO all other controllers
 }

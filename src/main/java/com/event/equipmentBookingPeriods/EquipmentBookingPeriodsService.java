@@ -42,9 +42,12 @@ public record EquipmentBookingPeriodsService(EquipmentBookingPeriodsRepository e
     public List<Integer> createListOfPeriodsIds(Equipment equipment) {
         List<Integer> ids = new ArrayList<>();
         List<EquipmentBookingPeriods> periods = equipment.getEquipmentBookingPeriods();
-        for (EquipmentBookingPeriods period : periods) {
-            ids.add(period.getId());
+        if (periods != null) {
+            for (EquipmentBookingPeriods period : periods) {
+                ids.add(period.getId());
+            }
+            return ids;
         }
-        return ids;
+        return null;
     }
 }

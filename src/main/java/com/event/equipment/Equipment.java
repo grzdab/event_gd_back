@@ -26,7 +26,7 @@ public class Equipment {
     private EquipmentData equipmentData;
     private List<EquipmentPhoto> photos;
     private EquipmentStatus status;
-    private List<EquipmentBookingStatus> bookingStatus;
+    private EquipmentBookingStatus bookingStatus;
     private List<EquipmentBookingPeriods> equipmentBookingPeriods;
     private boolean inUse;
 }

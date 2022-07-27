@@ -3,6 +3,7 @@ package com.event.equipmentData.dao;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "equipment_data_model")
 public class EquipmentDataModel {
 
     @Id
@@ -10,6 +11,9 @@ public class EquipmentDataModel {
     @SequenceGenerator(name = "equipment_data", sequenceName = "equipment_data",allocationSize=1)
     @Column
     private Integer id;
+
+    @Column
+    private Integer equipmentId;
 
     @Column(columnDefinition = "int default 0")
     private int width;
@@ -38,7 +42,8 @@ public class EquipmentDataModel {
     public EquipmentDataModel() {
     }
 
-    public EquipmentDataModel(int width, int length, int height, int weight, int powerRequired, int staffNeeded, int minimumAge, int maxParticipants) {
+    public EquipmentDataModel(int equipmentId,int width, int length, int height, int weight, int powerRequired, int staffNeeded, int minimumAge, int maxParticipants) {
+        this.equipmentId =equipmentId;
         this.width = width;
         this.length = length;
         this.height = height;
@@ -85,6 +90,10 @@ public class EquipmentDataModel {
         return id;
     }
 
+    public Integer getEquipmentId() {
+        return equipmentId;
+    }
+
     public void setWidth(int width) {
         this.width = width;
     }
@@ -115,6 +124,10 @@ public class EquipmentDataModel {
 
     public void setMaxParticipants(int maxParticipants) {
         this.maxParticipants = maxParticipants;
+    }
+
+    public void setEquipmentId(Integer equipmentId) {
+        this.equipmentId = equipmentId;
     }
 
     public void setId(Integer id) {

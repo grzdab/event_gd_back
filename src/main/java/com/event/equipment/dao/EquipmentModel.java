@@ -13,12 +13,12 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "equipment")
+@Table(name = "equipment_model")
 public class EquipmentModel {
 
     @Id
     @GeneratedValue(generator = "equipment", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "equipment", sequenceName = "equipment_model",allocationSize=1)
+    @SequenceGenerator(name = "equipment", sequenceName = "equipment",allocationSize=1)
     @Column
     private Integer id;
 
@@ -45,8 +45,7 @@ public class EquipmentModel {
     private int equipmentStatusId;
 
     @Column(columnDefinition = "int default 0")
-    @ElementCollection(targetClass = Integer.class)
-    private List<Integer> equipmentBookingStatusId;
+    private Integer equipmentBookingStatusId;
 
     @Column
     @ElementCollection(targetClass = Integer.class)

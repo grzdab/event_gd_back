@@ -27,6 +27,7 @@ public record EquipmentPhotoService (EquipmentPhotoRepository equipmentPhotoRepo
     }
 
     public List<Integer> createListOfPhotoId(List<EquipmentPhoto> photos) {
+        if (photos == null) return null;
         List<Integer> photoIds = new ArrayList<>();
         for (EquipmentPhoto photo : photos) {
             photoIds.add(photo.getId());
