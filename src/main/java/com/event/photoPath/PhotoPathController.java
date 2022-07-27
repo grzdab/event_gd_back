@@ -32,6 +32,6 @@ public class PhotoPathController {
 
     @GetMapping("/photo-path-by-equipment")
     List<PhotoPath> getPhotoByEquipment(EquipmentModel equipmentModel) {
-        return service.createListOfEquipmentPhoto(equipmentModel);
+        return service.createListOfEquipmentPhotoPaths(equipmentModel);
     }
 }

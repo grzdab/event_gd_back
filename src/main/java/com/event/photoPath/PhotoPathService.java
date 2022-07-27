@@ -18,12 +18,15 @@ public class PhotoPathService {
         this.photoPathRepository = photoPathRepository;
     }
 
+    // it mus go into list must be rebuild
     public PhotoPath addPhotoPath(PhotoPath photoPath) {
         if (photoPath == null) return null;
         PhotoPathModel model = new PhotoPathModel(
                 photoPath.getId(),
                 photoPath.getPhotoURI()
         );
+
+
         photoPathRepository.save(model);
         photoPath.setId(model.getId());
         return photoPath;
@@ -60,7 +63,7 @@ public class PhotoPathService {
         }
     }
 
-    public List<PhotoPath> createListOfEquipmentPhoto(EquipmentModel model) {
+    public List<PhotoPath> createListOfEquipmentPhotoPaths(EquipmentModel model) {
         List<Integer> photoId = model.getEquipmentPhotoId();
         List<PhotoPath> photos = new ArrayList<>();
         for (Integer id : photoId) {

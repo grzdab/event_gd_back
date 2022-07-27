@@ -141,7 +141,7 @@ public class EquipmentService {
         //TODO finish booking periods as we already agree
         EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategoryById(equipmentFromDb.getEquipmentCategoryId());
         EquipmentData equipmentData = equipmentDataService.getEquipmentData(equipmentFromDb.getEquipmentDataId());
-        List<PhotoPath> equipmentPhotos = photoPathService.createListOfEquipmentPhoto(equipmentFromDb);
+        List<PhotoPath> equipmentPhotos = photoPathService.createListOfEquipmentPhotoPaths(equipmentFromDb);
         List<EquipmentBookingPeriods> periods = equipmentBookingPeriodsService.getEquipmentBookingPeriods(equipmentFromDb);
         EquipmentStatus status = equipmentStatusService.getEquipmentStatus(equipmentFromDb.getEquipmentStatusId());
         EquipmentBookingStatus equipmentBookingStatus = equipmentBookingStatusService.getEquipmentBookingStatus(equipmentFromDb);

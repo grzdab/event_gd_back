@@ -118,12 +118,17 @@ public class FakeDataInflator {
 //                    true);
 //            equipmentService.addEquipment(equipment2);
 
-            PhotoPath photoPath1 = new PhotoPath(0, "null1");
-            PhotoPath photoPath2 = new PhotoPath(0, "null2");
-            PhotoPath photoPath3 = new PhotoPath(0, "null3");
-            photoPathService.addPhotoPath(photoPath1);
-            photoPathService.addPhotoPath(photoPath2);
-            photoPathService.addPhotoPath(photoPath3);
+//            PhotoPath photoPath1 = new PhotoPath(0, "null1");
+//            PhotoPath photoPath2 = new PhotoPath(0, "null2");
+//            PhotoPath photoPath3 = new PhotoPath(0, "null3");
+//            photoPathService.addPhotoPath(photoPath1);
+//            photoPathService.addPhotoPath(photoPath2);
+//            photoPathService.addPhotoPath(photoPath3);
+
+//            PhotoPath path = photoPathService.getPhotoPath(1);
+//            System.out.println(path);
+//            System.out.println(path.getId());
+//            System.out.println(path.getPhotoURI());
         };
     }
 }

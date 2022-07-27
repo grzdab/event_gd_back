@@ -29,9 +29,18 @@ public class PhotoPathControllerTest {
 
     @Test
     public void addPhotoPathTest() {
-        System.out.println("uio");
 //        service.addPhotoPath(photoPath1);
 //        service.addPhotoPath(photoPath2);
 //        service.addPhotoPath(photoPath3);
+    }
+
+    @Test
+    public void getOnePhotoPath() {
+//        service.addPhotoPath(photoPath1);
+        System.out.println(photoPath1);
+        PhotoPath path = service.getPhotoPath(1);
+        System.out.println(path);
+//        System.out.println(path.getId());
+//        System.out.println(path.getPhotoURI());
     }
 }
