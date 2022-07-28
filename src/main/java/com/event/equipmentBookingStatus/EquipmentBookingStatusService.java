@@ -30,13 +30,14 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
         Collection<EquipmentBookingStatusModel> models = repository.findAll();
         return models
             .stream()
-            .map(model -> new EquipmentBookingStatus(model.getId(), model.getName(), setEquipmpentBookingStatusColor(model.getColor())))
+            .map(model -> new EquipmentBookingStatus(model.getId(), model.getName(), model.getColor()))
             .collect(Collectors.toList());
     }
 
     public EquipmentBookingStatus updateEquipmentBookingStatus(int id, EquipmentBookingStatus equipmentBookingStatus) {
         EquipmentBookingStatusModel model = repository.findById(id).orElseThrow(() -> new IllegalStateException("Could not find equipment booking status with specified ID"));
         model.setName(equipmentBookingStatus.getName());
+        model.setColor(equipmentBookingStatus.getColor());
         repository.save(model);
         return equipmentBookingStatus;
     }
@@ -65,11 +66,12 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
         return new EquipmentBookingStatus(
             model.getId(),
             model.getName(),
-            setEquipmpentBookingStatusColor(model.getColor()));
+            model.getColor());
     }
 
 
     private List<Integer> setEquipmpentBookingStatusColor(String color) {
+        // was used when colors were stored as rgb
         List<Integer> rgb = new ArrayList<>();
         for (String s : color.split(",", -1)) {
             rgb.add(Integer.valueOf(s));
@@ -90,7 +92,7 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
             EquipmentBookingStatusModel model = new EquipmentBookingStatusModel(
                 equipmentBookingStatus.getId(),
                 equipmentBookingStatus.getName(),
-                setModelColor(equipmentBookingStatus.getColor()));
+                equipmentBookingStatus.getColor());
             repository.save(model);
             equipmentBookingStatus.setId(model.getId());
             return equipmentBookingStatus;
@@ -100,6 +102,7 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
 
 
     private String setModelColor(List<Integer> color) {
+        // was used when colors were stored as rgb
         StringBuilder sb = new StringBuilder();
         for (Integer i : color) {
             sb.append(i);
@@ -113,7 +116,7 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
     private EquipmentBookingStatus getEquipmentBookingStatusByName(String name) {
         EquipmentBookingStatusModel model = repository.findByName(name);
         if (model != null) {
-            return new EquipmentBookingStatus(model.getId(), model.getName(), setEquipmpentBookingStatusColor(model.getColor()));
+            return new EquipmentBookingStatus(model.getId(), model.getName(), model.getColor());
         }
         return null;
     }
@@ -125,5 +128,3 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
     }
 
 }
-
-
