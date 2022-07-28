@@ -2,6 +2,7 @@ package com.event.photoPath;
 
 import com.event.equipment.Equipment;
 import com.event.equipment.dao.EquipmentModel;
+import com.event.photoPath.dao.PhotoPathModel;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +19,8 @@ public class PhotoPathController {
     //TODO adding photos and list of photos
 
     @PostMapping("/equipment/photo-paths")
-    String addEquipmentPhotoPaths(@RequestBody List<String> photoNames, Equipment equipment) {
-        return service.addEquipmentPhotoPaths(photoNames, equipment);
+    String addEquipmentPhotoPaths(@RequestBody List<String> photoNames) {
+        return service.addEquipmentPhotoPaths(photoNames);
     }
 
     @GetMapping("/photo-path/{photoId}")

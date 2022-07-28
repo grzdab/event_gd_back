@@ -16,51 +16,42 @@ import java.util.Set;
 @Service
 public class PhotoPathService {
     private PhotoPathRepository photoPathRepository;
-    private EquipmentService equipmentService;
-    private String PATH_TO_PHOTO_FOLDER = "src/main/java/com/event/photoPath/photo/";
 
     @Autowired
-    public PhotoPathService(PhotoPathRepository photoPathRepository, EquipmentService equipmentService) {
+    public PhotoPathService(PhotoPathRepository photoPathRepository) {
         this.photoPathRepository = photoPathRepository;
-        this.equipmentService = equipmentService;
     }
 
 
-    public String addEquipmentPhotoPaths(List<String> photoNames, Equipment equipment) {
-        int equipmentId = equipment.getId();
-        EquipmentModel equipmentModel = equipmentService.getEquipmentModelById(equipmentId);
-        List<Integer> pathFromDbIds = equipmentModel.getEquipmentPhotoId();
-        List<PhotoPath> pathListFromDb = addPathsFromDbToList(pathFromDbIds);
-        List<PhotoPath> listOfPaths = addPhotoNameToList(pathListFromDb, photoNames);
+    public String addEquipmentPhotoPaths(List<String> photoNames) {
+        List<PhotoPath> listOfPaths = addPhotoNameToList(photoNames);
         List<PhotoPathModel> pathsToSave = createListOfPhotoPathModels(listOfPaths);
         photoPathRepository.saveAll(pathsToSave);
         setIds(listOfPaths, pathsToSave);
-        return "saved";
+        return "Uploaded";
     }
 
 
-    private List<PhotoPath> addPathsFromDbToList(List<Integer> pathFromDbIds) {
-        if (pathFromDbIds.isEmpty()) return null;
-        List<PhotoPath> pathsToSave = new ArrayList<>();
-        for (int pathFromDbId : pathFromDbIds) {
-            PhotoPath path = getPhotoPath(pathFromDbId);
-            if (!pathsToSave.contains(path)) {
-                pathsToSave.add(path);
-            }
-        }
-        return pathsToSave;
-    }
+//    private List<PhotoPath> addPathsFromDbToList(List<Integer> pathFromDbIds) {
+//        if (pathFromDbIds.isEmpty()) return null;
+//        List<PhotoPath> pathsToSave = new ArrayList<>();
+//        for (int pathFromDbId : pathFromDbIds) {
+//            PhotoPath path = getPhotoPath(pathFromDbId);
+//            if (!pathsToSave.contains(path)) {
+//                pathsToSave.add(path);
+//            }
+//        }
+//        return pathsToSave;
+//    }
 
-    private List<PhotoPath> addPhotoNameToList(List<PhotoPath> pathListFromDb, List<String> photoNames) {
+    private List<PhotoPath> addPhotoNameToList(List<String> photoNames) {
         if (photoNames.isEmpty()) return null;
+        List<PhotoPath> paths = new ArrayList<>();
         for (String photoName : photoNames) {
-            String path = PATH_TO_PHOTO_FOLDER + photoName;
-            PhotoPath photoPath = new PhotoPath(0, path);
-            if (!pathListFromDb.contains(photoPath)) {
-                pathListFromDb.add(photoPath);
-            }
+            PhotoPath photoPath = new PhotoPath(0, photoName);
+            paths.add(photoPath);
         }
-        return pathListFromDb;
+        return paths;
     }
 
     private List<PhotoPath> setIds(List<PhotoPath> paths, List<PhotoPathModel> patModels) {

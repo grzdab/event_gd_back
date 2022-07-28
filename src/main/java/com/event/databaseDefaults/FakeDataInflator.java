@@ -35,36 +35,36 @@ public class FakeDataInflator {
                           PhotoPathService photoPathService) {
         return args -> {
             EquipmentCategory equipmentCategory1 = new EquipmentCategory(0, 0, "aaa", "description");
-//            EquipmentCategory equipmentCategory2 = new EquipmentCategory(0, 0, "avvaa", "desdfggcription");
-//            EquipmentCategory equipmentCategory3 = new EquipmentCategory(0, 0, "aahhha", "uuudescription");
-//            equipmentCategoryService.addEquipmentCategory(equipmentCategory1);
-//            equipmentCategoryService.addEquipmentCategory(equipmentCategory2);
-//            equipmentCategoryService.addEquipmentCategory(equipmentCategory3);
-//
-//
+            EquipmentCategory equipmentCategory2 = new EquipmentCategory(0, 0, "avvaa", "desdfggcription");
+            EquipmentCategory equipmentCategory3 = new EquipmentCategory(0, 0, "aahhha", "uuudescription");
+            equipmentCategoryService.addEquipmentCategory(equipmentCategory1);
+            equipmentCategoryService.addEquipmentCategory(equipmentCategory2);
+            equipmentCategoryService.addEquipmentCategory(equipmentCategory3);
+
+
             EquipmentStatus equipmentStatus1 = new EquipmentStatus(0, "a");
-//            EquipmentStatus equipmentStatus3 = new EquipmentStatus(0, "af");
-//            EquipmentStatus equipmentStatus4 = new EquipmentStatus(0, "ag");
-//            equipmentStatusService.addEquipmentStatus(equipmentStatus1);
-//            equipmentStatusService.addEquipmentStatus(equipmentStatus3);
-//            equipmentStatusService.addEquipmentStatus(equipmentStatus4);
-//
-//
+            EquipmentStatus equipmentStatus3 = new EquipmentStatus(0, "af");
+            EquipmentStatus equipmentStatus4 = new EquipmentStatus(0, "ag");
+            equipmentStatusService.addEquipmentStatus(equipmentStatus1);
+            equipmentStatusService.addEquipmentStatus(equipmentStatus3);
+            equipmentStatusService.addEquipmentStatus(equipmentStatus4);
+
+
             EquipmentBookingStatus equipmentBookingStatus1 = new EquipmentBookingStatus(0, "a");
-//            EquipmentBookingStatus equipmentBookingStatus3 = new EquipmentBookingStatus(0, "af");
-//            EquipmentBookingStatus equipmentBookingStatus4 = new EquipmentBookingStatus(0, "ax");
-//            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus1);
-//            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus3);
-//            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus4);
-//
-//            equipmentBookingStatusService.getEquipmentBookingStatusByName("a");
-//
-//            EquipmentData equipmentData1 = new EquipmentData(1,2,3,4,5,6,7,8,9);
-//            equipmentDataService.addEquipmentData(equipmentData1);
-//
-//            equipmentDataService.getEquipmentData(1);
-//
-//
+            EquipmentBookingStatus equipmentBookingStatus3 = new EquipmentBookingStatus(0, "af");
+            EquipmentBookingStatus equipmentBookingStatus4 = new EquipmentBookingStatus(0, "ax");
+            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus1);
+            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus3);
+            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus4);
+
+            equipmentBookingStatusService.getEquipmentBookingStatusByName("a");
+
+            EquipmentData equipmentData1 = new EquipmentData(1,2,3,4,5,6,7,8,9);
+            equipmentDataService.addEquipmentData(equipmentData1);
+
+            equipmentDataService.getEquipmentData(1);
+
+
             Equipment equipment1 = new Equipment(
                     0,
                     1,
@@ -91,38 +91,33 @@ public class FakeDataInflator {
                                     12)))),
                     true);
             equipmentService.addEquipment(equipment1);
-//
-//            Equipment equipment2 = new Equipment(
-//                    0,
-//                    1,
-//                    "bbb",
-//                    equipmentCategory1,
-//                    "aaa",
-//                    new EquipmentData(2,277,34,466,5,68,7,8,9),
-//                    null,
-//                    equipmentStatus1,
-//                    equipmentBookingStatus1,
-//                    new ArrayList<>(List.of(new EquipmentBookingPeriods(
-//                            1,
-//                            LocalDateTime.of(
-//                                    2122,
-//                                    11,
-//                                    11,
-//                                    11,
-//                                    11),
-//                            LocalDateTime.of(
-//                                    2122,
-//                                    11,
-//                                    11,
-//                                    11,
-//                                    12)))),
-//                    true);
-//            equipmentService.addEquipment(equipment2);
 
-            List<String> photoNames = Arrays.asList("abc", "ubg");
-
-            photoPathService.addEquipmentPhotoPaths(photoNames, equipment1);
-            int x=0;
+            Equipment equipment2 = new Equipment(
+                    0,
+                    1,
+                    "bbb",
+                    equipmentCategory1,
+                    "aaa",
+                    new EquipmentData(2,277,34,466,5,68,7,8,9),
+                    null,
+                    equipmentStatus1,
+                    equipmentBookingStatus1,
+                    new ArrayList<>(List.of(new EquipmentBookingPeriods(
+                            1,
+                            LocalDateTime.of(
+                                    2122,
+                                    11,
+                                    11,
+                                    11,
+                                    11),
+                            LocalDateTime.of(
+                                    2122,
+                                    11,
+                                    11,
+                                    11,
+                                    12)))),
+                    true);
+            equipmentService.addEquipment(equipment2);
         };
     }
 }
