@@ -79,8 +79,21 @@ public class EquipmentService {
     }
 
     public Equipment getEquipmentById(int id) {
-        EquipmentModel equipmentFromDb = equipmentRepository.findById(id).orElseThrow();
-        return createEquipment(equipmentFromDb);
+        try {
+            EquipmentModel equipmentFromDb = equipmentRepository.findById(id).orElseThrow();
+            return createEquipment(equipmentFromDb);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public EquipmentModel getEquipmentModelById(int id) {
+        try {
+            EquipmentModel equipmentModel = equipmentRepository.findById(id).get();
+            return equipmentModel;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public Equipment uploadEquipment(int id, Equipment equipment) {

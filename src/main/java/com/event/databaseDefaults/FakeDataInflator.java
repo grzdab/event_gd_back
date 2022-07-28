@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Configuration;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
@@ -33,7 +34,7 @@ public class FakeDataInflator {
                           EquipmentDataService equipmentDataService,
                           PhotoPathService photoPathService) {
         return args -> {
-//            EquipmentCategory equipmentCategory1 = new EquipmentCategory(0, 0, "aaa", "description");
+            EquipmentCategory equipmentCategory1 = new EquipmentCategory(0, 0, "aaa", "description");
 //            EquipmentCategory equipmentCategory2 = new EquipmentCategory(0, 0, "avvaa", "desdfggcription");
 //            EquipmentCategory equipmentCategory3 = new EquipmentCategory(0, 0, "aahhha", "uuudescription");
 //            equipmentCategoryService.addEquipmentCategory(equipmentCategory1);
@@ -41,7 +42,7 @@ public class FakeDataInflator {
 //            equipmentCategoryService.addEquipmentCategory(equipmentCategory3);
 //
 //
-//            EquipmentStatus equipmentStatus1 = new EquipmentStatus(0, "a");
+            EquipmentStatus equipmentStatus1 = new EquipmentStatus(0, "a");
 //            EquipmentStatus equipmentStatus3 = new EquipmentStatus(0, "af");
 //            EquipmentStatus equipmentStatus4 = new EquipmentStatus(0, "ag");
 //            equipmentStatusService.addEquipmentStatus(equipmentStatus1);
@@ -49,7 +50,7 @@ public class FakeDataInflator {
 //            equipmentStatusService.addEquipmentStatus(equipmentStatus4);
 //
 //
-//            EquipmentBookingStatus equipmentBookingStatus1 = new EquipmentBookingStatus(0, "a");
+            EquipmentBookingStatus equipmentBookingStatus1 = new EquipmentBookingStatus(0, "a");
 //            EquipmentBookingStatus equipmentBookingStatus3 = new EquipmentBookingStatus(0, "af");
 //            EquipmentBookingStatus equipmentBookingStatus4 = new EquipmentBookingStatus(0, "ax");
 //            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus1);
@@ -64,32 +65,32 @@ public class FakeDataInflator {
 //            equipmentDataService.getEquipmentData(1);
 //
 //
-//            Equipment equipment1 = new Equipment(
-//                    0,
-//                    1,
-//                    "aaa",
-//                    equipmentCategory1,
-//                    "aaa",
-//                    new EquipmentData(1,2,3,4,5,6,7,8,9),
-//                    null,
-//                    equipmentStatus1,
-//                    equipmentBookingStatus1,
-//                    new ArrayList<>(List.of(new EquipmentBookingPeriods(
-//                            1,
-//                            LocalDateTime.of(
-//                                    2022,
-//                                    11,
-//                                    11,
-//                                    11,
-//                                    11),
-//                            LocalDateTime.of(
-//                                    2022,
-//                                    11,
-//                                    11,
-//                                    11,
-//                                    12)))),
-//                    true);
-//            equipmentService.addEquipment(equipment1);
+            Equipment equipment1 = new Equipment(
+                    0,
+                    1,
+                    "aaa",
+                    equipmentCategory1,
+                    "aaa",
+                    new EquipmentData(1,2,3,4,5,6,7,8,9),
+                    null,
+                    equipmentStatus1,
+                    equipmentBookingStatus1,
+                    new ArrayList<>(List.of(new EquipmentBookingPeriods(
+                            1,
+                            LocalDateTime.of(
+                                    2022,
+                                    11,
+                                    11,
+                                    11,
+                                    11),
+                            LocalDateTime.of(
+                                    2022,
+                                    11,
+                                    11,
+                                    11,
+                                    12)))),
+                    true);
+            equipmentService.addEquipment(equipment1);
 //
 //            Equipment equipment2 = new Equipment(
 //                    0,
@@ -118,17 +119,10 @@ public class FakeDataInflator {
 //                    true);
 //            equipmentService.addEquipment(equipment2);
 
-//            PhotoPath photoPath1 = new PhotoPath(0, "null1");
-//            PhotoPath photoPath2 = new PhotoPath(0, "null2");
-//            PhotoPath photoPath3 = new PhotoPath(0, "null3");
-//            photoPathService.addPhotoPath(photoPath1);
-//            photoPathService.addPhotoPath(photoPath2);
-//            photoPathService.addPhotoPath(photoPath3);
+            List<String> photoNames = Arrays.asList("abc", "ubg");
 
-//            PhotoPath path = photoPathService.getPhotoPath(1);
-//            System.out.println(path);
-//            System.out.println(path.getId());
-//            System.out.println(path.getPhotoURI());
+            photoPathService.addEquipmentPhotoPaths(photoNames, equipment1);
+            int x=0;
         };
     }
 }
