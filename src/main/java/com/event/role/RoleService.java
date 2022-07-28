@@ -2,17 +2,18 @@ package com.event.role;
 
 import com.event.role.roleDao.RoleModel;
 import com.event.role.roleDao.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class RoleService {
 
     RoleRepository appRoleRepository;
 
+    @Autowired
     public RoleService(RoleRepository appRoleRepository) {
         this.appRoleRepository = appRoleRepository;
     }
@@ -20,7 +21,7 @@ public class RoleService {
     public Role addRole(Role role) {
         RoleModel model = new RoleModel(role.getName());
         appRoleRepository.save(model);
-        role.setId(model.getId());
+        role.setRoleId(model.getRoleModelId());
         return role;
     }
 
@@ -52,6 +53,6 @@ public class RoleService {
     }
 
     private Role createRole(RoleModel roleModel){
-        return new Role(roleModel.getId(), roleModel.getName());
+        return new Role(roleModel.getName());
     }
 }

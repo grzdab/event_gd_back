@@ -8,5 +8,11 @@ import java.util.UUID;
 
 @Repository
 public interface EquipmentRepository extends CrudRepository<EquipmentModel, Integer> {
-    List<EquipmentModel> findAllByEquipmentCategoryId(Integer id);
+
+    List<EquipmentModel> findAllByEquipmentCategoryId(int id);
+    List<EquipmentModel> findAllByEquipmentStatusId(int id);
+    List<EquipmentModel> findAllByEquipmentOwnershipId(int id);
+
+
+
 }

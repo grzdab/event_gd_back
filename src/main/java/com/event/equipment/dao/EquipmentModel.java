@@ -20,7 +20,7 @@ public class EquipmentModel {
     @GeneratedValue(generator = "equipment", strategy = GenerationType.SEQUENCE)
     @SequenceGenerator(name = "equipment", sequenceName = "equipment",allocationSize=1)
     @Column
-    private Integer id;
+    private int id;
 
     @Column(columnDefinition = "int default 1")
     private int sortingId;
@@ -30,9 +30,9 @@ public class EquipmentModel {
 
     @Column(columnDefinition = "varchar default 'null'")
     private String notes;
-
-    @Column(columnDefinition = "int default 0")
-    private int equipmentDataId;
+//
+//    @Column(columnDefinition = "int default 0")
+//    private int equipmentDataId;
 
     @Column(columnDefinition = "int default 0")
     private int equipmentCategoryId;
@@ -45,7 +45,10 @@ public class EquipmentModel {
     private int equipmentStatusId;
 
     @Column(columnDefinition = "int default 0")
-    private Integer equipmentBookingStatusId;
+    private int equipmentBookingStatusId;
+
+    @Column(columnDefinition = "int default 0")
+    private int equipmentOwnershipId;
 
     @Column
     @ElementCollection(targetClass = Integer.class)
@@ -53,6 +56,31 @@ public class EquipmentModel {
 
     @Column(columnDefinition = "boolean default true")
     private boolean inUse;
+
+    @Column(columnDefinition = "int default 0")
+    private int width;
+
+    @Column(columnDefinition = "int default 0")
+    private int length;
+
+    @Column(columnDefinition = "int default 0")
+    private int height;
+
+    @Column(columnDefinition = "int default 0")
+    private int weight;
+
+    @Column(columnDefinition = "int default 0")
+    private int powerRequired;
+
+    @Column(columnDefinition = "int default 0")
+    private int staffNeeded;
+
+    @Column(columnDefinition = "int default 0")
+    private int minimumAge;
+
+    @Column(columnDefinition = "int default 0")
+    private int maxParticipants;
+
 }
 
 

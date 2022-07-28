@@ -1,22 +1,28 @@
 package com.event.equipmentCategory.dao;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "equipment_category_model")
+@Getter
+@Setter
+@Table(name="equipment_category_model")
 public class EquipmentCategoryModel {
 
     @Id
     @GeneratedValue(generator = "equipment_category", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "equipment_category", sequenceName = "equipment_category_model",allocationSize=1)
+    @SequenceGenerator(name = "equipment_category", sequenceName = "equipment_category", allocationSize = 1)
     @Column
     private int id;
 
-    @Column(columnDefinition = "int default 0")
-    private int sortingGroup;
-
     @Column(columnDefinition = "varchar default 'unnamed'")
     private String name;
+
+    @Column(columnDefinition = "int default 0")
+    private int SortingGroup;
 
     @Column(columnDefinition = "varchar default 'unnamed'")
     private String description;
@@ -26,42 +32,8 @@ public class EquipmentCategoryModel {
 
     public EquipmentCategoryModel(int id, String name, int sortingGroup, String description) {
         this.id = id;
+        this.SortingGroup = sortingGroup;
         this.name = name;
-        this.sortingGroup = sortingGroup;
-        this.description = description;
-    }
-
-    @Id
-    @GeneratedValue
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getSortingGroup() {
-        return sortingGroup;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSortingGroup(int sortingGroup) {
-        this.sortingGroup = sortingGroup;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
     }
 }

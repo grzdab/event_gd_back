@@ -1,33 +1,82 @@
 package com.event.user;
 
-import com.event.appRole.AppRole;
+import com.event.role.Role;
+import com.event.role.RoleService;
+import com.event.role.roleDao.RoleRepository;
 import com.event.user.dao.UserModel;
 import com.event.user.dao.UserRepository;
 import com.event.contact.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
-
 @Service
-public record UserService(UserRepository userRepository) {
+public class UserService implements UserDetailsService {
+
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleService roleService;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
     }
 
     public User addUser(User user) {
-        UserModel model = new UserModel(user.getLogin(),user.getPassword(),user.getFirstName(),user.getLastName());
+        UserModel model = new UserModel(
+            user.getLogin(),
+            passwordEncoder.encode(user.getPassword()),
+            user.getFirstName(),
+            user.getLastName()
+        );
+        List<Integer> userRoles = new ArrayList<>();
+        for (Role r : user.getUserRoles()) {
+            userRoles.add(r.getRoleId());
+        }
+
+        model.setUserRolesIds(userRoles);
         userRepository.save(model);
-        //opcional
-        user.setId(model.getId());
+        user.setId(model.getUserModelId());
         return user;
     }
 
     public User getUser(UUID id) {
         UserModel model = userRepository.findById(id).get();
+        return createUser(model);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserModel model = userRepository.findByLogin(username);
+        if (model == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+        User appUser = createUser(model);
+
+        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
+        appUser.getUserRoles().forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        });
+        return new org.springframework.security.core.userdetails.User(
+            appUser.getLogin(),
+            appUser.getPassword(),
+            authorities
+        );
+    }
+
+
+    public User getUserByLogin(String login) {
+        UserModel model = userRepository.findByLogin(login);
         return createUser(model);
     }
 
@@ -40,7 +89,7 @@ public record UserService(UserRepository userRepository) {
     public User updateUser(UUID userId, User newUser) {
         UserModel model = userRepository.findById(userId).get();
         model.setLogin(newUser.getLogin());
-        model.setPassword(newUser.getPassword());
+        model.setPassword(passwordEncoder.encode(newUser.getPassword()));
         model.setFirstName(newUser.getFirstName());
         model.setLastName(newUser.getFirstName());
         userRepository.save(model);
@@ -58,8 +107,23 @@ public record UserService(UserRepository userRepository) {
     }
 
     private User createUser(UserModel userModel){
-        AppRole appRole = new AppRole();
         Contact contact = new Contact();
-        return new User(userModel.getId(), userModel.getLogin(), userModel.getPassword(), userModel.getFirstName(), userModel.getLastName(), contact, appRole);
+        List<Role> userRoles = getUserRoles(userModel.getUserRolesIds());
+        User user = new User(
+            userModel.getLogin(),
+            userModel.getPassword(),
+            userModel.getFirstName(),
+            userModel.getLastName(),
+            contact,
+            userRoles);
+        return user;
+    }
+
+    private List<Role> getUserRoles(List<Integer> userRolesIds) {
+        List<Role> userRoles = new ArrayList<>();
+        for (Integer roleId : userRolesIds) {
+            userRoles.add(roleService.getRole(roleId));
+        }
+        return userRoles;
     }
 }

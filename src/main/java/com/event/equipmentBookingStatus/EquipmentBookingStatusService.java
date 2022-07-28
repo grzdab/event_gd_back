@@ -4,68 +4,127 @@ import com.event.equipment.Equipment;
 import com.event.equipment.dao.EquipmentModel;
 import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusModel;
 import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusRepository;
-import com.event.equipmentStatus.EquipmentStatus;
-import com.event.equipmentStatus.dao.EquipmentStatusModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
-public record EquipmentBookingStatusService(EquipmentBookingStatusRepository equipmentBookingStatusRepository) {
+public record EquipmentBookingStatusService(EquipmentBookingStatusRepository repository) {
 
     @Autowired
-    public EquipmentBookingStatusService(EquipmentBookingStatusRepository equipmentBookingStatusRepository) {
-        this.equipmentBookingStatusRepository = equipmentBookingStatusRepository;
+    public EquipmentBookingStatusService(EquipmentBookingStatusRepository repository) {
+        this.repository = repository;
     }
 
     public EquipmentBookingStatus getEquipmentBookingStatusById(int id) {
-        EquipmentBookingStatusModel model = equipmentBookingStatusRepository.findById(id).get();
+        EquipmentBookingStatusModel model = repository.findById(id).get();
         return createEquipmentBookingStatus(model);
+    }
+
+    public List<EquipmentBookingStatus> getEquipmentBookingStatuses() {
+        Collection<EquipmentBookingStatusModel> models = repository.findAll();
+        return models
+            .stream()
+            .map(model -> new EquipmentBookingStatus(model.getId(), model.getName(), model.getColor()))
+            .collect(Collectors.toList());
+    }
+
+    public EquipmentBookingStatus updateEquipmentBookingStatus(int id, EquipmentBookingStatus equipmentBookingStatus) {
+        EquipmentBookingStatusModel model = repository.findById(id).orElseThrow(() -> new IllegalStateException("Could not find equipment booking status with specified ID"));
+        model.setName(equipmentBookingStatus.getName());
+        model.setColor(equipmentBookingStatus.getColor());
+        repository.save(model);
+        return equipmentBookingStatus;
     }
 
     public EquipmentBookingStatus getEquipmentBookingStatus(EquipmentModel model) {
         EquipmentBookingStatusModel bookingStatusModel = createEquipmentBookingStatusModel(model);
-        return createEquipmentBookingStatus(bookingStatusModel);
+        return createBookingStatus(bookingStatusModel);
     }
 
     private EquipmentBookingStatusModel createEquipmentBookingStatusModel(EquipmentModel model) {
-            EquipmentBookingStatusModel bookingStatusModel;
-            Integer bookingStatusId = model.getEquipmentBookingStatusId();
-            if (bookingStatusId == 0) return null;
-            bookingStatusModel = equipmentBookingStatusRepository.findById(bookingStatusId).orElseThrow();
+        EquipmentBookingStatusModel bookingStatusModel;
+        Integer bookingStatusId = model.getEquipmentBookingStatusId();
+        if (bookingStatusId == 0) return null;
+        bookingStatusModel = repository.findById(bookingStatusId).orElseThrow();
         return bookingStatusModel;
     }
 
-    private EquipmentBookingStatus createEquipmentBookingStatus(EquipmentBookingStatusModel model) {
-        if (model == null) return null;
-        return new EquipmentBookingStatus(model.getId(), model.getName());
+    private EquipmentBookingStatus createBookingStatus(EquipmentBookingStatusModel bookingStatusModel) {
+        EquipmentBookingStatus bookingStatus;
+        if (bookingStatusModel == null) return null;
+        bookingStatus = createEquipmentBookingStatus(bookingStatusModel);
+        return bookingStatus;
     }
+
+    private EquipmentBookingStatus createEquipmentBookingStatus(EquipmentBookingStatusModel model) {
+        return new EquipmentBookingStatus(
+            model.getId(),
+            model.getName(),
+            model.getColor());
+    }
+
+
+    private List<Integer> setEquipmpentBookingStatusColor(String color) {
+        // was used when colors were stored as rgb
+        List<Integer> rgb = new ArrayList<>();
+        for (String s : color.split(",", -1)) {
+            rgb.add(Integer.valueOf(s));
+        }
+        return rgb;
+    }
+
+
 
     public Integer getEquipmentBookingStatusId(Equipment equipment) {
         EquipmentBookingStatus bookingStatus = equipment.getBookingStatus();
         return bookingStatus.getId();
     }
 
-    public EquipmentBookingStatus addEquipmentBookingStatus(EquipmentBookingStatus bookingStatus) {
-        if (getEquipmentBookingStatusByName(bookingStatus.getName()) == null) {
+
+    public EquipmentBookingStatus addEquipmentBookingStatus(EquipmentBookingStatus equipmentBookingStatus) {
+        if (getEquipmentBookingStatusByName(equipmentBookingStatus.getName()) == null) {
             EquipmentBookingStatusModel model = new EquipmentBookingStatusModel(
-                    bookingStatus.getId(),
-                    bookingStatus.getName()
-            );
-            equipmentBookingStatusRepository.save(model);
-            bookingStatus.setId(model.getId());
-            return bookingStatus;
+                equipmentBookingStatus.getId(),
+                equipmentBookingStatus.getName(),
+                equipmentBookingStatus.getColor());
+            repository.save(model);
+            equipmentBookingStatus.setId(model.getId());
+            return equipmentBookingStatus;
         }
         return null;
     }
 
+
+    private String setModelColor(List<Integer> color) {
+        // was used when colors were stored as rgb
+        StringBuilder sb = new StringBuilder();
+        for (Integer i : color) {
+            sb.append(i);
+            sb.append(",");
+        }
+        String colorString = sb.toString();
+        return colorString.substring(0, colorString.length() - 1);
+
+    }
+
     private EquipmentBookingStatus getEquipmentBookingStatusByName(String name) {
-        EquipmentBookingStatusModel model = equipmentBookingStatusRepository.findByName(name);
+        EquipmentBookingStatusModel model = repository.findByName(name);
         if (model != null) {
-            return new EquipmentBookingStatus(model.getId(), model.getName());
+            return new EquipmentBookingStatus(model.getId(), model.getName(), model.getColor());
         }
         return null;
     }
+
+    public String deleteEquipmentBookingStatus(int id) {
+        String bookingStatusName = getEquipmentBookingStatusById(id).getName();
+        repository.deleteById(id);
+        return String.format("Booking status #%d (%s) has been deleted from the database.", id, bookingStatusName);
+    }
+
 }

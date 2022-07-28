@@ -6,10 +6,6 @@ import javax.persistence.*;
 @Table(name = "equipment_photo_model")
 public class EquipmentPhotoModel {
 
-    @Id
-    @GeneratedValue(generator = "equipment_photo", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "equipment_photo", sequenceName = "equipment_photo",allocationSize=1)
-    @Column
     private Integer id;
 
     @Column(columnDefinition = "varchar default 'undefined'")

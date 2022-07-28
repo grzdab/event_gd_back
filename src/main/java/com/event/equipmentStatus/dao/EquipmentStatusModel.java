@@ -1,12 +1,8 @@
 package com.event.equipmentStatus.dao;
-
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 @Entity
-@Table(name = "equipment_status_model")
+@Table(name="equipment_status_model")
 public class EquipmentStatusModel {
 
     @Id

@@ -1,5 +1,4 @@
 package com.event.equipmentCategory;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +13,5 @@ public class EquipmentCategory {
     private int sortingGroup;
     private String name;
     private String description;
+
 }

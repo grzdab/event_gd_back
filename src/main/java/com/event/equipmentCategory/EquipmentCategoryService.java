@@ -17,18 +17,18 @@ public class EquipmentCategoryService {
     public List<EquipmentCategory> getEquipmentCategories() {
         Collection<EquipmentCategoryModel> models = repository.findAll();
         return models
-                .stream()
-                .map(model -> new EquipmentCategory(model.getId(), model.getSortingGroup(), model.getName(), model.getDescription()))
-                .collect(Collectors.toList());
+            .stream()
+            .map(model -> new EquipmentCategory(model.getId(), model.getSortingGroup(), model.getName(), model.getDescription()))
+            .collect(Collectors.toList());
     }
 
     public EquipmentCategory addEquipmentCategory(EquipmentCategory equipmentCategory) {
         if (getEquipmentCategoryByName(equipmentCategory.getName()) == null) {
             EquipmentCategoryModel model = new EquipmentCategoryModel(
-                    equipmentCategory.getId(),
-                    equipmentCategory.getName(),
-                    equipmentCategory.getSortingGroup(),
-                    equipmentCategory.getDescription());
+                equipmentCategory.getId(),
+                equipmentCategory.getName(),
+                equipmentCategory.getSortingGroup(),
+                equipmentCategory.getDescription());
             repository.save(model);
             equipmentCategory.setId(model.getId());
             return equipmentCategory;
@@ -51,17 +51,16 @@ public class EquipmentCategoryService {
 
     public String deleteEquipmentCategory(int id) {
         String categoryName = getEquipmentCategoryById(id).getName();
-        // TODO check if entry exists
         repository.deleteById(id);
         return String.format("Category #%d (%s) has been deleted from the database.", id, categoryName);
     }
 
     private EquipmentCategory createEquipmentCategory(EquipmentCategoryModel model) {
         return new EquipmentCategory(
-                model.getId(),
-                model.getSortingGroup(),
-                model.getName(),
-                model.getDescription()
+            model.getId(),
+            model.getSortingGroup(),
+            model.getName(),
+            model.getDescription()
         );
     }
 

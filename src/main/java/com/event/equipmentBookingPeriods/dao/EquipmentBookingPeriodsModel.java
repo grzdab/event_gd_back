@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "equipment_booking_periods_model")
+@Table(name="equipment_booking_periods_model")
 public class EquipmentBookingPeriodsModel {
 
     @Id
@@ -21,8 +21,6 @@ public class EquipmentBookingPeriodsModel {
     @SequenceGenerator(name = "equipment_booking_periods", sequenceName = "equipment_booking_periods",allocationSize=1)
     @Column
     private Integer id;
-
     private LocalDateTime bookingStart;
-
     private LocalDateTime bookingEnd;
 }

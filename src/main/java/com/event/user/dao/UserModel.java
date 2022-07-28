@@ -1,53 +1,36 @@
 package com.event.user.dao;
 
-import com.event.appRole.AppRole;
-import com.event.appRole.dao.AppRoleModel;
-import com.event.client.dao.ClientModel;
 import com.event.contact.contactDao.ContactModel;
-
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Entity
 public class UserModel {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    UUID id;
+    private UUID userModelId;
 
     @NotEmpty(message = "You have to provide your login")
     @Size(min = 2, message = "The login must consist of at least 2 characters")
-    String login;
+    private String login;
 
     @NotEmpty(message = "you have to provide proper password")
-    String password;
+    private String password;
 
     @NotEmpty(message = "You have to provide your name")
     @Size(min = 1, message = "The login must consist of at least 1 character")
-    String firstName;
+    private String firstName;
 
     @NotEmpty(message = "You have to provide your last name")
     @Size(min = 1, message = "The login must consist of at least 1 character")
-    String lastName;
+    private String lastName;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="contact_id")
-    ContactModel contact;
-
-    ///////////////////////////////////
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_role_id")
-     AppRoleModel userRole;
-//////////////////////////////////////////
-
-//    @OneToMany(cascade = {CascadeType.ALL})
-//    @JoinColumn(name = "client_id")
-//    private List<ClientModel> clients;
+    private ContactModel contact;
+    private List<Integer> userRolesIds;
 
     public UserModel() {
     }
@@ -59,12 +42,21 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public UUID getId() {
-        return id;
+    public UserModel(String login, String password, String firstName, String lastName, List<Integer> userRoles) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userRolesIds = userRoles;
+    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public UUID getUserModelId() {
+        return userModelId;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
+    public void setUserModelId(UUID id) {
+        this.userModelId = id;
     }
 
     public String getLogin() {
@@ -99,6 +91,8 @@ public class UserModel {
         this.lastName = lastName;
     }
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="contact_id")
     public ContactModel getContact() {
         return contact;
     }
@@ -107,23 +101,32 @@ public class UserModel {
         this.contact = contact;
     }
 
-    public AppRoleModel getUserRole() {
-        return (AppRoleModel) userRole;
-    }
-    public void setUserRole(AppRoleModel userRole) {
-        this.userRole = (AppRoleModel) userRole;
+    @ElementCollection(fetch = FetchType.EAGER)
+    public List<Integer> getUserRolesIds() {
+        return userRolesIds;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserModel that = (UserModel) o;
-        return Objects.equals(id, that.id) && Objects.equals(login, that.login) && Objects.equals(password, that.password) && Objects.equals(firstName, that.firstName) && Objects.equals(lastName, that.lastName) && Objects.equals(contact, that.contact) && Objects.equals(userRole, that.userRole);
+    public void setUserRolesIds(List<Integer> userRolesIds) {
+        this.userRolesIds = userRolesIds;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, login, password, firstName, lastName, contact, userRole);
-    }
+
+//    @Override
+//    public boolean equals(Object o) {
+//        if (this == o) return true;
+//        if (o == null || getClass() != o.getClass()) return false;
+//        UserModel that = (UserModel) o;
+//        return Objects.equals(userModelId, that.userModelId)
+//            && Objects.equals(login, that.login)
+//            && Objects.equals(password, that.password)
+//            && Objects.equals(firstName, that.firstName)
+//            && Objects.equals(lastName, that.lastName)
+//            && Objects.equals(contact, that.contact)
+//            && Objects.equals(roles, that.roles);
+//    }
+
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(userModelId, login, password, firstName, lastName, contact, roles);
+//    }
 }

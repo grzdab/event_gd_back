@@ -3,6 +3,7 @@ package com.event.user;
 import com.event.appRole.AppRole;
 import com.event.client.dao.ClientRepository;
 import com.event.contact.Contact;
+import com.event.role.Role;
 
 import java.util.*;
 
@@ -14,26 +15,29 @@ public class User {
     private String firstName;
     private String lastName;
     private Contact contact;
-    private AppRole userRole;
-    static List<ClientRepository> clientRepositories = new ArrayList<>();
-
+    private List<Role> userRoles;
 
     public User() {
     }
 
-    public User(UUID id, String login) {
-        this.id = id;
+    public User(String login) {
         this.login = login;
     }
 
-    public User(UUID id, String login, String password, String firstName, String lastName, Contact contact, AppRole userRole) {
-        this.id = id;
+    public User(String login, String password, String firstName, String lastName) {
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User(String login, String password, String firstName, String lastName, Contact contact, List<Role> userRoles) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.contact = contact;
-        this.userRole = userRole;
+        this.userRoles = userRoles;
     }
 
     public UUID getId() {
@@ -76,12 +80,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public AppRole getUserAppRole() {
-        return userRole;
+    public List<Role> getUserRoles() {
+        return userRoles;
     }
 
-    public void setUserAppRole(AppRole userRole) {
-        this.userRole = userRole;
+    public void setUserRoles(List<Role> userRoles) {
+        this.userRoles = userRoles;
     }
 
     public Contact getContact() {
@@ -92,13 +96,13 @@ public class User {
         this.contact = contact;
     }
 
-    public static List<ClientRepository> getClientRepositories() {
-        return clientRepositories;
-    }
-
-    public static void setClientRepositories(List<ClientRepository> clientRepositories) {
-        User.clientRepositories = clientRepositories;
-    }
+//    public static List<ClientRepository> getClientRepositories() {
+//        return clientRepositories;
+//    }
+//
+//    public static void setClientRepositories(List<ClientRepository> clientRepositories) {
+//        User.clientRepositories = clientRepositories;
+//    }
 
     @Override
     public boolean equals(Object o) {

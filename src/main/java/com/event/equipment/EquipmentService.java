@@ -10,9 +10,10 @@ import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusRepository;
 import com.event.equipmentCategory.EquipmentCategory;
 import com.event.equipmentCategory.EquipmentCategoryService;
 import com.event.equipmentCategory.dao.EquipmentCategoryRepository;
-import com.event.equipmentData.EquipmentData;
 import com.event.equipmentData.EquipmentDataService;
 import com.event.equipmentData.dao.EquipmentDataRepository;
+import com.event.equipmentOwnership.EquipmentOwnership;
+import com.event.equipmentOwnership.EquipmentOwnershipService;
 import com.event.equipmentPhoto.EquipmentPhoto;
 import com.event.equipmentPhoto.EquipmentPhotoService;
 import com.event.equipmentPhoto.dao.EquipmentPhotoRepository;
@@ -38,8 +39,22 @@ public class EquipmentService {
     private final EquipmentStatusService equipmentStatusService;
     private final EquipmentBookingStatusService equipmentBookingStatusService;
     private final EquipmentBookingPeriodsService equipmentBookingPeriodsService;
+    private final EquipmentOwnershipService equipmentOwnershipService;
 
-    private  EquipmentService(EquipmentRepository equipmentRepository, EquipmentDataRepository equipmentDataRepository, EquipmentCategoryRepository equipmentCategoryRepository, EquipmentPhotoRepository equipmentPhotoRepository, EquipmentStatusRepository equipmentStatusRepository, EquipmentBookingStatusRepository equipmentBookingStatusRepository, EquipmentCategoryService equipmentCategoryService, EquipmentDataService equipmentDataService, EquipmentPhotoService equipmentPhotoService, EquipmentStatusService equipmentStatusService, EquipmentBookingStatusService equipmentBookingStatusService, EquipmentBookingPeriodsService equipmentBookingPeriodsService) {
+    private  EquipmentService(
+        EquipmentRepository equipmentRepository,
+        EquipmentDataRepository equipmentDataRepository,
+        EquipmentCategoryRepository equipmentCategoryRepository,
+        EquipmentPhotoRepository equipmentPhotoRepository,
+        EquipmentStatusRepository equipmentStatusRepository,
+        EquipmentBookingStatusRepository equipmentBookingStatusRepository,
+        EquipmentCategoryService equipmentCategoryService,
+        EquipmentDataService equipmentDataService,
+        EquipmentPhotoService equipmentPhotoService,
+        EquipmentStatusService equipmentStatusService,
+        EquipmentBookingStatusService equipmentBookingStatusService,
+        EquipmentOwnershipService equipmentOwnershipService,
+        EquipmentBookingPeriodsService equipmentBookingPeriodsService) {
         this.equipmentRepository = equipmentRepository;
         this.equipmentDataRepository = equipmentDataRepository;
         this.equipmentCategoryRepository = equipmentCategoryRepository;
@@ -52,27 +67,36 @@ public class EquipmentService {
         this.equipmentStatusService = equipmentStatusService;
         this.equipmentBookingStatusService = equipmentBookingStatusService;
         this.equipmentBookingPeriodsService = equipmentBookingPeriodsService;
+        this.equipmentOwnershipService = equipmentOwnershipService;
     }
 
+
     public Equipment addEquipment(Equipment equipment) {
-        //TODO finish
-        EquipmentData equipmentData = null;
-        if (equipment.getEquipmentData().getEquipmentId() != 0) {
-            equipmentData = equipmentDataService.addEquipmentData(equipment.getEquipmentData());
-        }
+//        EquipmentData equipmentData = null;
+//        if (equipment.getEquipmentData().getEquipmentId() != 0) {
+//            equipmentData = equipmentDataService.addEquipmentData(equipment.getEquipmentData());
+//        }
         List<Integer> periodIds = equipmentBookingPeriodsService.createListOfPeriodsIds(equipment);
         EquipmentModel equipmentModel = new EquipmentModel(
-                equipment.getId(),
-                equipment.getSortingId(),
-                equipment.getName(),
-                    equipment.getNotes(),
-                (equipmentData != null? equipmentData.getId():0),
-                equipment.getCategory().getId(),
-                    equipmentPhotoService.createListOfPhotoId(equipment.getPhotos()),
-                    equipment.getStatus().getId(),
-                equipmentBookingStatusService.getEquipmentBookingStatusId(equipment),
-                periodIds,
-                equipment.isInUse());
+            equipment.getId(),
+            equipment.getSortingId(),
+            equipment.getName(),
+            equipment.getNotes(),
+            equipment.getEquipmentCategory().getId(),
+            equipmentPhotoService.createListOfPhotoId(equipment.getPhotos()),
+            equipment.getEquipmentStatus().getId(),
+            equipmentBookingStatusService.getEquipmentBookingStatusId(equipment),
+            equipment.getEquipmentOwnership().getId(),
+            periodIds,
+            equipment.isInUse(),
+            equipment.getWidth(),
+            equipment.getLength(),
+            equipment.getHeight(),
+            equipment.getWeight(),
+            equipment.getPowerRequired(),
+            equipment.getStaffNeeded(),
+            equipment.getMinimumAge(),
+            equipment.getMaxParticipants());
         equipmentRepository.save(equipmentModel);
         equipment.setId(equipmentModel.getId());
         return equipment;
@@ -83,51 +107,33 @@ public class EquipmentService {
         return createEquipment(equipmentFromDb);
     }
 
-    public Equipment uploadEquipment(int id, Equipment equipment) {
-        //TODO to finish
-        EquipmentModel toUpdate = equipmentRepository.findById(id).orElse(null);
-        if (toUpdate == null) return null;
+    public Equipment updateEquipment(int id, Equipment equipment) {
+        //TODO to finish photos
+        EquipmentModel toUpdate = equipmentRepository.findById(id).orElseThrow();
         toUpdate.setSortingId(equipment.getSortingId());
         toUpdate.setName(equipment.getName());
         toUpdate.setNotes(equipment.getNotes());
-        toUpdate.setEquipmentDataId(equipment.getEquipmentData().getId());
-        toUpdate.setEquipmentCategoryId(equipment.getCategory().getId());
+        toUpdate.setEquipmentCategoryId(equipment.getEquipmentCategory().getId());
         //photoId
-        toUpdate.setEquipmentStatusId(equipment.getStatus().getId());
-        //TODO deleting equipmentBookingPeriods when done in equipmentModel
+        toUpdate.setEquipmentStatusId(equipment.getEquipmentStatus().getId());
+        toUpdate.setEquipmentOwnershipId(equipment.getEquipmentOwnership().getId());
         toUpdate.setInUse(equipment.isInUse());
-
+        toUpdate.setWidth(equipment.getWidth());
+        toUpdate.setLength(equipment.getLength());
+        toUpdate.setHeight(equipment.getHeight());
+        toUpdate.setWeight(equipment.getWeight());
+        toUpdate.setPowerRequired(equipment.getPowerRequired());
+        toUpdate.setStaffNeeded(equipment.getStaffNeeded());
+        toUpdate.setMinimumAge(equipment.getMinimumAge());
+        toUpdate.setMaxParticipants(equipment.getMaxParticipants());
         equipmentRepository.save(toUpdate);
         return equipment;
     }
 
     public String deleteEquipment(int id) {
-        //TODO to finish when finish other parts of equipment service
         EquipmentModel model = equipmentRepository.findById(id).get();
-        int equipmentDataId = model.getEquipmentDataId();
-        int equipmentCategoryId = model.getEquipmentCategoryId();
-        List<Integer> equipmentPhotoId = model.getEquipmentPhotoId();
-        int equipmentStatusId = model.getEquipmentStatusId();
-        Integer equipmentBookingStatusId = model.getEquipmentBookingStatusId();
-        //TODO add deleting of periods when finish it in the other pars of app
         equipmentRepository.deleteById(id);
-        equipmentDataRepository.deleteById(equipmentDataId);
-        equipmentCategoryRepository.deleteById(equipmentCategoryId);
-        deletePhotoByListOfIds(equipmentPhotoId);
-        equipmentRepository.deleteById(equipmentStatusId);
-        deleteBookingStatusById(equipmentBookingStatusId);
-        //TODO add deleting of periods when finish it in the other pars of app
         return "DELETED";
-    }
-
-    private void deletePhotoByListOfIds(List<Integer> ids) {
-        for (int id : ids) {
-            equipmentPhotoRepository.deleteById(id);
-        }
-    }
-
-    private void deleteBookingStatusById(Integer id) {
-        equipmentBookingStatusRepository.deleteById(id);
     }
 
     public List<Equipment> getAllEquipment() {
@@ -137,26 +143,67 @@ public class EquipmentService {
         return equipment;
     }
 
-    private Equipment createEquipment(EquipmentModel equipmentFromDb) {
+    private Equipment createEquipment(EquipmentModel equipmentModel) {
         //TODO finish booking periods as we already agree
-        EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategoryById(equipmentFromDb.getEquipmentCategoryId());
-        EquipmentData equipmentData = equipmentDataService.getEquipmentData(String.valueOf(equipmentFromDb.getEquipmentDataId()));
-        List<EquipmentPhoto> equipmentPhotos = equipmentPhotoService.createListOfEquipmentPhoto(equipmentFromDb);
-        List<EquipmentBookingPeriods> periods = equipmentBookingPeriodsService.getEquipmentBookingPeriods(equipmentFromDb);
-        EquipmentStatus status = equipmentStatusService.getEquipmentStatus(equipmentFromDb.getEquipmentStatusId());
-        EquipmentBookingStatus equipmentBookingStatus = equipmentBookingStatusService.getEquipmentBookingStatus(equipmentFromDb);
+        EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategoryById(equipmentModel.getEquipmentCategoryId());
+//        EquipmentData equipmentData = equipmentDataService.getEquipmentData(String.valueOf(equipmentModel.getEquipmentDataId()));
+        List<EquipmentPhoto> equipmentPhotos = equipmentPhotoService.createListOfEquipmentPhoto(equipmentModel);
+        List<EquipmentBookingPeriods> periods = equipmentBookingPeriodsService.getEquipmentBookingPeriods(equipmentModel);
+        EquipmentStatus status = equipmentStatusService.getEquipmentStatusById(equipmentModel.getEquipmentStatusId());
+        EquipmentBookingStatus equipmentBookingStatus = equipmentBookingStatusService.getEquipmentBookingStatus(equipmentModel);
+        EquipmentOwnership equipmentOwnership = equipmentOwnershipService.getEquipmentOwnershipById(equipmentModel.getEquipmentOwnershipId());
         return new Equipment(
-                equipmentFromDb.getId(),
-                equipmentFromDb.getSortingId(),
-                equipmentFromDb.getName(),
-                equipmentCategory,
-                equipmentFromDb.getNotes(),
-                equipmentData,
-                equipmentPhotos,
-                status,
-                equipmentBookingStatus,
-                // do not write here periods because it's not ready yet
-                new ArrayList<>(),
-                equipmentFromDb.isInUse());
+            equipmentModel.getId(),
+            equipmentModel.getSortingId(),
+            equipmentModel.getName(),
+            equipmentCategory,
+            equipmentModel.getNotes(),
+//            equipmentData,
+            equipmentPhotos,
+            status,
+            equipmentBookingStatus,
+            equipmentOwnership,
+            // do not write here periods because it's not ready yet
+            new ArrayList<>(),
+            equipmentModel.isInUse(),
+            equipmentModel.getWidth(),
+            equipmentModel.getLength(),
+            equipmentModel.getHeight(),
+            equipmentModel.getWeight(),
+            equipmentModel.getPowerRequired(),
+            equipmentModel.getStaffNeeded(),
+            equipmentModel.getMinimumAge(),
+            equipmentModel.getMaxParticipants());
     }
+
+    public List<Equipment> getEquipmentByCategoryId(int id) {
+        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentCategoryId(id);
+        return getEquipmentByItemId(equipmentModels);
+    }
+
+
+    public List<Equipment> getEquipmentByStatusId(int id) {
+        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentStatusId(id);
+        return getEquipmentByItemId(equipmentModels);
+    }
+
+    public List<Equipment> getEquipmentByOwnershipId(int id) {
+        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentOwnershipId(id);
+        return getEquipmentByItemId(equipmentModels);
+    }
+
+    public List<Equipment> getEquipmentByBookingStatusId(int id) {
+        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentOwnershipId(id);
+        return getEquipmentByItemId(equipmentModels);
+    }
+
+    private List<Equipment> getEquipmentByItemId(Iterable<EquipmentModel> equipmentModels) {
+        List<Equipment> equipment = new ArrayList<>();
+        for (EquipmentModel model : equipmentModels) {
+            equipment.add(createEquipment(model));
+        }
+        return equipment;
+    }
+
 }
+
