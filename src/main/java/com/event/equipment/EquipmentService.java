@@ -163,7 +163,7 @@ public class EquipmentService {
             status,
             equipmentBookingStatus,
             equipmentOwnership,
-                // do not write here periods because it's not ready yet
+            // do not write here periods because it's not ready yet
             new ArrayList<>(),
             equipmentModel.isInUse(),
             equipmentModel.getWidth(),
@@ -206,3 +206,4 @@ public class EquipmentService {
     }
 
 }
+

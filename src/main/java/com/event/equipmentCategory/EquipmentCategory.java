@@ -1,13 +1,14 @@
 package com.event.equipmentCategory;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import lombok.*;
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class EquipmentCategory {
-
     private int id;
     private int sortingGroup;
     private String name;

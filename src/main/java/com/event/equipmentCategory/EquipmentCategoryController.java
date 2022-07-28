@@ -39,5 +39,4 @@ public class EquipmentCategoryController {
     public String deleteEquipmentCategory(@PathVariable("id") int id) {
         return service.deleteEquipmentCategory(id);
     }
-
 }

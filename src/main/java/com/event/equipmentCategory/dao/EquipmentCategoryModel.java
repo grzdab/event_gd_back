@@ -14,7 +14,7 @@ public class EquipmentCategoryModel {
 
     @Id
     @GeneratedValue(generator = "equipment_category", strategy = GenerationType.SEQUENCE)
-    @SequenceGenerator(name = "equipment_category", sequenceName = "equipment_category",allocationSize=1)
+    @SequenceGenerator(name = "equipment_category", sequenceName = "equipment_category", allocationSize = 1)
     @Column
     private int id;
 
@@ -36,38 +36,4 @@ public class EquipmentCategoryModel {
         this.name = name;
         this.description = description;
     }
-
-//    @Id
-//    @GeneratedValue
-//    public int getId() {
-//        return id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public int getSortingGroup() {
-//        return SortingGroup;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setId(int id) {
-//        this.id = id;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public void setSortingGroup(int sortingGroup) {
-//        SortingGroup = sortingGroup;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
 }

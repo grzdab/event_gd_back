@@ -20,7 +20,7 @@ public class EquipmentController {
 
     @GetMapping("/equipment")
     List<Equipment> getAllEquipment() {
-       return service.getAllEquipment();
+        return service.getAllEquipment();
     }
 
     @PostMapping("/equipment")
