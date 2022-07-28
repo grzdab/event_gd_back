@@ -23,6 +23,7 @@ import com.event.equipmentStatus.dao.EquipmentStatusRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -83,7 +84,7 @@ public class EquipmentService {
             equipment.getName(),
             equipment.getNotes(),
             equipment.getEquipmentCategory().getId(),
-            equipmentPhotoService.createListOfPhotoId(equipment.getPhotos()),
+            ListToString(equipment.getPhotos()),
             equipment.getEquipmentStatus().getId(),
             equipmentBookingStatusService.getEquipmentBookingStatusId(equipment),
             equipment.getEquipmentOwnership().getId(),
@@ -114,7 +115,7 @@ public class EquipmentService {
         toUpdate.setName(equipment.getName());
         toUpdate.setNotes(equipment.getNotes());
         toUpdate.setEquipmentCategoryId(equipment.getEquipmentCategory().getId());
-        //photoId
+        toUpdate.setPhotos(ListToString(equipment.getPhotos()));
         toUpdate.setEquipmentStatusId(equipment.getEquipmentStatus().getId());
         toUpdate.setEquipmentOwnershipId(equipment.getEquipmentOwnership().getId());
         toUpdate.setInUse(equipment.isInUse());
@@ -147,7 +148,7 @@ public class EquipmentService {
         //TODO finish booking periods as we already agree
         EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategoryById(equipmentModel.getEquipmentCategoryId());
 //        EquipmentData equipmentData = equipmentDataService.getEquipmentData(String.valueOf(equipmentModel.getEquipmentDataId()));
-        List<EquipmentPhoto> equipmentPhotos = equipmentPhotoService.createListOfEquipmentPhoto(equipmentModel);
+        List<String> equipmentPhotos = StringToList(equipmentModel.getPhotos());
         List<EquipmentBookingPeriods> periods = equipmentBookingPeriodsService.getEquipmentBookingPeriods(equipmentModel);
         EquipmentStatus status = equipmentStatusService.getEquipmentStatusById(equipmentModel.getEquipmentStatusId());
         EquipmentBookingStatus equipmentBookingStatus = equipmentBookingStatusService.getEquipmentBookingStatus(equipmentModel);
@@ -204,6 +205,23 @@ public class EquipmentService {
         }
         return equipment;
     }
+
+    private List<String> StringToList(String string) {
+        List<String> list = new ArrayList<>();
+        Collections.addAll(list, string.split(",", -1));
+        return list;
+    }
+
+    private String ListToString(List<String> list) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : list) {
+            sb.append(s);
+            sb.append(",");
+        }
+        String string = sb.toString();
+        return string.substring(0, string.length() - 1);
+    }
+
 
 }
 

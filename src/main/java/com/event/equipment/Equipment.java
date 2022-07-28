@@ -24,7 +24,7 @@ public class Equipment {
     private EquipmentCategory equipmentCategory;
     private String notes;
 //    private EquipmentData equipmentData;
-    private List<EquipmentPhoto> photos;
+    private List<String> photos;
     private EquipmentStatus equipmentStatus;
     private EquipmentBookingStatus bookingStatus;
     private EquipmentOwnership equipmentOwnership;

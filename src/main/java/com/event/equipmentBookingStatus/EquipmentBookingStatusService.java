@@ -110,7 +110,6 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
         }
         String colorString = sb.toString();
         return colorString.substring(0, colorString.length() - 1);
-
     }
 
     private EquipmentBookingStatus getEquipmentBookingStatusByName(String name) {
