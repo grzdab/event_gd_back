@@ -1,7 +1,6 @@
 package com.event.user;
 
 
-import com.sun.xml.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,6 +42,11 @@ public class UserController {
     @GetMapping("/user")
     public List<User> getAllUsers() {
         return service.getAllUsers();
+    }
+
+    @GetMapping("/user-compact")
+    public List<MiniUser> getAllUsersCompact() {
+        return service.getAllUsersCompact();
     }
 
     @GetMapping("/users")

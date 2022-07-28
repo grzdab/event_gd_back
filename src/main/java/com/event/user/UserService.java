@@ -106,6 +106,15 @@ public class UserService implements UserDetailsService {
         return users;
     }
 
+    public List<MiniUser> getAllUsersCompact(){
+        List<MiniUser> users = new ArrayList<>();
+        Iterable<UserModel> userModels = userRepository.findAll();
+        for (UserModel model: userModels){
+            users.add(createUserCompacted(model));
+        }
+        return users;
+    }
+
     private User createUser(UserModel userModel){
         Contact contact = new Contact();
         List<Role> userRoles = getUserRoles(userModel.getUserRolesIds());
@@ -118,6 +127,18 @@ public class UserService implements UserDetailsService {
             userRoles);
         return user;
     }
+
+    private MiniUser createUserCompacted(UserModel userModel){
+        List<Role> userRoles = getUserRoles(userModel.getUserRolesIds());
+        MiniUser user = new MiniUser(
+            userModel.getUserModelId().toString(),
+            userModel.getLogin(),
+            userModel.getFirstName(),
+            userModel.getLastName(),
+            userRoles);
+        return user;
+    }
+
 
     private List<Role> getUserRoles(List<Integer> userRolesIds) {
         List<Role> userRoles = new ArrayList<>();
