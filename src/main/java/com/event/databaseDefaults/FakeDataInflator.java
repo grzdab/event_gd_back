@@ -2,12 +2,17 @@ package com.event.databaseDefaults;
 
 import com.event.equipment.Equipment;
 import com.event.equipment.EquipmentService;
+import com.event.equipmentBookingPeriods.EquipmentBookingPeriods;
 import com.event.equipmentBookingStatus.EquipmentBookingStatus;
+import com.event.equipmentBookingStatus.EquipmentBookingStatusService;
 import com.event.equipmentCategory.EquipmentCategory;
 import com.event.equipmentCategory.EquipmentCategoryService;
 import com.event.equipmentData.EquipmentData;
+import com.event.equipmentOwnership.EquipmentOwnership;
+import com.event.equipmentOwnership.EquipmentOwnershipService;
 import com.event.equipmentPhoto.EquipmentPhoto;
 import com.event.equipmentStatus.EquipmentStatus;
+import com.event.equipmentStatus.EquipmentStatusService;
 import com.event.privilege.PrivilegeEnum;
 import com.event.privilege.dao.PrivilegeModel;
 import com.event.privilege.dao.PrivilegeRepository;
@@ -23,6 +28,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.awt.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -38,6 +48,9 @@ public class FakeDataInflator {
         RoleService roleService,
         EquipmentCategoryService equipmentCategoryService,
         EquipmentService equipmentService,
+        EquipmentBookingStatusService equipmentBookingStatusService,
+        EquipmentStatusService equipmentStatusService,
+        EquipmentOwnershipService equipmentOwnershipService,
         PasswordEncoder passwordEncoder) {
         return args -> {
 
@@ -118,26 +131,71 @@ public class FakeDataInflator {
             stefan.setUserRoles(List.of(cleaner, postman));
             userService.addUser(stefan);
 
-            // EQUIPMENT
-
-
-
+            // EQUIPMENT //////////////////////////////////////////////////////////
             // EQUIPMENT CATEGORY
-            EquipmentCategory ec1 = new EquipmentCategory(0L, "Category1", "Description1");
-            EquipmentCategory ec2 = new EquipmentCategory(0L, "Category2", "Description2");
-            EquipmentCategory ec3 = new EquipmentCategory(0L, "Category3", "Description3");
+            EquipmentCategory equipmentCategory1 = new EquipmentCategory(0, 0, "Category1", "Description1");
+            EquipmentCategory equipmentCategory2 = new EquipmentCategory(0, 0, "Category2", "Description2");
+            EquipmentCategory equipmentCategory3 = new EquipmentCategory(0, 0, "Category3", "Description3");
 
-            equipmentCategoryService.addEquipmentCategory(ec1);
-            equipmentCategoryService.addEquipmentCategory(ec3);
-            equipmentCategoryService.addEquipmentCategory(ec2);
+            equipmentCategoryService.addEquipmentCategory(equipmentCategory1);
+            equipmentCategoryService.addEquipmentCategory(equipmentCategory3);
+            equipmentCategoryService.addEquipmentCategory(equipmentCategory2);
 
-            Equipment e1 = new Equipment(1, 1, "EQ1", null, "Notes 111", null, null, null, 0, null, true);
-            Equipment e2 = new Equipment(2, 1, "EQ2", null, "Notes 222", null, null, null, 0, null, true);
-            Equipment e3 = new Equipment(3, 1, "EQ3", null, "Notes 333", null, null, null, 0, null, true);
+            // EQUIPMENT STATUS
+            EquipmentStatus equipmentStatus1 = new EquipmentStatus(0, "new");
+            EquipmentStatus equipmentStatus2 = new EquipmentStatus(0, "broken");
+            EquipmentStatus equipmentStatus3 = new EquipmentStatus(0, "in repair");
 
+            equipmentStatusService.addEquipmentStatus(equipmentStatus1);
+            equipmentStatusService.addEquipmentStatus(equipmentStatus2);
+            equipmentStatusService.addEquipmentStatus(equipmentStatus3);
+
+            // EQUIPMENT BOOKING STATUS
+            EquipmentBookingStatus equipmentBookingStatus1 = new EquipmentBookingStatus(0, "available", "#53FAA5");
+            EquipmentBookingStatus equipmentBookingStatus2 = new EquipmentBookingStatus(0, "booked", "#FAEA81");
+            EquipmentBookingStatus equipmentBookingStatus3 = new EquipmentBookingStatus(0, "rented", "#FA483F");
+
+            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus1);
+            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus2);
+            equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus3);
+
+            EquipmentOwnership ownershipOwn = new EquipmentOwnership(0, "own");
+            EquipmentOwnership ownershipForeign = new EquipmentOwnership(0, "foreign");
+
+            equipmentOwnershipService.addEquipmentOwnership(ownershipOwn);
+            equipmentOwnershipService.addEquipmentOwnership(ownershipForeign);
+
+
+            // EQUIPMENT
+            Equipment e1 = new Equipment(
+                0,
+                1,
+                "EQ1",
+                equipmentCategory1,
+                "Notes 111",
+                null,
+                equipmentStatus1,
+                equipmentBookingStatus1,
+                ownershipOwn,
+                new ArrayList<>(List.of(new EquipmentBookingPeriods(1, LocalDateTime.of(2019, 01, 28, 14, 33), LocalDateTime.of(2019, 01, 29, 14, 33)))),
+                true,
+                0,0,0,0,0,0,0,0);
             equipmentService.addEquipment(e1);
+
+            Equipment e2 = new Equipment(
+                0,
+                1,
+                "EQ2",
+                equipmentCategory1,
+                "Notes 222",
+                null,
+                equipmentStatus1,
+                equipmentBookingStatus1,
+                ownershipForeign,
+                new ArrayList<>(List.of(new EquipmentBookingPeriods(1, LocalDateTime.of(2019, 01, 28, 14, 33), LocalDateTime.of(2019, 01, 29, 14, 33)))),
+                true,
+                1,2,3,4,5,6,7,8);
             equipmentService.addEquipment(e2);
-            equipmentService.addEquipment(e3);
 
         };
     }

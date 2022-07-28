@@ -8,9 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 public class EquipmentCategory {
 
-    private Long id;
-    private String name;
+    private int id;
     private int sortingGroup;
+    private String name;
     private String description;
 
 }

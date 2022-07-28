@@ -19,7 +19,7 @@ public class EquipmentCategoryController {
     }
 
     @GetMapping(path = "/{id}")
-    public EquipmentCategory getEquipmentCategoryById(@PathVariable("id") Long id) {
+    public EquipmentCategory getEquipmentCategoryById(@PathVariable("id") int id) {
         return service.getEquipmentCategoryById(id);
     }
 
@@ -30,13 +30,13 @@ public class EquipmentCategoryController {
 
     @PutMapping("/{id}")
     public EquipmentCategory updateEquipmentCategory(
-        @PathVariable("id") Long id,
+        @PathVariable("id") int id,
         @RequestBody EquipmentCategory equipmentCategory) {
         return service.updateEquipmentCategory(id, equipmentCategory);
     }
 
     @DeleteMapping(path = "{id}")
-    public String deleteEquipmentCategory(@PathVariable("id") Long id) {
+    public String deleteEquipmentCategory(@PathVariable("id") int id) {
         return service.deleteEquipmentCategory(id);
     }
 
