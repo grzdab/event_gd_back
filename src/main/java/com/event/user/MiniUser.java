@@ -9,6 +9,9 @@ public class MiniUser {
     private String lastName;
     private Contact contact;
 
+    public MiniUser() {
+    }
+
     public MiniUser(String id, String firstName, String lastName, Contact contact) {
         this.id = id;
         this.firstName = firstName;
