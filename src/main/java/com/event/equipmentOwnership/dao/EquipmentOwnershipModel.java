@@ -14,16 +14,22 @@ public class EquipmentOwnershipModel {
     @Column(columnDefinition = "varchar default 'unnamed'")
     private String name;
 
+    @Column(columnDefinition = "varchar default 'unnamed'")
+    private String description;
+
+
     public EquipmentOwnershipModel() {
     }
 
-    public EquipmentOwnershipModel(String name) {
+    public EquipmentOwnershipModel(String name, String description) {
         this.name = name;
+        this.description = description;
     }
 
-    public EquipmentOwnershipModel(int id, String name) {
+    public EquipmentOwnershipModel(int id, String name, String description) {
         this.id = id;
         this.name = name;
+        this.description = description;
     }
 
     public int getId() {
@@ -40,5 +46,13 @@ public class EquipmentOwnershipModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -30,13 +30,14 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
         Collection<EquipmentBookingStatusModel> models = repository.findAll();
         return models
             .stream()
-            .map(model -> new EquipmentBookingStatus(model.getId(), model.getName(), model.getColor()))
+            .map(model -> new EquipmentBookingStatus(model.getId(), model.getName(), model.getDescription(), model.getColor()))
             .collect(Collectors.toList());
     }
 
     public EquipmentBookingStatus updateEquipmentBookingStatus(int id, EquipmentBookingStatus equipmentBookingStatus) {
         EquipmentBookingStatusModel model = repository.findById(id).orElseThrow(() -> new IllegalStateException("Could not find equipment booking status with specified ID"));
         model.setName(equipmentBookingStatus.getName());
+        model.setDescription(equipmentBookingStatus.getDescription());
         model.setColor(equipmentBookingStatus.getColor());
         repository.save(model);
         return equipmentBookingStatus;
@@ -66,6 +67,7 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
         return new EquipmentBookingStatus(
             model.getId(),
             model.getName(),
+            model.getDescription(),
             model.getColor());
     }
 
@@ -92,6 +94,7 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
             EquipmentBookingStatusModel model = new EquipmentBookingStatusModel(
                 equipmentBookingStatus.getId(),
                 equipmentBookingStatus.getName(),
+                equipmentBookingStatus.getDescription(),
                 equipmentBookingStatus.getColor());
             repository.save(model);
             equipmentBookingStatus.setId(model.getId());
@@ -115,7 +118,7 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
     private EquipmentBookingStatus getEquipmentBookingStatusByName(String name) {
         EquipmentBookingStatusModel model = repository.findByName(name);
         if (model != null) {
-            return new EquipmentBookingStatus(model.getId(), model.getName(), model.getColor());
+            return new EquipmentBookingStatus(model.getId(), model.getName(), model.getDescription(), model.getColor());
         }
         return null;
     }

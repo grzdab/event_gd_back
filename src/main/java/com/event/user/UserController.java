@@ -51,7 +51,6 @@ public class UserController {
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
-        String x = "x";
         List<User> users=service.getAllUsers();
         return ResponseEntity.ok().body(service.getAllUsers());
     }

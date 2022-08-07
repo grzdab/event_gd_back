@@ -17,7 +17,7 @@ public class FileUploadExceptionAdvice {
         HttpServletRequest request,
         HttpServletResponse response) {
         ModelAndView modelAndView = new ModelAndView("imageFile");
-        modelAndView.getModel().put("message", "File to large");
+        modelAndView.getModel().put("message", "File too large");
         return modelAndView;
     }
 }

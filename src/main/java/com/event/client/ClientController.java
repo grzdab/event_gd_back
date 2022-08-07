@@ -42,6 +42,8 @@ public class ClientController {
         return service.deleteClient(clientId);
     }
 
+
+
     @PutMapping("/client/{clientId}/business-branch/{businessBranchId}/add")
     public void addBusinessBranchToClient(@PathVariable String clientId, @PathVariable Integer businessBranchId) {
         service.addBusinessBranchToClient(clientId, businessBranchId);

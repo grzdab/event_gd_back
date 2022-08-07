@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin("http://localhost:8080")
+//@CrossOrigin("http://localhost:3000")
 public class EquipmentController {
     private final EquipmentService service;
 
@@ -37,6 +37,10 @@ public class EquipmentController {
     String deleteEquipment(@PathVariable int id) {
         return service.deleteEquipment(id);
     }
+
+
+
+
 
     @GetMapping("/equipment/category/{id}")
     List<Equipment> getEquipmentByCategory(@PathVariable int id) {
