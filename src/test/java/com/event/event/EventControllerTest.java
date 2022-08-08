@@ -1,6 +1,5 @@
 package com.event.event;
 
-import com.event.contact.Contact;
 import com.event.eventStatus.EventStatus;
 import com.event.logistic.Logistic;
 import com.event.representative.Representative;
