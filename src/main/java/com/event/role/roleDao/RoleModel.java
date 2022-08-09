@@ -1,18 +1,14 @@
 package com.event.role.roleDao;
 
-import com.event.privilege.dao.PrivilegeModel;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class RoleModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer roleModelId;
+    private Integer id;
     @NotEmpty
     private String name;
 //    @ManyToMany
@@ -25,12 +21,12 @@ public class RoleModel {
         this.name = name;
     }
 
-    public Integer getRoleModelId() {
-        return roleModelId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setRoleModelId(Integer id) {
-        this.roleModelId = id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getName() {

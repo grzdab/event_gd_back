@@ -18,6 +18,9 @@ public record EquipmentBookingPeriodsService(EquipmentBookingPeriodsRepository e
         this.equipmentBookingPeriodsRepository = equipmentBookingPeriodsRepository;
     }
 
+    // TODO add update
+
+
     public List<EquipmentBookingPeriods> getEquipmentBookingPeriods(EquipmentModel model) {
         //TODO uncomment code below when finish booking periods
 //        List<Integer> ids = model.getEquipmentBookingPeriodsId();

@@ -73,7 +73,7 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
         String refreshToken = JWT.create()
             .withSubject(user.getUsername())
             .withIssuedAt(new Date(System.currentTimeMillis()))
-            .withExpiresAt(new Date(System.currentTimeMillis() + 60*60*1000))
+            .withExpiresAt(new Date(System.currentTimeMillis() + 24*60*60*1000))
             .withIssuer(request.getRequestURL().toString())
             .sign(algorithm);
 
@@ -93,7 +93,7 @@ public class UserAuthenticationFilter extends UsernamePasswordAuthenticationFilt
             "Date, Content-Type, Accept, X-Requested-With, Authorization, From, X-Auth-Token, Request-Id");
         response.setHeader("Access-Control-Expose-Headers", "Set-Cookie");
         response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Set-Cookie",String.format("refreshToken=%s;", refreshToken)  + " Max-Age=3600; Secure; HttpOnly; SameSite=None");
+        response.setHeader("Set-Cookie",String.format("refreshToken=%s;", refreshToken)  + " Max-Age=86400; Secure; HttpOnly; SameSite=None");
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 

@@ -40,7 +40,7 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
         model.setDescription(equipmentBookingStatus.getDescription());
         model.setColor(equipmentBookingStatus.getColor());
         repository.save(model);
-        return equipmentBookingStatus;
+        return createBookingStatus(model);
     }
 
     public EquipmentBookingStatus getEquipmentBookingStatus(EquipmentModel model) {

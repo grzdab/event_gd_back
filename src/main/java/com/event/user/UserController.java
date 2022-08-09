@@ -1,6 +1,7 @@
 package com.event.user;
 
 
+import com.event.equipment.Equipment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,11 +56,13 @@ public class UserController {
         return ResponseEntity.ok().body(service.getAllUsers());
     }
 
-
     @DeleteMapping("/user/{userId}")
     public String deleteUser(@PathVariable UUID userId) {
         return service.deleteUser(userId);
     }
 
-
+    @GetMapping("/user/role/{id}")
+    List<User> getUsersByRoles(@PathVariable int id) {
+        return service.getUsersByRoleId(id);
+    }
 }

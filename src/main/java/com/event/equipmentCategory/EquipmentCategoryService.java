@@ -41,7 +41,7 @@ public class EquipmentCategoryService {
         model.setName(equipmentCategory.getName());
         model.setDescription(equipmentCategory.getDescription());
         repository.save(model);
-        return equipmentCategory;
+        return createEquipmentCategory(model);
     }
 
     public EquipmentCategory getEquipmentCategoryById(int id) {

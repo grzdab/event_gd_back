@@ -7,10 +7,8 @@ import com.event.equipmentBookingStatus.EquipmentBookingStatus;
 import com.event.equipmentBookingStatus.EquipmentBookingStatusService;
 import com.event.equipmentCategory.EquipmentCategory;
 import com.event.equipmentCategory.EquipmentCategoryService;
-import com.event.equipmentData.EquipmentData;
 import com.event.equipmentOwnership.EquipmentOwnership;
 import com.event.equipmentOwnership.EquipmentOwnershipService;
-import com.event.equipmentPhoto.EquipmentPhoto;
 import com.event.equipmentStatus.EquipmentStatus;
 import com.event.equipmentStatus.EquipmentStatusService;
 import com.event.language.Language;
@@ -112,9 +110,9 @@ public class FakeDataInflator {
             UserModel userAdmin = new UserModel("admin", passwordEncoder.encode("123"), "Józef", "Baryła");
             UserModel userUser = new UserModel("user", passwordEncoder.encode("123"), "Jadwiga", "Kapusta");
             UserModel userGuest = new UserModel("guest", passwordEncoder.encode("123"), "Stefan", "Burczymucha");
-            userAdmin.setUserRolesIds(List.of(roleAdmin.getRoleModelId()));
-            userUser.setUserRolesIds(List.of(roleUser.getRoleModelId()));
-            userGuest.setUserRolesIds(List.of(roleGuest.getRoleModelId()));
+            userAdmin.setUserRolesIds(List.of(roleAdmin.getId()));
+            userUser.setUserRolesIds(List.of(roleUser.getId()));
+            userGuest.setUserRolesIds(List.of(roleGuest.getId()));
 
             userRepository.save(userAdmin);
             userRepository.save(userUser);
@@ -134,9 +132,9 @@ public class FakeDataInflator {
 
             // EQUIPMENT //////////////////////////////////////////////////////////
             // EQUIPMENT CATEGORY
-            EquipmentCategory equipmentCategory1 = new EquipmentCategory(0, 0, "Category1", "Description1");
-            EquipmentCategory equipmentCategory2 = new EquipmentCategory(0, 0, "Category2", "Description2");
-            EquipmentCategory equipmentCategory3 = new EquipmentCategory(0, 0, "Category3", "Description3");
+            EquipmentCategory equipmentCategory1 = new EquipmentCategory(0, 0, "Inflatables", "Inflatable castles, ships, slides ");
+            EquipmentCategory equipmentCategory2 = new EquipmentCategory(0, 0, "Mechanical", "Mechanical devices like bulls");
+            EquipmentCategory equipmentCategory3 = new EquipmentCategory(0, 0, "Competition", "Devices designed for competition ");
 
             equipmentCategoryService.addEquipmentCategory(equipmentCategory1);
             equipmentCategoryService.addEquipmentCategory(equipmentCategory3);
@@ -187,7 +185,7 @@ public class FakeDataInflator {
                 0,
                 1,
                 "Mechanical Bull",
-                equipmentCategory1,
+                equipmentCategory2,
                 "Mechanical bull with an operator who can control the intensity of the machine's movements and stop it before the rider can be thrown.",
                 List.of("mechanical_bull.jpg"),
                 equipmentStatus1,
@@ -197,7 +195,6 @@ public class FakeDataInflator {
                 true,
                 1,2,3,4,5,6,7,8);
             equipmentService.addEquipment(e2);
-
 
             Equipment e3 = new Equipment(
                 0,
@@ -213,6 +210,37 @@ public class FakeDataInflator {
                 true,
                 1,2,3,4,5,6,7,8);
             equipmentService.addEquipment(e3);
+
+            Equipment e4 = new Equipment(
+                0,
+                1,
+                "Sumo #1",
+                equipmentCategory3,
+                "Happy fun for teenagers and adults. Special outfits transform the players into Japanese giants. We have 2 sets (including for children)!",
+                List.of("sumo.jpg"),
+                equipmentStatus1,
+                equipmentBookingStatus3,
+                ownershipOwn,
+                new ArrayList<>(List.of(new EquipmentBookingPeriods(1, LocalDateTime.of(2019, 01, 28, 14, 33), LocalDateTime.of(2019, 01, 29, 14, 33)))),
+                true,
+                1,2,3,4,5,6,7,8);
+            equipmentService.addEquipment(e4);
+
+            Equipment e5 = new Equipment(
+                0,
+                1,
+                "Sumo #2",
+                equipmentCategory3,
+                "Happy fun for teenagers and adults. Special outfits transform the players into Japanese giants. We have 2 sets (including for children)!",
+                List.of("sumo.jpg"),
+                equipmentStatus1,
+                equipmentBookingStatus2,
+                ownershipOwn,
+                new ArrayList<>(List.of(new EquipmentBookingPeriods(1, LocalDateTime.of(2019, 01, 28, 14, 33), LocalDateTime.of(2019, 01, 29, 14, 33)))),
+                true,
+                1,2,3,4,5,6,7,8);
+            equipmentService.addEquipment(e5);
+
 
             Language polish = new Language(0, "polski");
             Language english = new Language(0, "English");

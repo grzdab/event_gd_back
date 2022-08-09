@@ -62,7 +62,7 @@ public record EquipmentOwnershipService(EquipmentOwnershipRepository repository)
         model.setName(equipmentOwnership.getName());
         model.setDescription(equipmentOwnership.getDescription());
         repository.save(model);
-        return equipmentOwnership;
+        return createEquipmentOwnership(model);
     }
 
     public String deleteEquipmentOwnership(int id) {

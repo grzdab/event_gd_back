@@ -128,7 +128,7 @@ public class EquipmentService {
         toUpdate.setMinimumAge(equipment.getMinimumAge());
         toUpdate.setMaxParticipants(equipment.getMaxParticipants());
         equipmentRepository.save(toUpdate);
-        return equipment;
+        return createEquipment(toUpdate);
     }
 
     public String deleteEquipment(int id) {
@@ -194,7 +194,7 @@ public class EquipmentService {
     }
 
     public List<Equipment> getEquipmentByBookingStatusId(int id) {
-        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentOwnershipId(id);
+        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentBookingStatusId(id);
         return getEquipmentByItemId(equipmentModels);
     }
 

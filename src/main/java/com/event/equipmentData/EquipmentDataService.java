@@ -13,6 +13,9 @@ public record EquipmentDataService (EquipmentDataRepository equipmentDataReposit
         this.equipmentDataRepository = equipmentDataRepository;
     }
 
+    // TODO add update
+
+
     public EquipmentData addEquipmentData(EquipmentData equipmentData) {
         EquipmentDataModel equipmentDataModel = new EquipmentDataModel(
             equipmentData.getEquipmentId(),

@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
         );
         List<Integer> userRoles = new ArrayList<>();
         for (Role r : user.getUserRoles()) {
-            userRoles.add(r.getRoleId());
+            userRoles.add(r.getId());
         }
 
         model.setUserRolesIds(userRoles);
@@ -147,4 +147,19 @@ public class UserService implements UserDetailsService {
         }
         return userRoles;
     }
+
+    public List<User> getUsersByRoleId(int id) {
+        Iterable<UserModel> userModels = userRepository.findAllByUserRolesIds(id);
+        return getUsersByItemId(userModels);
+    }
+
+    private List<User> getUsersByItemId(Iterable<UserModel> userModels) {
+        List<User> users = new ArrayList<>();
+        for (UserModel model : userModels) {
+            users.add(createUser(model));
+        }
+        return users;
+    }
+
+
 }
