@@ -152,4 +152,43 @@ public class ClientService {
         clientRepository.save(clientFromDB);
     }
 
+    public List<Client> getAllClientsForBusinessBranch(int businessBranchId) {
+        Iterable<ClientModel> clientModels = clientRepository.findAll();
+        List<Client> clients = new ArrayList<>();
+        for (ClientModel model: clientModels){
+            if (model.getBusinessBranchesId().contains(businessBranchId)){
+                clients.add(createClient(model));
+            }
+        }
+        return clients;
+    }
+
+    public List<Client> getAllClientsForBusinessCategory(int businessCategoryId) {
+        Iterable<ClientModel> clientModels = clientRepository.findAll();
+        List<Client> clients = new ArrayList<>();
+        for (ClientModel model: clientModels){
+            if (model.getBusinessCategoriesId().contains(businessCategoryId)){
+                clients.add(createClient(model));
+            }
+        }
+        return clients;
+    }
+
+    public List<Client> getAllClientsForTaxInfo(int taxInfoId) {
+        Iterable<ClientModel> clientModels = clientRepository.findAllByTaxInfo(taxInfoId);
+        List<Client> clients = new ArrayList<>();
+        for (ClientModel model: clientModels) {
+            clients.add(createClient(model));
+        }
+        return clients;
+    }
+
+    public List<Client> getAllClientsForClientType(int clientTypeId) {
+        Iterable<ClientModel> clientModels = clientRepository.findAllByClientType(clientTypeId);
+        List<Client> clients = new ArrayList<>();
+        for (ClientModel model: clientModels) {
+            clients.add(createClient(model));
+        }
+        return clients;
+    }
 }

@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 
+import javax.annotation.meta.When;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -245,5 +246,209 @@ class ClientServiceTest {
         Mockito.verify(clientRepository).findById(UUID.fromString(ID));
         Mockito.verify(clientRepository).save(model);
         assertEquals(1, model.getBusinessBranchesId().size());
+    }
+
+    @Test
+    void getAllClientsForBusinessBranchTest(){
+        ClientRepository clientRepository = Mockito.mock(ClientRepository.class);
+        ClientModel model = new ClientModel();
+        model.setId(UUID.fromString(ID));
+        model.setContactId(1);
+        model.setClientTypeId(3);
+        model.setTaxInfoId(2);
+        model.setBusinessBranchesId(List.of(7));
+        model.setBusinessCategoriesId(List.of(2));
+        List<ClientModel> models = new ArrayList<>();
+        models.add(model);
+        RepresentativeService representativeService = Mockito.mock(RepresentativeService.class);
+        Representative representative = new Representative();
+        Mockito.when(representativeService.getAllRepresentativesForClient(ID)).thenReturn(List.of(representative));
+        AddressService addressService = Mockito.mock(AddressService.class);
+        List<Address> addresses = new ArrayList<>();
+        Mockito.when(addressService.getAllAddressForClient(ID)).thenReturn(addresses);
+        ContactService contactService = Mockito.mock(ContactService.class);
+        Contact contact = new Contact();
+        Mockito.when(contactService.getContact(1)).thenReturn(contact);
+        ClientTypeService clientTypeService = Mockito.mock(ClientTypeService.class);
+        ClientType clientType = new ClientType();
+        Mockito.when(clientTypeService.getClientType(3)).thenReturn(clientType);
+        BusinessBranchService businessBranchService = Mockito.mock(BusinessBranchService.class);
+        BusinessBranch businessBranch = new BusinessBranch();
+        Mockito.when(businessBranchService.getBusinessBranch(7)).thenReturn(businessBranch);
+        BusinessCategoryService businessCategoryService = Mockito.mock(BusinessCategoryService.class);
+        BusinessCategory businessCategory = new BusinessCategory();
+        Mockito.when(businessCategoryService.getBusinessCategory(2)).thenReturn(businessCategory);
+        TaxInfoService taxInfoService = Mockito.mock(TaxInfoService.class);
+        TaxInfo taxInfo = new TaxInfo();
+        Mockito.when(taxInfoService.getTaxInfo(2)).thenReturn(taxInfo);
+        ClientService clientService = new ClientService(clientRepository, representativeService,
+                addressService, contactService, clientTypeService, businessBranchService, businessCategoryService,
+                taxInfoService);
+        Mockito.when(clientRepository.findAll()).thenReturn(models);
+
+        List<Client> clients = clientService.getAllClientsForBusinessBranch(7);
+
+        Mockito.verify(representativeService).getAllRepresentativesForClient(ID);
+        Mockito.verify(addressService).getAllAddressForClient(ID);
+        Mockito.verify(contactService).getContact(1);
+        Mockito.verify(clientTypeService).getClientType(3);
+        Mockito.verify(businessBranchService).getBusinessBranch(7);
+        Mockito.verify(businessCategoryService).getBusinessCategory(2);
+        Mockito.verify(taxInfoService).getTaxInfo(2);
+        Mockito.verify(clientRepository).findAll();
+        assertEquals(1, clients.size());
+    }
+
+    @Test
+    void getAllClientsForBusinessCategoryTest(){
+        ClientRepository clientRepository = Mockito.mock(ClientRepository.class);
+        ClientModel model = new ClientModel();
+        model.setId(UUID.fromString(ID));
+        model.setContactId(1);
+        model.setClientTypeId(3);
+        model.setTaxInfoId(2);
+        model.setBusinessBranchesId(List.of(5));
+        model.setBusinessCategoriesId(List.of(7));
+        List<ClientModel> models = new ArrayList<>();
+        models.add(model);
+        RepresentativeService representativeService = Mockito.mock(RepresentativeService.class);
+        Representative representative = new Representative();
+        Mockito.when(representativeService.getAllRepresentativesForClient(ID)).thenReturn(List.of(representative));
+        AddressService addressService = Mockito.mock(AddressService.class);
+        List<Address> addresses = new ArrayList<>();
+        Mockito.when(addressService.getAllAddressForClient(ID)).thenReturn(addresses);
+        ContactService contactService = Mockito.mock(ContactService.class);
+        Contact contact = new Contact();
+        Mockito.when(contactService.getContact(1)).thenReturn(contact);
+        ClientTypeService clientTypeService = Mockito.mock(ClientTypeService.class);
+        ClientType clientType = new ClientType();
+        Mockito.when(clientTypeService.getClientType(3)).thenReturn(clientType);
+        BusinessBranchService businessBranchService = Mockito.mock(BusinessBranchService.class);
+        BusinessBranch businessBranch = new BusinessBranch();
+        Mockito.when(businessBranchService.getBusinessBranch(5)).thenReturn(businessBranch);
+        BusinessCategoryService businessCategoryService = Mockito.mock(BusinessCategoryService.class);
+        BusinessCategory businessCategory = new BusinessCategory();
+        Mockito.when(businessCategoryService.getBusinessCategory(7)).thenReturn(businessCategory);
+        TaxInfoService taxInfoService = Mockito.mock(TaxInfoService.class);
+        TaxInfo taxInfo = new TaxInfo();
+        Mockito.when(taxInfoService.getTaxInfo(2)).thenReturn(taxInfo);
+        ClientService clientService = new ClientService(clientRepository, representativeService,
+                addressService, contactService, clientTypeService, businessBranchService, businessCategoryService,
+                taxInfoService);
+        Mockito.when(clientRepository.findAll()).thenReturn(models);
+
+        List<Client> clients = clientService.getAllClientsForBusinessCategory(7);
+
+        Mockito.verify(representativeService).getAllRepresentativesForClient(ID);
+        Mockito.verify(addressService).getAllAddressForClient(ID);
+        Mockito.verify(contactService).getContact(1);
+        Mockito.verify(clientTypeService).getClientType(3);
+        Mockito.verify(businessBranchService).getBusinessBranch(5);
+        Mockito.verify(businessCategoryService).getBusinessCategory(7);
+        Mockito.verify(taxInfoService).getTaxInfo(2);
+        Mockito.verify(clientRepository).findAll();
+        assertEquals(1, clients.size());
+    }
+
+    @Test
+    void getAllClientsForTaxInfoTest(){
+        ClientRepository clientRepository = Mockito.mock(ClientRepository.class);
+        ClientModel model = new ClientModel();
+        model.setId(UUID.fromString(ID));
+        model.setContactId(1);
+        model.setClientTypeId(3);
+        model.setTaxInfoId(7);
+        model.setBusinessBranchesId(List.of(5));
+        model.setBusinessCategoriesId(List.of(2));
+        List<ClientModel> models = new ArrayList<>();
+        models.add(model);
+        RepresentativeService representativeService = Mockito.mock(RepresentativeService.class);
+        Representative representative = new Representative();
+        Mockito.when(representativeService.getAllRepresentativesForClient(ID)).thenReturn(List.of(representative));
+        AddressService addressService = Mockito.mock(AddressService.class);
+        List<Address> addresses = new ArrayList<>();
+        Mockito.when(addressService.getAllAddressForClient(ID)).thenReturn(addresses);
+        ContactService contactService = Mockito.mock(ContactService.class);
+        Contact contact = new Contact();
+        Mockito.when(contactService.getContact(1)).thenReturn(contact);
+        ClientTypeService clientTypeService = Mockito.mock(ClientTypeService.class);
+        ClientType clientType = new ClientType();
+        Mockito.when(clientTypeService.getClientType(3)).thenReturn(clientType);
+        BusinessBranchService businessBranchService = Mockito.mock(BusinessBranchService.class);
+        BusinessBranch businessBranch = new BusinessBranch();
+        Mockito.when(businessBranchService.getBusinessBranch(5)).thenReturn(businessBranch);
+        BusinessCategoryService businessCategoryService = Mockito.mock(BusinessCategoryService.class);
+        BusinessCategory businessCategory = new BusinessCategory();
+        Mockito.when(businessCategoryService.getBusinessCategory(2)).thenReturn(businessCategory);
+        TaxInfoService taxInfoService = Mockito.mock(TaxInfoService.class);
+        TaxInfo taxInfo = new TaxInfo();
+        Mockito.when(taxInfoService.getTaxInfo(7)).thenReturn(taxInfo);
+        ClientService clientService = new ClientService(clientRepository, representativeService,
+                addressService, contactService, clientTypeService, businessBranchService, businessCategoryService,
+                taxInfoService);
+        Mockito.when(clientRepository.findAllByTaxInfo(7)).thenReturn(models);
+
+        List<Client> clients = clientService.getAllClientsForTaxInfo(7);
+
+        Mockito.verify(representativeService).getAllRepresentativesForClient(ID);
+        Mockito.verify(addressService).getAllAddressForClient(ID);
+        Mockito.verify(contactService).getContact(1);
+        Mockito.verify(clientTypeService).getClientType(3);
+        Mockito.verify(businessBranchService).getBusinessBranch(5);
+        Mockito.verify(businessCategoryService).getBusinessCategory(2);
+        Mockito.verify(taxInfoService).getTaxInfo(7);
+        Mockito.verify(clientRepository).findAllByTaxInfo(7);
+        assertEquals(1, clients.size());
+    }
+
+    @Test
+    void getAllClientsForClientTypeTest(){
+        ClientRepository clientRepository = Mockito.mock(ClientRepository.class);
+        ClientModel model = new ClientModel();
+        model.setId(UUID.fromString(ID));
+        model.setContactId(1);
+        model.setClientTypeId(7);
+        model.setTaxInfoId(2);
+        model.setBusinessBranchesId(List.of(5));
+        model.setBusinessCategoriesId(List.of(2));
+        List<ClientModel> models = new ArrayList<>();
+        models.add(model);
+        RepresentativeService representativeService = Mockito.mock(RepresentativeService.class);
+        Representative representative = new Representative();
+        Mockito.when(representativeService.getAllRepresentativesForClient(ID)).thenReturn(List.of(representative));
+        AddressService addressService = Mockito.mock(AddressService.class);
+        List<Address> addresses = new ArrayList<>();
+        Mockito.when(addressService.getAllAddressForClient(ID)).thenReturn(addresses);
+        ContactService contactService = Mockito.mock(ContactService.class);
+        Contact contact = new Contact();
+        Mockito.when(contactService.getContact(1)).thenReturn(contact);
+        ClientTypeService clientTypeService = Mockito.mock(ClientTypeService.class);
+        ClientType clientType = new ClientType();
+        Mockito.when(clientTypeService.getClientType(7)).thenReturn(clientType);
+        BusinessBranchService businessBranchService = Mockito.mock(BusinessBranchService.class);
+        BusinessBranch businessBranch = new BusinessBranch();
+        Mockito.when(businessBranchService.getBusinessBranch(5)).thenReturn(businessBranch);
+        BusinessCategoryService businessCategoryService = Mockito.mock(BusinessCategoryService.class);
+        BusinessCategory businessCategory = new BusinessCategory();
+        Mockito.when(businessCategoryService.getBusinessCategory(2)).thenReturn(businessCategory);
+        TaxInfoService taxInfoService = Mockito.mock(TaxInfoService.class);
+        TaxInfo taxInfo = new TaxInfo();
+        Mockito.when(taxInfoService.getTaxInfo(2)).thenReturn(taxInfo);
+        ClientService clientService = new ClientService(clientRepository, representativeService,
+                addressService, contactService, clientTypeService, businessBranchService, businessCategoryService,
+                taxInfoService);
+        Mockito.when(clientRepository.findAllByClientType(7)).thenReturn(models);
+
+        List<Client> clients = clientService.getAllClientsForClientType(7);
+
+        Mockito.verify(representativeService).getAllRepresentativesForClient(ID);
+        Mockito.verify(addressService).getAllAddressForClient(ID);
+        Mockito.verify(contactService).getContact(1);
+        Mockito.verify(clientTypeService).getClientType(7);
+        Mockito.verify(businessBranchService).getBusinessBranch(5);
+        Mockito.verify(businessCategoryService).getBusinessCategory(2);
+        Mockito.verify(taxInfoService).getTaxInfo(2);
+        Mockito.verify(clientRepository).findAllByClientType(7);
+        assertEquals(1, clients.size());
     }
 }

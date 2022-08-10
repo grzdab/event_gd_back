@@ -155,4 +155,84 @@ class ClientControllerTest {
         //assert
         Mockito.verify(clientService).deleteBusinessCategoryFromClient(ID, 1);
     }
+
+    @Test
+    void getAllClientsForBusinessBranchTest(){
+        //arrange
+        List<Client> clientList = new ArrayList<>();
+        Client client = new Client(UUID.fromString(ID), "Tomasz",
+                "Tom", new ArrayList<>(), new Contact(), false, new ClientType(), new TaxInfo(),
+                new ArrayList<>(), new ArrayList<>(), "notes", new ArrayList<>(), "userId");
+        clientList.add(client);
+        ClientService clientService = Mockito.mock(ClientService.class);
+        ClientController clientController = new ClientController(clientService);
+        Mockito.when(clientService.getAllClientsForBusinessBranch(7)).thenReturn(clientList);
+
+        //act
+        List<Client> clients = clientController.getAllClientsForBusinessBranch(7);
+
+        //assert
+        Mockito.verify(clientService).getAllClientsForBusinessBranch(7);
+        assertEquals(1, clients.size());
+    }
+
+    @Test
+    void getAllClientsForBusinessCategoryTest(){
+        //arrange
+        List<Client> clientList = new ArrayList<>();
+        Client client = new Client(UUID.fromString(ID), "Tomasz",
+                "Tom", new ArrayList<>(), new Contact(), false, new ClientType(), new TaxInfo(),
+                new ArrayList<>(), new ArrayList<>(), "notes", new ArrayList<>(), "userId");
+        clientList.add(client);
+        ClientService clientService = Mockito.mock(ClientService.class);
+        ClientController clientController = new ClientController(clientService);
+        Mockito.when(clientService.getAllClientsForBusinessCategory(7)).thenReturn(clientList);
+
+        //act
+        List<Client> clients = clientController.getAllClientsForBusinessCategory(7);
+
+        //assert
+        Mockito.verify(clientService).getAllClientsForBusinessCategory(7);
+        assertEquals(1, clients.size());
+    }
+
+    @Test
+    void getAllClientsForTaxInfoTest(){
+        //arrange
+        List<Client> clientList = new ArrayList<>();
+        Client client = new Client(UUID.fromString(ID), "Tomasz",
+                "Tom", new ArrayList<>(), new Contact(), false, new ClientType(), new TaxInfo(),
+                new ArrayList<>(), new ArrayList<>(), "notes", new ArrayList<>(), "userId");
+        clientList.add(client);
+        ClientService clientService = Mockito.mock(ClientService.class);
+        ClientController clientController = new ClientController(clientService);
+        Mockito.when(clientService.getAllClientsForTaxInfo(7)).thenReturn(clientList);
+
+        //act
+        List<Client> clients = clientController.getAllClientsForTaxInfo(7);
+
+        //assert
+        Mockito.verify(clientService).getAllClientsForTaxInfo(7);
+        assertEquals(1, clients.size());
+    }
+
+    @Test
+    void getAllClientsForClientTypeTest(){
+        //arrange
+        List<Client> clientList = new ArrayList<>();
+        Client client = new Client(UUID.fromString(ID), "Tomasz",
+                "Tom", new ArrayList<>(), new Contact(), false, new ClientType(), new TaxInfo(),
+                new ArrayList<>(), new ArrayList<>(), "notes", new ArrayList<>(), "userId");
+        clientList.add(client);
+        ClientService clientService = Mockito.mock(ClientService.class);
+        ClientController clientController = new ClientController(clientService);
+        Mockito.when(clientService.getAllClientsForClientType(7)).thenReturn(clientList);
+
+        //act
+        List<Client> clients = clientController.getAllClientsForClientType(7);
+
+        //assert
+        Mockito.verify(clientService).getAllClientsForClientType(7);
+        assertEquals(1, clients.size());
+    }
 }
