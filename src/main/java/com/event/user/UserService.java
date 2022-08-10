@@ -148,15 +148,15 @@ public class UserService implements UserDetailsService {
         return userRoles;
     }
 
-    public List<User> getUsersByRoleId(int id) {
+    public List<MiniUser> getUsersByRoleId(int id) {
         Iterable<UserModel> userModels = userRepository.findAllByUserRolesIds(id);
         return getUsersByItemId(userModels);
     }
 
-    private List<User> getUsersByItemId(Iterable<UserModel> userModels) {
-        List<User> users = new ArrayList<>();
+    private List<MiniUser> getUsersByItemId(Iterable<UserModel> userModels) {
+        List<MiniUser> users = new ArrayList<>();
         for (UserModel model : userModels) {
-            users.add(createUser(model));
+            users.add(createUserCompacted(model));
         }
         return users;
     }

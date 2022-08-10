@@ -39,7 +39,6 @@ public class RoleService {
         return roles;
     }
 
-
     public String deleteRole(int id){
         appRoleRepository.deleteById(id);
         return "Delete";

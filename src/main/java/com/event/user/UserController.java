@@ -61,8 +61,9 @@ public class UserController {
         return service.deleteUser(userId);
     }
 
+
     @GetMapping("/user/role/{id}")
-    List<User> getUsersByRoles(@PathVariable int id) {
+    List<MiniUser> getUsersByRoles(@PathVariable int id) {
         return service.getUsersByRoleId(id);
     }
 }
