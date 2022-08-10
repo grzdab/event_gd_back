@@ -1,5 +1,10 @@
 package com.event.databaseDefaults;
 
+import com.event.businessBranch.BusinessBranchService;
+import com.event.businessCategory.BusinessCategory;
+import com.event.businessCategory.BusinessCategoryService;
+import com.event.clientType.ClientType;
+import com.event.clientType.ClientTypeService;
 import com.event.equipment.Equipment;
 import com.event.equipment.EquipmentService;
 import com.event.equipmentBookingPeriods.EquipmentBookingPeriods;
@@ -50,6 +55,9 @@ public class FakeDataInflator {
         EquipmentStatusService equipmentStatusService,
         EquipmentOwnershipService equipmentOwnershipService,
         LanguageService languageService,
+        BusinessBranchService businessBranchService,
+        ClientTypeService clientTypeService,
+        BusinessCategoryService businessCategoryService,
         PasswordEncoder passwordEncoder) {
         return args -> {
 
@@ -285,6 +293,10 @@ public class FakeDataInflator {
             languageService.addLanguage(finnish);
             languageService.addLanguage(croatian);
             languageService.addLanguage(korean);
+
+            // CLIENTS //////////////////////////////////////////////////////////
+            // TYPES
+
 
 
 
