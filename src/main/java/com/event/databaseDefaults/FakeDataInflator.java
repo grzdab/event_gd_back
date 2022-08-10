@@ -1,5 +1,17 @@
 package com.event.databaseDefaults;
 
+import com.event.address.Address;
+import com.event.address.AddressService;
+import com.event.businessBranch.BusinessBranch;
+import com.event.businessBranch.BusinessBranchService;
+import com.event.businessCategory.BusinessCategory;
+import com.event.businessCategory.BusinessCategoryService;
+import com.event.client.Client;
+import com.event.client.ClientService;
+import com.event.clientType.ClientType;
+import com.event.clientType.ClientTypeService;
+import com.event.contact.Contact;
+import com.event.contact.ContactService;
 import com.event.equipment.Equipment;
 import com.event.equipment.EquipmentService;
 import com.event.equipmentBookingPeriods.EquipmentBookingPeriods;
@@ -13,13 +25,19 @@ import com.event.equipmentOwnership.EquipmentOwnershipService;
 import com.event.equipmentPhoto.EquipmentPhoto;
 import com.event.equipmentStatus.EquipmentStatus;
 import com.event.equipmentStatus.EquipmentStatusService;
+import com.event.legalEntityType.LegalEntityType;
+import com.event.legalEntityType.LegalEntityTypeService;
 import com.event.privilege.PrivilegeEnum;
 import com.event.privilege.dao.PrivilegeModel;
 import com.event.privilege.dao.PrivilegeRepository;
+import com.event.representative.Representative;
+import com.event.representative.RepresentativeService;
 import com.event.role.Role;
 import com.event.role.RoleService;
 import com.event.role.roleDao.RoleModel;
 import com.event.role.roleDao.RoleRepository;
+import com.event.taxInfo.TaxInfo;
+import com.event.taxInfo.TaxInfoService;
 import com.event.user.User;
 import com.event.user.UserService;
 import com.event.user.dao.UserModel;
@@ -32,6 +50,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 @Configuration
@@ -39,17 +58,26 @@ public class FakeDataInflator {
 
     @Bean
     CommandLineRunner run(
-        UserRepository userRepository,
-        UserService userService,
-        PrivilegeRepository privilegeRepository,
-        RoleRepository roleRepository,
-        RoleService roleService,
-        EquipmentCategoryService equipmentCategoryService,
-        EquipmentService equipmentService,
-        EquipmentBookingStatusService equipmentBookingStatusService,
-        EquipmentStatusService equipmentStatusService,
-        EquipmentOwnershipService equipmentOwnershipService,
-        PasswordEncoder passwordEncoder) {
+            UserRepository userRepository,
+            UserService userService,
+            PrivilegeRepository privilegeRepository,
+            RoleRepository roleRepository,
+            RoleService roleService,
+            EquipmentCategoryService equipmentCategoryService,
+            EquipmentService equipmentService,
+            EquipmentBookingStatusService equipmentBookingStatusService,
+            EquipmentStatusService equipmentStatusService,
+            EquipmentOwnershipService equipmentOwnershipService,
+            PasswordEncoder passwordEncoder,
+            AddressService addressService,
+            ContactService contactService,
+            LegalEntityTypeService legalEntityTypeService,
+            ClientTypeService clientTypeService,
+            TaxInfoService taxInfoService,
+            BusinessBranchService businessBranchService,
+            BusinessCategoryService businessCategoryService,
+            RepresentativeService representativeService,
+            ClientService clientService) {
         return args -> {
 
             // AUTH
@@ -195,6 +223,57 @@ public class FakeDataInflator {
                 1,2,3,4,5,6,7,8);
             equipmentService.addEquipment(e2);
 
+            //ADDRESS
+            Address address = new Address(0, "STREET", "NO", "CODE", "CITY", 1, true, "");
+            addressService.addAddress(address);
+
+            //CONTACT
+            Contact contact = new Contact("MAIL", "PHONE");
+            contactService.addContact(contact);
+            Contact contact2 = new Contact("MAIL2", "PHONE2");
+            contactService.addContact(contact2);
+
+            //CLIENT TYPE
+            ClientType clientType = new ClientType(0, "CLIENT-TYPE");
+            clientTypeService.addClientType(clientType);
+
+            //LEGAL ENTITY TYPE
+            LegalEntityType legalEntityType = new LegalEntityType("LEGAL-ENTITY-TYPE");
+            legalEntityTypeService.addLegalEntityType(legalEntityType);
+
+            //TAX INFO
+            TaxInfo taxInfo = new TaxInfo(0, legalEntityType, "REGON", "PESEL", "NIP", "KRS", "INSURANCE");
+            taxInfoService.addTaxInfo(taxInfo);
+
+            //BUSINESS BRANCH
+            BusinessBranch businessBranch = new BusinessBranch(0, "BUSINESS-BRANCH");
+            businessBranchService.addBusinessBranch(businessBranch);
+
+            //BUSINESS CATEGORY
+            BusinessCategory businessCategory = new BusinessCategory(0, "BUSINESS-CATEGORY");
+            businessCategoryService.addBusinessCategory(businessCategory);
+
+            //REPRESENTATIVE
+            Representative representative = new Representative(0, "NAME", "LASTNAME", contact2, "");
+            representativeService.addRepresentative(representative);
+
+            //CLIENT
+            Client client = new Client(UUID.randomUUID(), "CLIENT-FULL-NAME", "SHORT-NAME", List.of(address),
+                    contact, true, clientType, taxInfo, List.of(businessBranch), List.of(businessCategory),
+                    "NOTES", List.of(representative), "APP-USER-ID");
+
+            clientService.addClient(client);
+
+            address.setClientId(client.getId().toString());
+            addressService.updateAddress(address.getId(), address);
+
+            representative.setClientId(client.getId().toString());
+            representativeService.updateRepresentative(representative.getId(), representative);
+
+            clientService.addBusinessBranchToClient(client.getId().toString(), businessBranch.getId());
+            clientService.addBusinessCategoryToClient(client.getId().toString(), businessCategory.getId());
+
+            System.out.println("Jarek");
         };
     }
 }

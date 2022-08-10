@@ -9,14 +9,14 @@ import java.util.Objects;
 @Entity
 public class ClientTypeModel {
 
-    private Integer id;
+    private int id;
 
     private String typeName;
 
     public ClientTypeModel() {
     }
 
-    public ClientTypeModel(Integer id, String typeName) {
+    public ClientTypeModel(int id, String typeName) {
         this.id = id;
         this.typeName = typeName;
     }
@@ -27,11 +27,11 @@ public class ClientTypeModel {
 
     @Id
     @GeneratedValue
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

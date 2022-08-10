@@ -8,7 +8,8 @@ import javax.persistence.Id;
 @Entity
 public class TaxInfoModel {
 
-    private Integer id;
+    @Column
+    private int id;
     @Column(length = 20)
     private String regon;
     @Column(length = 11)
@@ -24,7 +25,7 @@ public class TaxInfoModel {
     public TaxInfoModel() {
     }
 
-    public TaxInfoModel(Integer id, String regon, String pesel, String nip, String krs, String insurance, Integer legalEntityTypeId) {
+    public TaxInfoModel(int id, String regon, String pesel, String nip, String krs, String insurance, Integer legalEntityTypeId) {
         this.id = id;
         this.regon = regon;
         this.pesel = pesel;
@@ -36,11 +37,11 @@ public class TaxInfoModel {
 
     @Id
     @GeneratedValue
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
