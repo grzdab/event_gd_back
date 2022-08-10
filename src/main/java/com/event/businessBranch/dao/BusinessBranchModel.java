@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
@@ -11,13 +12,13 @@ import java.util.Objects;
 @Entity
 public class BusinessBranchModel {
 
-    private Integer id;
+    private int id;
     private String name;
 
     public BusinessBranchModel() {
     }
 
-    public BusinessBranchModel(Integer id, String name) {
+    public BusinessBranchModel(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -28,11 +29,11 @@ public class BusinessBranchModel {
 
     @Id
     @GeneratedValue
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
