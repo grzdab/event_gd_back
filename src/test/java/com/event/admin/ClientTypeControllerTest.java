@@ -7,7 +7,6 @@ import com.event.clientType.ClientTypeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -26,7 +25,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Import({TestConfig.class})
 @ExtendWith(SpringExtension.class)
@@ -64,7 +62,7 @@ public class ClientTypeControllerTest {
     public void createPOSTClientTypeAPI_success() throws Exception {
         ClientType model = new ClientType();
         model.setId(4);
-        model.setTypeName("mikolaj");
+        model.setName("mikolaj");
         service.addClientType(model);
 
         when(service.addClientType(model)).thenReturn(model);
@@ -82,7 +80,7 @@ public class ClientTypeControllerTest {
     @Test
     public void PUTClientTypeAPI_success() throws Exception {
         ClientType model = new ClientType();
-        model.setTypeName("michal");
+        model.setName("michal");
         service.updateClientType(2, model);
 
         when(service.updateClientType(model.getId(), model)).thenReturn(model);
