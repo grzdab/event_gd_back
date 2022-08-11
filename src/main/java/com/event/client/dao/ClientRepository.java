@@ -9,5 +9,5 @@ import java.util.UUID;
 @Repository
 public interface ClientRepository extends CrudRepository<ClientModel, UUID> {
     List<ClientModel> findAllByTaxInfo(int taxInfoId);
-    List<ClientModel> findAllByClientType(int clientTypeId);
+    List<ClientModel> findAllByClientTypeId(int clientTypeId);
 }

@@ -17,6 +17,10 @@ public class MiniUser {
     private String lastName;
     private List<Role> userRoles;
 
+    public MiniUser() {
+
+    }
+
     public MiniUser(String id, String login, String firstName, String lastName, List<Role> roles) {
         this.id = id;
         this.login = login;

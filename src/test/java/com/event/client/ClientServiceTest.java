@@ -437,7 +437,7 @@ class ClientServiceTest {
         ClientService clientService = new ClientService(clientRepository, representativeService,
                 addressService, contactService, clientTypeService, businessBranchService, businessCategoryService,
                 taxInfoService);
-        Mockito.when(clientRepository.findAllByClientType(7)).thenReturn(models);
+        Mockito.when(clientRepository.findAllByClientTypeId(7)).thenReturn(models);
 
         List<Client> clients = clientService.getAllClientsForClientType(7);
 
@@ -448,7 +448,7 @@ class ClientServiceTest {
         Mockito.verify(businessBranchService).getBusinessBranch(5);
         Mockito.verify(businessCategoryService).getBusinessCategory(2);
         Mockito.verify(taxInfoService).getTaxInfo(2);
-        Mockito.verify(clientRepository).findAllByClientType(7);
+        Mockito.verify(clientRepository).findAllByClientTypeId(7);
         assertEquals(1, clients.size());
     }
 }

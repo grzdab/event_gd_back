@@ -60,7 +60,7 @@ public class RoleControllerTest {
     @Test
     public void createPOSTRoleAPI_success() throws Exception {
         Role model = new Role();
-        model.setRoleId(4);
+        model.setId(4);
         model.setName("mikolaj");
         service.addRole(model);
 
@@ -82,7 +82,7 @@ public class RoleControllerTest {
         model.setName("michal");
         service.updateRole(2, model);
 
-        when(service.updateRole(model.getRoleId(), model)).thenReturn(model);
+        when(service.updateRole(model.getId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/role")
                 .contentType(MediaType.APPLICATION_JSON)
