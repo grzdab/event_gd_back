@@ -5,6 +5,8 @@ import com.event.businessCategory.BusinessCategory;
 import com.event.businessCategory.BusinessCategoryService;
 import com.event.clientType.ClientType;
 import com.event.clientType.ClientTypeService;
+import com.event.contact.Contact;
+import com.event.contact.ContactService;
 import com.event.equipment.Equipment;
 import com.event.equipment.EquipmentService;
 import com.event.equipmentBookingPeriods.EquipmentBookingPeriods;
@@ -58,85 +60,120 @@ public class FakeDataInflator {
         BusinessBranchService businessBranchService,
         ClientTypeService clientTypeService,
         BusinessCategoryService businessCategoryService,
+        ContactService contactService,
         PasswordEncoder passwordEncoder) {
         return args -> {
 
             // AUTH
 
-            RoleModel roleAdmin = new RoleModel("ADMIN");
-            RoleModel roleGuest = new RoleModel("GUEST");
-            RoleModel roleUser = new RoleModel("USER");
-
-            roleRepository.save(roleGuest);
-
-            PrivilegeModel privilege_clients_C = new PrivilegeModel("clients", PrivilegeEnum.CREATE);
-            PrivilegeModel privilege_clients_R = new PrivilegeModel("clients", PrivilegeEnum.READ);
-            PrivilegeModel privilege_clients_U = new PrivilegeModel("clients", PrivilegeEnum.UPDATE);
-            PrivilegeModel privilege_clients_D = new PrivilegeModel("clients", PrivilegeEnum.DELETE);
-
-            PrivilegeModel privilege_equipment_C = new PrivilegeModel("equipment", PrivilegeEnum.CREATE);
-            PrivilegeModel privilege_equipment_R = new PrivilegeModel("equipment", PrivilegeEnum.READ);
-            PrivilegeModel privilege_equipment_U = new PrivilegeModel("equipment", PrivilegeEnum.UPDATE);
-            PrivilegeModel privilege_equipment_D = new PrivilegeModel("equipment", PrivilegeEnum.DELETE);
-
-            PrivilegeModel privilege_admin_C = new PrivilegeModel("admin", PrivilegeEnum.CREATE);
-            PrivilegeModel privilege_admin_R = new PrivilegeModel("admin", PrivilegeEnum.READ);
-            PrivilegeModel privilege_admin_U = new PrivilegeModel("admin", PrivilegeEnum.UPDATE);
-            PrivilegeModel privilege_admin_D = new PrivilegeModel("admin", PrivilegeEnum.DELETE);
-
-            privilegeRepository.save(privilege_clients_C);
-            privilegeRepository.save(privilege_clients_R);
-            privilegeRepository.save(privilege_clients_U);
-            privilegeRepository.save(privilege_clients_D);
-
-            privilegeRepository.save(privilege_equipment_C);
-            privilegeRepository.save(privilege_equipment_R);
-            privilegeRepository.save(privilege_equipment_U);
-            privilegeRepository.save(privilege_equipment_D);
-
-            privilegeRepository.save(privilege_admin_C);
-            privilegeRepository.save(privilege_admin_R);
-            privilegeRepository.save(privilege_admin_U);
-            privilegeRepository.save(privilege_admin_D);
-
-//            roleAdmin.setPrivilegesList(List.of(
-//                privilege_clients_C,privilege_clients_R,privilege_clients_U,privilege_clients_D,
-//                privilege_equipment_C,privilege_equipment_R,privilege_equipment_U,privilege_equipment_D,
-//                privilege_admin_C,privilege_admin_R,privilege_admin_U,privilege_admin_D));
-            roleRepository.save(roleAdmin);
-
-//            roleUser.setPrivilegesList(List.of(privilege_admin_C));
-
-//            roleUser.setPrivilegesList(List.of(
-//                privilege_clients_C,privilege_clients_R,
-//                privilege_equipment_C,privilege_equipment_R,
-//                privilege_admin_C,privilege_admin_R));
-            roleRepository.save(roleUser);
+//            RoleModel roleAdmin = new RoleModel("ADMIN");
+//            RoleModel roleGuest = new RoleModel("GUEST");
+//            RoleModel roleUser = new RoleModel("USER");
+//
+//            roleRepository.save(roleGuest);
+//
+//            PrivilegeModel privilege_clients_C = new PrivilegeModel("clients", PrivilegeEnum.CREATE);
+//            PrivilegeModel privilege_clients_R = new PrivilegeModel("clients", PrivilegeEnum.READ);
+//            PrivilegeModel privilege_clients_U = new PrivilegeModel("clients", PrivilegeEnum.UPDATE);
+//            PrivilegeModel privilege_clients_D = new PrivilegeModel("clients", PrivilegeEnum.DELETE);
+//
+//            PrivilegeModel privilege_equipment_C = new PrivilegeModel("equipment", PrivilegeEnum.CREATE);
+//            PrivilegeModel privilege_equipment_R = new PrivilegeModel("equipment", PrivilegeEnum.READ);
+//            PrivilegeModel privilege_equipment_U = new PrivilegeModel("equipment", PrivilegeEnum.UPDATE);
+//            PrivilegeModel privilege_equipment_D = new PrivilegeModel("equipment", PrivilegeEnum.DELETE);
+//
+//            PrivilegeModel privilege_admin_C = new PrivilegeModel("admin", PrivilegeEnum.CREATE);
+//            PrivilegeModel privilege_admin_R = new PrivilegeModel("admin", PrivilegeEnum.READ);
+//            PrivilegeModel privilege_admin_U = new PrivilegeModel("admin", PrivilegeEnum.UPDATE);
+//            PrivilegeModel privilege_admin_D = new PrivilegeModel("admin", PrivilegeEnum.DELETE);
+//
+//            privilegeRepository.save(privilege_clients_C);
+//            privilegeRepository.save(privilege_clients_R);
+//            privilegeRepository.save(privilege_clients_U);
+//            privilegeRepository.save(privilege_clients_D);
+//
+//            privilegeRepository.save(privilege_equipment_C);
+//            privilegeRepository.save(privilege_equipment_R);
+//            privilegeRepository.save(privilege_equipment_U);
+//            privilegeRepository.save(privilege_equipment_D);
+//
+//            privilegeRepository.save(privilege_admin_C);
+//            privilegeRepository.save(privilege_admin_R);
+//            privilegeRepository.save(privilege_admin_U);
+//            privilegeRepository.save(privilege_admin_D);
+//
+////            roleAdmin.setPrivilegesList(List.of(
+////                privilege_clients_C,privilege_clients_R,privilege_clients_U,privilege_clients_D,
+////                privilege_equipment_C,privilege_equipment_R,privilege_equipment_U,privilege_equipment_D,
+////                privilege_admin_C,privilege_admin_R,privilege_admin_U,privilege_admin_D));
+//            roleRepository.save(roleAdmin);
+//
+////            roleUser.setPrivilegesList(List.of(privilege_admin_C));
+//
+////            roleUser.setPrivilegesList(List.of(
+////                privilege_clients_C,privilege_clients_R,
+////                privilege_equipment_C,privilege_equipment_R,
+////                privilege_admin_C,privilege_admin_R));
+//            roleRepository.save(roleUser);
 
             // USER
 
-            UserModel userAdmin = new UserModel("admin", passwordEncoder.encode("123"), "Józef", "Baryła");
-            UserModel userUser = new UserModel("user", passwordEncoder.encode("123"), "Jadwiga", "Kapusta");
-            UserModel userGuest = new UserModel("guest", passwordEncoder.encode("123"), "Stefan", "Burczymucha");
-            userAdmin.setUserRolesIds(List.of(roleAdmin.getId()));
-            userUser.setUserRolesIds(List.of(roleUser.getId()));
-            userGuest.setUserRolesIds(List.of(roleGuest.getId()));
+            Contact contact1 = new Contact("a@aaa.com", "123 456 789");
+            Contact c2 = new Contact("b@bbb.com", "111 222 333");
+            Contact c3 = new Contact("c@ccc.com", "444 555 666");
+            Contact c4 = new Contact("d@ddd.com", "666 666 666");
+            Contact c5 = new Contact("e@eee.com", "777 888 999");
+            Contact c6 = new Contact("f@fff.com", "987 654 321");
+            Contact c7 = new Contact("g@ggg.com", "000 111 000");
 
-            userRepository.save(userAdmin);
-            userRepository.save(userUser);
-            userRepository.save(userGuest);
+            contactService.addContact(contact1);
+            contactService.addContact(c2);
+            contactService.addContact(c3);
+            contactService.addContact(c4);
+            contactService.addContact(c5);
+            contactService.addContact(c6);
+            contactService.addContact(c7);
+
+
+//            UserModel userAdmin = new UserModel("admin", "123", "Józef", "Baryła");
+//            UserModel userUser = new UserModel("user", "123", "Jadwiga", "Kapusta");
+//            UserModel userGuest = new UserModel("guest", "123", "Stefan", "Burczymucha");
+//            userAdmin.setUserRolesIds(List.of(roleAdmin.getId()));
+//            userUser.setUserRolesIds(List.of(roleUser.getId()));
+//            userGuest.setUserRolesIds(List.of(roleGuest.getId()));
+
+//            userRepository.save(userAdmin);
+//            userRepository.save(userUser);
+//            userRepository.save(userGuest);
 
 
             // WERSJA Z TWORZENIEM USERA I ROLE PRZEZ SERVICE
 
-            User stefan = new User("hirek", "123", "Hieronim","Trąbka");
+            Role roleAdmin = new Role("ADMIN");
+            roleService.addRole(roleAdmin);
+            Role roleGuest = new Role("GUEST");
+            roleService.addRole(roleGuest);
+            Role roleUser = new Role("USER");
+            roleService.addRole(roleUser);
             Role cleaner = new Role("CLEANER");
-            Role postman = new Role("POSTMAN");
             roleService.addRole(cleaner);
+            Role postman = new Role("POSTMAN");
             roleService.addRole(postman);
 
-            stefan.setUserRoles(List.of(cleaner, postman));
-            userService.addUser(stefan);
+            User userAdmin = new User("admin", "123", "Józef", "Baryła");
+            User userUser = new User("user", "123", "Jadwiga", "Kapusta");
+            User userGuest = new User("guest", "123", "Stefan", "Burczymucha");
+            User hirek = new User("hirek", "123", "Hieronim","Trąbka", contact1, null);
+
+            userAdmin.setUserRoles(List.of(roleAdmin, roleUser, roleGuest, postman, cleaner));
+            userUser.setUserRoles(List.of(roleUser));
+            userGuest.setUserRoles(List.of(roleGuest));
+            hirek.setUserRoles(List.of(cleaner, postman));
+
+            userService.addUser(userAdmin);
+            userService.addUser(userUser);
+            userService.addUser(userGuest);
+            userService.addUser(hirek);
 
             // EQUIPMENT //////////////////////////////////////////////////////////
             // EQUIPMENT CATEGORY
@@ -294,8 +331,11 @@ public class FakeDataInflator {
             languageService.addLanguage(croatian);
             languageService.addLanguage(korean);
 
-            // CLIENTS //////////////////////////////////////////////////////////
-            // TYPES
+            // USERS //////////////////////////////////////////////////////////
+            // CONTACT
+
+
+
 
 
 

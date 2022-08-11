@@ -40,6 +40,16 @@ public class User {
         this.userRoles = userRoles;
     }
 
+    public User(UUID id, String login, String password, String firstName, String lastName, Contact contact, List<Role> userRoles) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.contact = contact;
+        this.userRoles = userRoles;
+    }
+
     public UUID getId() {
         return id;
     }

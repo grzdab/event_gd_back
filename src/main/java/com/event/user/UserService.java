@@ -119,12 +119,14 @@ public class UserService implements UserDetailsService {
         Contact contact = new Contact();
         List<Role> userRoles = getUserRoles(userModel.getUserRolesIds());
         User user = new User(
+            userModel.getUserModelId(),
             userModel.getLogin(),
             userModel.getPassword(),
             userModel.getFirstName(),
             userModel.getLastName(),
             contact,
             userRoles);
+
         return user;
     }
 
