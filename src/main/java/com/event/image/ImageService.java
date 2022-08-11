@@ -22,6 +22,7 @@ public class ImageService {
     }
 
     public String deleteImage(String path) {
+        // TODO use enum for results
         try {
             File fileToDelete = new File(path);
             if (fileToDelete.delete()) {

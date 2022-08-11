@@ -1,7 +1,5 @@
 package com.event.user;
 
-import com.event.appRole.AppRole;
-import com.event.client.dao.ClientRepository;
 import com.event.contact.Contact;
 import com.event.role.Role;
 

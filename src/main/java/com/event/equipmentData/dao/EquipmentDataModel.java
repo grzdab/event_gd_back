@@ -1,5 +1,7 @@
 package com.event.equipmentData.dao;
 
+import com.event.equipmentData.EquipmentData;
+
 import javax.persistence.*;
 
 @Entity
@@ -42,17 +44,18 @@ public class EquipmentDataModel {
     public EquipmentDataModel() {
     }
 
-    public EquipmentDataModel(int equipmentId, int width, int length, int height, int weight, int powerRequired, int staffNeeded, int minimumAge, int maxParticipants) {
-        this.equipmentId = equipmentId;
-        this.width = width;
-        this.length = length;
-        this.height = height;
-        this.weight = weight;
-        this.powerRequired = powerRequired;
-        this.staffNeeded = staffNeeded;
-        this.minimumAge = minimumAge;
-        this.maxParticipants = maxParticipants;
+    public EquipmentDataModel(EquipmentData equipmentData) {
+        this.equipmentId = equipmentData.getEquipmentId();
+        this.width = equipmentData.getWidth();
+        this.length = equipmentData.getLength();
+        this.height = equipmentData.getHeight();
+        this.weight = equipmentData.getWeight();
+        this.powerRequired = equipmentData.getPowerRequired();
+        this.staffNeeded = equipmentData.getStaffNeeded();
+        this.minimumAge = equipmentData.getMinimumAge();
+        this.maxParticipants = equipmentData.getMaxParticipants();
     }
+
 
     public int getEquipmentId() {
         return equipmentId;

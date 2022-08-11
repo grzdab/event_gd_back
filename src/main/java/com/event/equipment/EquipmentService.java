@@ -9,6 +9,7 @@ import com.event.equipmentBookingStatus.EquipmentBookingStatusService;
 import com.event.equipmentBookingStatus.dao.EquipmentBookingStatusRepository;
 import com.event.equipmentCategory.EquipmentCategory;
 import com.event.equipmentCategory.EquipmentCategoryService;
+import com.event.equipmentCategory.dao.EquipmentCategoryModel;
 import com.event.equipmentCategory.dao.EquipmentCategoryRepository;
 import com.event.equipmentData.EquipmentDataService;
 import com.event.equipmentData.dao.EquipmentDataRepository;
@@ -23,8 +24,10 @@ import com.event.equipmentStatus.dao.EquipmentStatusRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EquipmentService {
@@ -73,10 +76,6 @@ public class EquipmentService {
 
 
     public Equipment addEquipment(Equipment equipment) {
-//        EquipmentData equipmentData = null;
-//        if (equipment.getEquipmentData().getEquipmentId() != 0) {
-//            equipmentData = equipmentDataService.addEquipmentData(equipment.getEquipmentData());
-//        }
         List<Integer> periodIds = equipmentBookingPeriodsService.createListOfPeriodsIds(equipment);
         EquipmentModel equipmentModel = new EquipmentModel(
             equipment.getId(),
@@ -147,7 +146,6 @@ public class EquipmentService {
     private Equipment createEquipment(EquipmentModel equipmentModel) {
         //TODO finish booking periods as we already agree
         EquipmentCategory equipmentCategory = equipmentCategoryService.getEquipmentCategoryById(equipmentModel.getEquipmentCategoryId());
-//        EquipmentData equipmentData = equipmentDataService.getEquipmentData(String.valueOf(equipmentModel.getEquipmentDataId()));
         List<String> equipmentPhotos = StringToList(equipmentModel.getPhotos());
         List<EquipmentBookingPeriods> periods = equipmentBookingPeriodsService.getEquipmentBookingPeriods(equipmentModel);
         EquipmentStatus status = equipmentStatusService.getEquipmentStatusById(equipmentModel.getEquipmentStatusId());
@@ -159,7 +157,6 @@ public class EquipmentService {
             equipmentModel.getName(),
             equipmentCategory,
             equipmentModel.getNotes(),
-//            equipmentData,
             equipmentPhotos,
             status,
             equipmentBookingStatus,
@@ -178,32 +175,31 @@ public class EquipmentService {
     }
 
     public List<Equipment> getEquipmentByCategoryId(int id) {
-        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentCategoryId(id);
+        List<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentCategoryId(id);
         return getEquipmentByItemId(equipmentModels);
     }
 
 
     public List<Equipment> getEquipmentByStatusId(int id) {
-        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentStatusId(id);
+        List<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentStatusId(id);
         return getEquipmentByItemId(equipmentModels);
     }
 
     public List<Equipment> getEquipmentByOwnershipId(int id) {
-        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentOwnershipId(id);
+        List<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentOwnershipId(id);
         return getEquipmentByItemId(equipmentModels);
     }
 
     public List<Equipment> getEquipmentByBookingStatusId(int id) {
-        Iterable<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentBookingStatusId(id);
+        List<EquipmentModel> equipmentModels = equipmentRepository.findAllByEquipmentBookingStatusId(id);
         return getEquipmentByItemId(equipmentModels);
     }
 
-    private List<Equipment> getEquipmentByItemId(Iterable<EquipmentModel> equipmentModels) {
-        List<Equipment> equipment = new ArrayList<>();
-        for (EquipmentModel model : equipmentModels) {
-            equipment.add(createEquipment(model));
-        }
-        return equipment;
+    private List<Equipment> getEquipmentByItemId(List<EquipmentModel> equipmentModels) {
+        return equipmentModels
+            .stream()
+            .map(model -> createEquipment(model))
+            .collect(Collectors.toList());
     }
 
     private List<String> StringToList(String string) {

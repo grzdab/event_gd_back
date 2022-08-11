@@ -27,6 +27,8 @@ public record EquipmentOwnershipService(EquipmentOwnershipRepository repository)
 
 
     public EquipmentOwnership getEquipmentOwnershipById(int id) {
+        // TODO use Optional
+
         if (id == 0) return null;
         EquipmentOwnershipModel model = repository.getById(id);
         return createEquipmentOwnership(model);

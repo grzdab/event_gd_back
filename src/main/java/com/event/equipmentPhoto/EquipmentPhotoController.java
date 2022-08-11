@@ -26,6 +26,6 @@ public class EquipmentPhotoController {
     @GetMapping("/equipment-photo-by-equipment")
     List<EquipmentPhoto> getPhotoByEquipment(EquipmentModel equipmentModel) {
 //        return service.createListOfEquipmentPhoto(equipmentModel);
-        return null;
+        return List.of();
     }
 }

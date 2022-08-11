@@ -17,16 +17,7 @@ public record EquipmentDataService (EquipmentDataRepository equipmentDataReposit
 
 
     public EquipmentData addEquipmentData(EquipmentData equipmentData) {
-        EquipmentDataModel equipmentDataModel = new EquipmentDataModel(
-            equipmentData.getEquipmentId(),
-            equipmentData.getWidth(),
-            equipmentData.getLength(),
-            equipmentData.getHeight(),
-            equipmentData.getWeight(),
-            equipmentData.getPowerRequired(),
-            equipmentData.getStaffNeeded(),
-            equipmentData.getMinimumAge(),
-            equipmentData.getMaxParticipants());
+        EquipmentDataModel equipmentDataModel = new EquipmentDataModel(equipmentData);
         equipmentDataRepository.save(equipmentDataModel);
         equipmentData.setId(equipmentDataModel.getId());
         return equipmentData;

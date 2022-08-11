@@ -49,12 +49,14 @@ public record EquipmentBookingStatusService(EquipmentBookingStatusRepository rep
     }
 
     private EquipmentBookingStatusModel createEquipmentBookingStatusModel(EquipmentModel model) {
+        // TODO Change to optional
         EquipmentBookingStatusModel bookingStatusModel;
         Integer bookingStatusId = model.getEquipmentBookingStatusId();
         if (bookingStatusId == 0) return null;
         bookingStatusModel = repository.findById(bookingStatusId).orElseThrow();
         return bookingStatusModel;
     }
+
 
     private EquipmentBookingStatus createBookingStatus(EquipmentBookingStatusModel bookingStatusModel) {
         EquipmentBookingStatus bookingStatus;

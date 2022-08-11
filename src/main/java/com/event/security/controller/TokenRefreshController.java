@@ -47,6 +47,8 @@ public class TokenRefreshController {
         }
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+
+            // TODO move to another place, dry
             try {
                 String refreshToken = authorizationHeader.replace("Bearer ", "");
                 if (refreshToken.equals("undefined")) refreshToken = refreshTokenCookie;
