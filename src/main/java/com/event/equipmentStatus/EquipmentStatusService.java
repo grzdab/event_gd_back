@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public record EquipmentStatusService(EquipmentStatusRepository repository) {
-
+public class EquipmentStatusService {
+private EquipmentStatusRepository repository;
     @Autowired
     public EquipmentStatusService(EquipmentStatusRepository repository) {
         this.repository = repository;
