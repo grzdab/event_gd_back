@@ -6,18 +6,18 @@ import java.util.*;
 
 public class Role {
 
-    private int roleId;
+    private int id;
     private String name;
 //    private List<Privilege> privilegesList;
 
     public Role() {
     }
 
-//    public Role(int id, String name) {
-//        this.roleId = id;
-//        this.name = name;
+    public Role(int id, String name) {
+        this.id = id;
+        this.name = name;
 //        this.privilegesList = new ArrayList<>();
-//    }
+    }
 
     public Role(String name) {
         this.name = name;
@@ -29,12 +29,13 @@ public class Role {
 //        this.privilegesList = privilegesList;
 //    }
 
-    public int getRoleId() {
-        return roleId;
+
+    public int getId() {
+        return id;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

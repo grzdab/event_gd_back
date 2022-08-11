@@ -38,8 +38,7 @@ public class EquipmentModel {
     private int equipmentCategoryId;
 
     @Column
-    @ElementCollection(targetClass = Integer.class)
-    private List<Integer> equipmentPhotoId;
+    private String photos;
 
     @Column(columnDefinition = "int default 0")
     private int equipmentStatusId;

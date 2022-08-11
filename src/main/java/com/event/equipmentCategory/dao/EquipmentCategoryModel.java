@@ -22,7 +22,7 @@ public class EquipmentCategoryModel {
     private String name;
 
     @Column(columnDefinition = "int default 0")
-    private int SortingGroup;
+    private int sortingGroup;
 
     @Column(columnDefinition = "varchar default 'unnamed'")
     private String description;
@@ -32,7 +32,7 @@ public class EquipmentCategoryModel {
 
     public EquipmentCategoryModel(int id, String name, int sortingGroup, String description) {
         this.id = id;
-        this.SortingGroup = sortingGroup;
+        this.sortingGroup = sortingGroup;
         this.name = name;
         this.description = description;
     }

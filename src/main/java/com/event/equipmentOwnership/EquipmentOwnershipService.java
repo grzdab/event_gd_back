@@ -21,26 +21,29 @@ public record EquipmentOwnershipService(EquipmentOwnershipRepository repository)
         Collection<EquipmentOwnershipModel> models = repository.findAll();
         return models
             .stream()
-            .map(model -> new EquipmentOwnership(model.getId(), model.getName()))
+            .map(model -> new EquipmentOwnership(model.getId(), model.getName(), model.getDescription()))
             .collect(Collectors.toList());
     }
 
 
     public EquipmentOwnership getEquipmentOwnershipById(int id) {
+        // TODO use Optional
+
         if (id == 0) return null;
         EquipmentOwnershipModel model = repository.getById(id);
         return createEquipmentOwnership(model);
     }
 
     public EquipmentOwnership createEquipmentOwnership(EquipmentOwnershipModel model) {
-        return new EquipmentOwnership(model.getId(), model.getName());
+        return new EquipmentOwnership(model.getId(), model.getName(), model.getDescription());
     }
 
 
     public EquipmentOwnership addEquipmentOwnership(EquipmentOwnership equipmentOwnership) {
         if (getEquipmentOwnershipByName(equipmentOwnership.getName()) == null) {
             EquipmentOwnershipModel model = new EquipmentOwnershipModel(
-                equipmentOwnership.getName());
+                equipmentOwnership.getName(),
+                equipmentOwnership.getDescription());
             repository.save(model);
             equipmentOwnership.setId(model.getId());
             return equipmentOwnership;
@@ -51,7 +54,7 @@ public record EquipmentOwnershipService(EquipmentOwnershipRepository repository)
     private EquipmentOwnership getEquipmentOwnershipByName(String name) {
         EquipmentOwnershipModel model = repository.findByName(name);
         if (model != null) {
-            return new EquipmentOwnership(model.getId(), model.getName());
+            return new EquipmentOwnership(model.getId(), model.getName(), model.getDescription());
         }
         return null;
     }
@@ -59,8 +62,9 @@ public record EquipmentOwnershipService(EquipmentOwnershipRepository repository)
     public EquipmentOwnership updateEquipmentOwnership(int id, EquipmentOwnership equipmentOwnership) {
         EquipmentOwnershipModel model = repository.findById(id).orElseThrow(() -> new IllegalStateException("Could not find equipment ownership type with specified ID"));
         model.setName(equipmentOwnership.getName());
+        model.setDescription(equipmentOwnership.getDescription());
         repository.save(model);
-        return equipmentOwnership;
+        return createEquipmentOwnership(model);
     }
 
     public String deleteEquipmentOwnership(int id) {

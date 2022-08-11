@@ -15,13 +15,18 @@ public class EquipmentBookingStatusModel {
     private String name;
 
     @Column(columnDefinition = "varchar default 'unnamed'")
+    private String description;
+
+    @Column(columnDefinition = "varchar default 'unnamed'")
     private String color;
 
-    public EquipmentBookingStatusModel(Integer id, String name, String color) {
+    public EquipmentBookingStatusModel(Integer id, String name, String description, String color) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.color = color;
     }
+
 
     public EquipmentBookingStatusModel() {
     }
@@ -48,5 +53,13 @@ public class EquipmentBookingStatusModel {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

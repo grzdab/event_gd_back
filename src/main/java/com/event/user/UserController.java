@@ -1,7 +1,7 @@
 package com.event.user;
 
 
-import com.sun.xml.bind.v2.TODO;
+import com.event.equipment.Equipment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -45,13 +45,16 @@ public class UserController {
         return service.getAllUsers();
     }
 
+    @GetMapping("/user-compact")
+    public List<MiniUser> getAllUsersCompact() {
+        return service.getAllUsersCompact();
+    }
+
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers() {
-        String x = "x";
         List<User> users=service.getAllUsers();
         return ResponseEntity.ok().body(service.getAllUsers());
     }
-
 
     @DeleteMapping("/user/{userId}")
     public String deleteUser(@PathVariable UUID userId) {
@@ -59,4 +62,8 @@ public class UserController {
     }
 
 
+    @GetMapping("/user/role/{id}")
+    List<MiniUser> getUsersByRoles(@PathVariable int id) {
+        return service.getUsersByRoleId(id);
+    }
 }

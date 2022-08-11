@@ -190,7 +190,7 @@ public class ClientService {
     }
 
     public List<Client> getAllClientsForClientType(int clientTypeId) {
-        Iterable<ClientModel> clientModels = clientRepository.findAllByClientType(clientTypeId);
+        Iterable<ClientModel> clientModels = clientRepository.findAllByClientTypeId(clientTypeId);
         List<Client> clients = new ArrayList<>();
         for (ClientModel model: clientModels) {
             clients.add(createClient(model));

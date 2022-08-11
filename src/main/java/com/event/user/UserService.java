@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
         );
         List<Integer> userRoles = new ArrayList<>();
         for (Role r : user.getUserRoles()) {
-            userRoles.add(r.getRoleId());
+            userRoles.add(r.getId());
         }
 
         model.setUserRolesIds(userRoles);
@@ -106,18 +106,41 @@ public class UserService implements UserDetailsService {
         return users;
     }
 
+    public List<MiniUser> getAllUsersCompact(){
+        List<MiniUser> users = new ArrayList<>();
+        Iterable<UserModel> userModels = userRepository.findAll();
+        for (UserModel model: userModels){
+            users.add(createUserCompacted(model));
+        }
+        return users;
+    }
+
     private User createUser(UserModel userModel){
         Contact contact = new Contact();
         List<Role> userRoles = getUserRoles(userModel.getUserRolesIds());
         User user = new User(
+            userModel.getUserModelId(),
             userModel.getLogin(),
             userModel.getPassword(),
             userModel.getFirstName(),
             userModel.getLastName(),
             contact,
             userRoles);
+
         return user;
     }
+
+    private MiniUser createUserCompacted(UserModel userModel){
+        List<Role> userRoles = getUserRoles(userModel.getUserRolesIds());
+        MiniUser user = new MiniUser(
+            userModel.getUserModelId().toString(),
+            userModel.getLogin(),
+            userModel.getFirstName(),
+            userModel.getLastName(),
+            userRoles);
+        return user;
+    }
+
 
     private List<Role> getUserRoles(List<Integer> userRolesIds) {
         List<Role> userRoles = new ArrayList<>();
@@ -126,4 +149,19 @@ public class UserService implements UserDetailsService {
         }
         return userRoles;
     }
+
+    public List<MiniUser> getUsersByRoleId(int id) {
+        Iterable<UserModel> userModels = userRepository.findAllByUserRolesIds(id);
+        return getUsersByItemId(userModels);
+    }
+
+    private List<MiniUser> getUsersByItemId(Iterable<UserModel> userModels) {
+        List<MiniUser> users = new ArrayList<>();
+        for (UserModel model : userModels) {
+            users.add(createUserCompacted(model));
+        }
+        return users;
+    }
+
+
 }

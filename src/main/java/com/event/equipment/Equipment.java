@@ -23,13 +23,13 @@ public class Equipment {
     private String name;
     private EquipmentCategory equipmentCategory;
     private String notes;
-//    private EquipmentData equipmentData;
-    private List<EquipmentPhoto> photos;
+    private List<String> photos;
     private EquipmentStatus equipmentStatus;
     private EquipmentBookingStatus bookingStatus;
     private EquipmentOwnership equipmentOwnership;
     private List<EquipmentBookingPeriods> equipmentBookingPeriods;
     private boolean inUse;
+    // we may decide to move below fields to separate class/table as it were at the beginning
     private int width;
     private int length;
     private int height;

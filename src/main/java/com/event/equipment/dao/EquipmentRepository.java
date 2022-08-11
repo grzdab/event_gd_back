@@ -12,6 +12,7 @@ public interface EquipmentRepository extends CrudRepository<EquipmentModel, Inte
     List<EquipmentModel> findAllByEquipmentCategoryId(int id);
     List<EquipmentModel> findAllByEquipmentStatusId(int id);
     List<EquipmentModel> findAllByEquipmentOwnershipId(int id);
+    List<EquipmentModel> findAllByEquipmentBookingStatusId(int id);
 
 
 

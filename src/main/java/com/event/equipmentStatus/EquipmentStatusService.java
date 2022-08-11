@@ -61,7 +61,7 @@ public record EquipmentStatusService(EquipmentStatusRepository repository) {
         EquipmentStatusModel model = repository.findById(id).orElseThrow(() -> new IllegalStateException("Could not find equipment status with specified ID"));
         model.setName(equipmentStatus.getName());
         repository.save(model);
-        return equipmentStatus;
+        return createEquipmentStatus(model);
     }
 
     public String deleteEquipmentStatus(int id) {

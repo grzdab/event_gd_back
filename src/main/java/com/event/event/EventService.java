@@ -89,7 +89,7 @@ public class EventService {
 
     private Event createEvent(EventModel eventModel){
         User user = userService.getUser(UUID.fromString(eventModel.getUserId()));
-        MiniUser miniUser = new MiniUser(user.getId().toString(), user.getFirstName(), user.getLastName(), user.getContact());
+        MiniUser miniUser = new MiniUser(user.getId().toString(), user.getLogin(), user.getFirstName(), user.getLastName(), user.getUserRoles());
         Representative representative = representativeService.getRepresentative(eventModel.getRepresentativeId());
         EventStatus eventStatus = eventStatusService.getEventStatus(eventModel.getEventStatusId());
         List<Equipment> equipments = loadEquipments(eventModel.getEquipments());

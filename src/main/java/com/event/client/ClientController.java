@@ -7,6 +7,7 @@ import java.util.List;
 
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 public class ClientController {
 
     private final ClientService service;
@@ -40,6 +41,8 @@ public class ClientController {
     public String deleteClient(@PathVariable String clientId) {
         return service.deleteClient(clientId);
     }
+
+
 
     @PutMapping("/client/{clientId}/business-branch/{businessBranchId}/add")
     public void addBusinessBranchToClient(@PathVariable String clientId, @PathVariable Integer businessBranchId) {

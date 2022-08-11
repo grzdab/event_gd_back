@@ -35,12 +35,12 @@ public record EquipmentPhotoService (EquipmentPhotoRepository equipmentPhotoRepo
         return photoIds;
     }
 
-    public List<EquipmentPhoto> createListOfEquipmentPhoto(EquipmentModel model) {
-        List<Integer> photoId = model.getEquipmentPhotoId();
-        List<EquipmentPhoto> photos = new ArrayList<>();
-        for (Integer id : photoId) {
-            photos.add(getEquipmentPhoto(id));
-        }
-        return photos;
-    }
+//    public List<EquipmentPhoto> createListOfEquipmentPhoto(EquipmentModel model) {
+//        List<Integer> photoId = model.getEquipmentPhotoId();
+//        List<EquipmentPhoto> photos = new ArrayList<>();
+//        for (Integer id : photoId) {
+//            photos.add(getEquipmentPhoto(id));
+//        }
+//        return photos;
+//    }
 }

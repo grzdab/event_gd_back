@@ -43,7 +43,6 @@ public class ApplicationUserDaoService implements ApplicationUserDAO {
             user.getPassword(),
             getGrantedAuthorities(user),
             true, true, true, true));
-        int x = 1;
         return appUser;
     }
 
