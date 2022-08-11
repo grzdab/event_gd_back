@@ -63,4 +63,24 @@ public class ClientController {
     public void deleteBusinessCategoryFromClient(@PathVariable String clientId, @PathVariable Integer businessCategoryId) {
         service.deleteBusinessCategoryFromClient(clientId, businessCategoryId);
     }
+
+    @GetMapping("/client/business-branch/{businessBranchId}")
+    public List<Client> getAllClientsForBusinessBranch(@PathVariable int businessBranchId) {
+        return service.getAllClientsForBusinessBranch(businessBranchId);
+    }
+
+    @GetMapping("/client/business-category/{businessCategoryId}")
+    public List<Client> getAllClientsForBusinessCategory(@PathVariable int businessCategoryId) {
+        return service.getAllClientsForBusinessCategory(businessCategoryId);
+    }
+
+    @GetMapping("/client/tax-info/{taxInfoId}")
+    public List<Client> getAllClientsForTaxInfo(@PathVariable int taxInfoId) {
+        return service.getAllClientsForTaxInfo(taxInfoId);
+    }
+
+    @GetMapping("/client/client-type/{clientTypeId}")
+    public List<Client> getAllClientsForClientType(@PathVariable int clientTypeId) {
+        return service.getAllClientsForClientType(clientTypeId);
+    }
 }

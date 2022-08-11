@@ -2,6 +2,7 @@ package com.event.businessCategory.dao;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotEmpty;
 import java.util.Objects;
@@ -9,13 +10,13 @@ import java.util.Objects;
 @Entity
 public class BusinessCategoryModel {
 
-    private Integer id;
+    private int id;
     private String name;
 
     public BusinessCategoryModel() {
     }
 
-    public BusinessCategoryModel(Integer id, String name) {
+    public BusinessCategoryModel(int id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -24,13 +25,13 @@ public class BusinessCategoryModel {
         this.name = name;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Id
-    @GeneratedValue
-    public Integer getId() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public int getId() {
         return id;
     }
 

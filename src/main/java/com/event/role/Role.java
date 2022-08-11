@@ -1,5 +1,9 @@
 package com.event.role;
 
+import com.event.privilege.Privilege;
+
+import java.util.*;
+
 public class Role {
 
     private int id;
@@ -24,6 +28,7 @@ public class Role {
 //        this.name = name;
 //        this.privilegesList = privilegesList;
 //    }
+
 
     public int getId() {
         return id;

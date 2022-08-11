@@ -27,6 +27,7 @@ public class EquipmentBookingStatusModel {
         this.color = color;
     }
 
+
     public EquipmentBookingStatusModel() {
     }
 

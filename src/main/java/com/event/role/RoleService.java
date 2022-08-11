@@ -21,7 +21,7 @@ public class RoleService {
     public Role addRole(Role role) {
         RoleModel model = new RoleModel(role.getName());
         appRoleRepository.save(model);
-        role.setId(model.getId());
+        role.setRoleId(model.getRoleModelId());
         return role;
     }
 
@@ -52,6 +52,6 @@ public class RoleService {
     }
 
     private Role createRole(RoleModel roleModel){
-        return new Role(roleModel.getId(), roleModel.getName());
+        return new Role(roleModel.getName());
     }
 }

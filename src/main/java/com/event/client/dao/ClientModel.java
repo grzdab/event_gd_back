@@ -12,21 +12,28 @@ import java.util.UUID;
 @Table(name = "client") //nazwa tabeli
 public class ClientModel {
 
+    @Column
     private UUID id; //w klasie modelu musi znajowac sie pole o nazwie id
     @Column(nullable = false, length = 200) //wartosc nie moze byc nullem, max 200 znakow
     private String fullName;
     @Column(nullable = false, length = 100) //wartosc nie moze byc nullem, max 100 znakow
     private String shortName;
+    @Column
     private int contactId;
     @Column(nullable = false)
     @ColumnDefault("true") // wartosc domyslna
     private boolean isActive;
+    @Column
     private int clientTypeId;
+    @Column
     private String notes;
+    @Column
     private int taxInfoId;
     @Column(nullable = false)
     private String appUserId;
+    @Column
     private List<Integer> businessBranchesIds;
+    @Column
     private List<Integer> businessCategoriesIds;
 
     public ClientModel() {

@@ -9,7 +9,7 @@ import javax.persistence.Table;
 @Table(name = "representative") //nazwa tabeli
 public class RepresentativeModel {
 
-    private Integer id;
+    private int id;
     private String firstName;
     private String lastName;
     private int contactId;
@@ -35,7 +35,7 @@ public class RepresentativeModel {
 
     @Id
     @GeneratedValue
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 

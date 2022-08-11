@@ -18,6 +18,7 @@ import com.event.representative.RepresentativeService;
 import com.event.taxInfo.TaxInfo;
 import com.event.taxInfo.TaxInfoService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +70,7 @@ public class ClientService {
         return newClient;
     }
 
+    @Transactional
     public Client getClient(String clientId) {
         ClientModel clientModel = clientRepository.findById(UUID.fromString(clientId)).get();
         return createClient(clientModel);
@@ -127,18 +129,21 @@ public class ClientService {
         return businessCategories;
     }
 
+    @Transactional
     public void addBusinessCategoryToClient(String clientId, Integer businessCategoryId){
         ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
         clientFromDB.getBusinessCategoriesId().add(businessCategoryId);
         clientRepository.save(clientFromDB);
     }
 
+    @Transactional
     public void deleteBusinessCategoryFromClient(String clientId, Integer businessCategoryId){
         ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
         clientFromDB.getBusinessCategoriesId().remove(businessCategoryId);
         clientRepository.save(clientFromDB);
     }
 
+    @Transactional
     public void addBusinessBranchToClient(String clientId, Integer businessBranchId){
         ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
         clientFromDB.getBusinessBranchesId().add(businessBranchId);
@@ -146,10 +151,50 @@ public class ClientService {
 
     }
 
+    @Transactional
     public void deleteBusinessBranchFromClient(String clientId, Integer businessBranchId){
         ClientModel clientFromDB = clientRepository.findById(UUID.fromString(clientId)).get();
         clientFromDB.getBusinessBranchesId().remove(businessBranchId);
         clientRepository.save(clientFromDB);
     }
 
+    public List<Client> getAllClientsForBusinessBranch(int businessBranchId) {
+        Iterable<ClientModel> clientModels = clientRepository.findAll();
+        List<Client> clients = new ArrayList<>();
+        for (ClientModel model: clientModels){
+            if (model.getBusinessBranchesId().contains(businessBranchId)){
+                clients.add(createClient(model));
+            }
+        }
+        return clients;
+    }
+
+    public List<Client> getAllClientsForBusinessCategory(int businessCategoryId) {
+        Iterable<ClientModel> clientModels = clientRepository.findAll();
+        List<Client> clients = new ArrayList<>();
+        for (ClientModel model: clientModels){
+            if (model.getBusinessCategoriesId().contains(businessCategoryId)){
+                clients.add(createClient(model));
+            }
+        }
+        return clients;
+    }
+
+    public List<Client> getAllClientsForTaxInfo(int taxInfoId) {
+        Iterable<ClientModel> clientModels = clientRepository.findAllByTaxInfo(taxInfoId);
+        List<Client> clients = new ArrayList<>();
+        for (ClientModel model: clientModels) {
+            clients.add(createClient(model));
+        }
+        return clients;
+    }
+
+    public List<Client> getAllClientsForClientType(int clientTypeId) {
+        Iterable<ClientModel> clientModels = clientRepository.findAllByClientType(clientTypeId);
+        List<Client> clients = new ArrayList<>();
+        for (ClientModel model: clientModels) {
+            clients.add(createClient(model));
+        }
+        return clients;
+    }
 }

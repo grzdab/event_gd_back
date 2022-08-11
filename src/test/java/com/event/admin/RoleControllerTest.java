@@ -1,14 +1,19 @@
 package com.event.admin;
 
+import com.event.TestConfig;
 import com.event.role.Role;
 import com.event.role.RoleController;
 import com.event.role.RoleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -21,11 +26,13 @@ import java.util.List;
 
 import static org.mockito.Mockito.when;
 
+@Import({TestConfig.class})
+@ExtendWith(SpringExtension.class)
+@AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(RoleController.class)
 public class RoleControllerTest {
     @Autowired
     private MockMvc mvc;
-
     @Autowired
     ObjectMapper mapper;
 
@@ -53,7 +60,7 @@ public class RoleControllerTest {
     @Test
     public void createPOSTRoleAPI_success() throws Exception {
         Role model = new Role();
-        model.setId(4);
+        model.setRoleId(4);
         model.setName("mikolaj");
         service.addRole(model);
 
@@ -75,7 +82,7 @@ public class RoleControllerTest {
         model.setName("michal");
         service.updateRole(2, model);
 
-        when(service.updateRole(model.getId(), model)).thenReturn(model);
+        when(service.updateRole(model.getRoleId(), model)).thenReturn(model);
 
         MockHttpServletRequestBuilder mockRequest = MockMvcRequestBuilders.post("/admin/role")
                 .contentType(MediaType.APPLICATION_JSON)

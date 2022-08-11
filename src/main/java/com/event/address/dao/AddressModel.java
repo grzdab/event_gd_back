@@ -1,14 +1,12 @@
 package com.event.address.dao;
 
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class AddressModel {
-    private Integer id;
+    @Column
+    private int id;
     @Column(length = 100) //wartosc nie moze byc nullem, max 100 znakow
     private String street;
     @Column(length = 10)
@@ -25,7 +23,7 @@ public class AddressModel {
     public AddressModel() {
     }
 
-    public AddressModel(Integer id, String street, String streetNumber, String postalCode, String city,
+    public AddressModel(int id, String street, String streetNumber, String postalCode, String city,
                         int countryId, boolean isPrimaryAddress, String clientId) {
         this.id = id;
         this.street = street;
@@ -39,11 +37,11 @@ public class AddressModel {
 
     @Id
     @GeneratedValue
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
