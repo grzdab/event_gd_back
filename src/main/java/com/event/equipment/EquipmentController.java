@@ -18,12 +18,12 @@ public class EquipmentController {
         return service.getEquipmentById(id);
     }
 
-    @GetMapping()
+    @GetMapping
     List<Equipment> getAllEquipment() {
         return service.getAllEquipment();
     }
 
-    @PostMapping()
+    @PostMapping
     Equipment addEquipment(@RequestBody Equipment equipment) {
         return service.addEquipment(equipment);
     }

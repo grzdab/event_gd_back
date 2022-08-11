@@ -209,6 +209,7 @@ public class EquipmentService {
     }
 
     private String ListToString(List<String> list) {
+        if (list.size() == 0) return "";
         StringBuilder sb = new StringBuilder();
         for (String s : list) {
             sb.append(s);
