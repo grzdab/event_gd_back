@@ -19,7 +19,7 @@ public class ClientTypeService {
     }
 
     public ClientType addClientType(ClientType clientType) {
-        ClientTypeModel model = new ClientTypeModel(clientType.getTypeName());
+        ClientTypeModel model = new ClientTypeModel(clientType.getName());
         clientTypeRepository.save(model);
         //opcional
         clientType.setId(model.getId());
@@ -38,7 +38,7 @@ public class ClientTypeService {
 
     public ClientType updateClientType(Integer clientTypeId, ClientType newClientType) {
         ClientTypeModel model = clientTypeRepository.findById(clientTypeId).get();
-        model.setTypeName(newClientType.getTypeName());
+        model.setTypeName(newClientType.getName());
         clientTypeRepository.save(model);
         return newClientType;
     }
