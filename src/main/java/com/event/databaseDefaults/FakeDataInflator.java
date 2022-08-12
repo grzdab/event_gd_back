@@ -212,9 +212,9 @@ public class FakeDataInflator {
             equipmentStatusService.addEquipmentStatus(equipmentStatus3);
 
             // EQUIPMENT BOOKING STATUS
-            EquipmentBookingStatus equipmentBookingStatus1 = new EquipmentBookingStatus(0, "available", "equipment is available for renting", "#53FAA5");
-            EquipmentBookingStatus equipmentBookingStatus2 = new EquipmentBookingStatus(0, "booked", "equipment is booked, but not confirmed", "#FAEA81");
-            EquipmentBookingStatus equipmentBookingStatus3 = new EquipmentBookingStatus(0, "rented", "equipment is rented, not available for renting at the moment","#FA483F");
+            EquipmentBookingStatus equipmentBookingStatus1 = new EquipmentBookingStatus(0, "available", "equipment is available for renting", "#53FAA5", true);
+            EquipmentBookingStatus equipmentBookingStatus2 = new EquipmentBookingStatus(0, "booked", "equipment is booked, but not confirmed", "#FAEA81", false);
+            EquipmentBookingStatus equipmentBookingStatus3 = new EquipmentBookingStatus(0, "rented", "equipment is rented, not available for renting at the moment","#FA483F", false);
 
             equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus1);
             equipmentBookingStatusService.addEquipmentBookingStatus(equipmentBookingStatus2);
