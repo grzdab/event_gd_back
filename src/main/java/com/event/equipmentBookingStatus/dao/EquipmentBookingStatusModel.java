@@ -20,11 +20,15 @@ public class EquipmentBookingStatusModel {
     @Column(columnDefinition = "varchar default 'unnamed'")
     private String color;
 
-    public EquipmentBookingStatusModel(Integer id, String name, String description, String color) {
+    @Column(columnDefinition = "boolean default true")
+    private boolean defaultSetting;
+
+    public EquipmentBookingStatusModel(Integer id, String name, String description, String color, boolean defaultSetting) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.color = color;
+        this.defaultSetting = defaultSetting;
     }
 
 
@@ -61,5 +65,13 @@ public class EquipmentBookingStatusModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean isDefaultSetting() {
+        return defaultSetting;
+    }
+
+    public void setDefaultSetting(boolean defaultSetting) {
+        this.defaultSetting = defaultSetting;
     }
 }
