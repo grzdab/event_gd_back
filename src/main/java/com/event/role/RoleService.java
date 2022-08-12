@@ -52,6 +52,6 @@ public class RoleService {
     }
 
     private Role createRole(RoleModel roleModel){
-        return new Role(roleModel.getName());
+        return new Role(roleModel.getId(), roleModel.getName());
     }
 }
