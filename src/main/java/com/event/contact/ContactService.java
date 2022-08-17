@@ -29,6 +29,9 @@ public class ContactService {
         ContactModel model = contactRepository.findById(contactId).get();
         return createContact(model);
     }
+
+
+
     public List<Contact> getAllContacts(){
         List<Contact> contacts = new ArrayList<>();
         Iterable<ContactModel> contactModels = contactRepository.findAll();
@@ -42,12 +45,14 @@ public class ContactService {
         contactRepository.deleteById(contactId);
         return "Delete";
     }
+
 //    public Contact updateContact(int contactId, Contact newContact){
 //        Contact myContact = contactRepository.findById(contactId).get();
 //        contactMapper.updateContactFromContact(newContact, Optional.of(myContact));
 //        contactRepository.save(myContact);
 //        return newContact;
 //    }
+
     public Contact updateContact(int contactId, Contact newContact){
         ContactModel model = contactRepository.findById(contactId).get();
         model.setEmail(newContact.getEmail());

@@ -2,6 +2,7 @@ package com.event.user;
 
 import com.event.contact.Contact;
 import com.event.role.Role;
+import com.event.user.dao.UserModel;
 
 import java.util.*;
 
@@ -18,6 +19,7 @@ public class User {
     public User() {
     }
 
+
     public User(String login) {
         this.login = login;
     }
@@ -28,6 +30,7 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
 
     public User(String login, String password, String firstName, String lastName, Contact contact, List<Role> userRoles) {
         this.login = login;

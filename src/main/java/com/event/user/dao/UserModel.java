@@ -49,6 +49,7 @@ public class UserModel {
         this.lastName = lastName;
         this.userRolesIds = userRoles;
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public UUID getUserModelId() {
