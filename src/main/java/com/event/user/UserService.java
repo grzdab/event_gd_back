@@ -1,5 +1,8 @@
 package com.event.user;
 
+import com.event.contact.ContactService;
+import com.event.contact.contactDao.ContactModel;
+import com.event.contact.contactDao.ContactRepository;
 import com.event.role.Role;
 import com.event.role.RoleService;
 import com.event.role.roleDao.RoleRepository;
@@ -13,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -21,15 +25,24 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final ContactRepository contactRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleService roleService;
+    private final ContactService contactService;
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, RoleService roleService) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, ContactRepository contactRepository, PasswordEncoder passwordEncoder, RoleService roleService, ContactService contactService) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.contactRepository = contactRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleService = roleService;
+        this.contactService = contactService;
+    }
+
+    public User getUser(UUID id) {
+        UserModel model = userRepository.findById(id).get();
+        return createUser(model);
     }
 
     public User addUser(User user) {
@@ -43,17 +56,44 @@ public class UserService implements UserDetailsService {
         for (Role r : user.getUserRoles()) {
             userRoles.add(r.getId());
         }
-
         model.setUserRolesIds(userRoles);
+
+        if (user.getContact() != null && user.getContact().getId() != -1) {
+            Contact contact = contactService.addContact(new Contact(user.getContact().getEmail(), user.getContact().getPhone()));
+            model.setContact(contactRepository.findById(contact.getId()).get());
+        }
+
         userRepository.save(model);
         user.setId(model.getUserModelId());
         return user;
     }
 
-    public User getUser(UUID id) {
-        UserModel model = userRepository.findById(id).get();
-        return createUser(model);
+    //póki co aktualizuje wszystko a nie tylko podmienione dane!
+    public User updateUser(UUID userId, User newUser) {
+        UserModel model = userRepository.findById(userId).get();
+        model.setLogin(newUser.getLogin());
+        model.setPassword(newUser.getPassword().equals(model.getPassword()) ?
+            newUser.getPassword() :
+            passwordEncoder.encode(newUser.getPassword()));
+        model.setFirstName(newUser.getFirstName());
+        model.setLastName(newUser.getLastName());
+        List<Integer> userRoles = new ArrayList<>();
+        for (Role r : newUser.getUserRoles()) {
+            userRoles.add(r.getId());
+        }
+        model.setUserRolesIds(userRoles);
+        if (newUser.getContact().getId() == 0) {
+            Contact contact = contactService.addContact(new Contact(newUser.getContact().getEmail(), newUser.getContact().getPhone()));
+            model.setContact(contactRepository.findById(contact.getId()).get());
+        } else {
+            contactService.updateContact(newUser.getContact().getId(), newUser.getContact());
+        }
+        userRepository.save(model);
+        return newUser;
     }
+
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -85,16 +125,7 @@ public class UserService implements UserDetailsService {
         return "Deleted";
     }
 
-    //póki co aktualizuje wszystko a nie tylko podmienione dane!
-    public User updateUser(UUID userId, User newUser) {
-        UserModel model = userRepository.findById(userId).get();
-        model.setLogin(newUser.getLogin());
-        model.setPassword(passwordEncoder.encode(newUser.getPassword()));
-        model.setFirstName(newUser.getFirstName());
-        model.setLastName(newUser.getFirstName());
-        userRepository.save(model);
-        return newUser;
-    }
+
 
     public List<User> getAllUsers(){
         List<User> users = new ArrayList<>();
@@ -116,7 +147,12 @@ public class UserService implements UserDetailsService {
     }
 
     private User createUser(UserModel userModel){
-        Contact contact = new Contact();
+        Contact contact;
+        if (userModel.getContact() != null) {
+            contact = contactService.getContact(userModel.getContact().getId());
+        } else {
+            contact = new Contact();
+        }
         List<Role> userRoles = getUserRoles(userModel.getUserRolesIds());
         User user = new User(
             userModel.getUserModelId(),
@@ -126,7 +162,6 @@ public class UserService implements UserDetailsService {
             userModel.getLastName(),
             contact,
             userRoles);
-
         return user;
     }
 
@@ -162,6 +197,5 @@ public class UserService implements UserDetailsService {
         }
         return users;
     }
-
 
 }
