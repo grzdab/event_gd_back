@@ -45,6 +45,7 @@ public class UserService implements UserDetailsService {
         return createUser(model);
     }
 
+
     public User addUser(User user) {
         UserModel model = new UserModel(
             user.getLogin(),
